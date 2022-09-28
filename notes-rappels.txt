@@ -1,0 +1,35 @@
+virtualbox-createtp -c dbadmin 2022-01-03_dbadmin
+
+
+
+# Write your query or mutation here
+mutation {
+  createUsers(
+    input: { username: "admin", password: "rootroot", roles: ["admin"] }
+  ) {
+    users {
+      id
+      username
+    }
+  }
+}
+
+## graphQl
+
+@private -> champs non renvoyable
+
+règles d'auth
+
+
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhNmNlN2Q5Mi1mOTgwLTQ5YzMtOWJmNS0xOGZlNjUyMWM3OWYiLCJyb2xlcyI6WyJ1c2VyIl0sImp0aSI6Ijg3YjAxNDRiLWY4ZTktNDRhYS1hMTViLWY2ZTY2OTY5MGJiNSIsImlhdCI6MTY2MzkyNDU0Nn0.pQV0D5aFn7L8oUpwKtqSRPbypVbMeCuPS5kGAIsSyjg
+
+
+signup qui revoit le token
+mutation {signUp(username:"toto",password:"toto")}
+
+header
+{"authorization": "Bearer token }
+
+avoir l'id d'un user 
+query{users(where:{username:"toto"}){id}}
