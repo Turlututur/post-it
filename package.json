@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.17.0",
     "@neo4j/graphql": "^3.7.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.0.9",
@@ -17,7 +18,7 @@
     "@react-navigation/native-stack": "^6.2.5",
     "apollo-server": "^3.10.2",
     "dotenv": "^16.0.2",
-    "expo": "^46.0.0",
+    "expo": "^46.0.13",
     "expo-status-bar": "~1.4.0",
     "graphql": "^16.6.0",
     "neo4j": "^2.0.0-RC2",
@@ -26,8 +27,7 @@
     "react-dom": "18.0.0",
     "react-native": "0.69.5",
     "react-native-safe-area-context": "4.3.1",
-    "react-native-web": "~0.18.7",
-    "@expo/webpack-config": "^0.17.0"
+    "react-native-web": "~0.18.7"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6"
