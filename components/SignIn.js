@@ -8,7 +8,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 
-import { signIn } from '../API/todoAPI'
+import { signIn, signUp } from '../API/todoAPI'
 
 import { TokenContext } from '../Context/Context'
 import { UsernameContext } from '../Context/Context'
@@ -79,12 +79,16 @@ export default function SignIn () {
                 ) : (
                   <ActivityIndicator />
                 )}
+                 {/* <Button onPress={() => signUp("tuturGrosPenis","oui").then(result => console.log(result))}
+                  title='Print token on console'
+                /> */}
               </View>
             )
           }}
         </UsernameContext.Consumer>
       )}
     </TokenContext.Consumer>
+
   )
 }
 
