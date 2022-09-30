@@ -8,7 +8,9 @@ export default function TodoItem(props) {
         setDone(state);
         props.onPressed(done?-1:1);       
     }
-
+    /*
+    useEffect( () => setDone(props.item.done), [props.item.done] ) bon déjà écrit lmao mais on prend en notes le cours
+    */
     useEffect(()=>setDone(props.item.done), [props.item.done]); //deux param : action à effectuer et liste des variables sur laquelle on taffe
 
     return (

@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, TextInput, Button, Text, FlatList, Switch } from 'react-native';
 
 import todoData from '../Helpers/todoData';
 import TodoItem from './TodoItem';
+import { TokenContext } from '../Context/Context'
+import { UsernameContext } from '../Context/Context'
 
 /*Dois faire une requete dans les données pour afficher la todolist*/ 
 
-export default function TodoList(){
-    /*ICI utiliser useEffecst
-    useEffect(blabla)
-    */
+export default function TodoList(props){
+    /*ICI utiliser useEffects, on a des props je crois
+    const [data, setData] = useState([])*/
+
+    
+    /* const [data, setData] = useState([]);  */
     const [count, setCount] = useState(0);
     const updateCount = (offset) => {setCount(count + offset)};
     const [todos, setTodos] = useState(todoData);
     const [newTodoText, setNewTodoText] = useState("");
 
-    
+    /* useEffect(() => {taskLists(token, user).then(d => setData(d))}, []); */
+
     const deleteTodo = (id) => {
         const newTodos = todos.filter(item => item.id != id)
         setTodos(newTodos)

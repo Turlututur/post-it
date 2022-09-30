@@ -10,7 +10,13 @@ const CREATE_TASK_LISTS =
   'mutation($id:String!, $title:String!){createTaskLists(input:{title:$title, owner:{connect:{where:{id:$id}}}})}'
 
 const CREATE_TASK = 
-'mutation($taskListID:ID,$taskName:String){createTasks(input:{content:$taskName, done:false, belongsTo:{connect:{where:{id:$taskListID}}}})'
+  'mutation($taskListID:ID,$taskName:String){createTasks(input:{content:$taskName, done:false, belongsTo:{connect:{where:{id:$taskListID}}}})'
+
+const DELETE_TASK_LISTS  =
+  ''
+
+const DELETE_TASK =
+  ''
 
 export function signIn (username, password) {
   return fetch(API_URL, {
