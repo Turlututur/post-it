@@ -13,10 +13,10 @@ const CREATE_TASK =
   'mutation($taskListID:ID,$taskName:String){createTasks(input:{content:$taskName, done:false, belongsTo:{connect:{where:{id:$taskListID}}}})'
 
 const DELETE_TASK_LISTS  =
-  ''
+  'mutation()'
 
 const DELETE_TASK =
-  ''
+  'mutation()'
 
 export function signIn (username, password) {
   return fetch(API_URL, {
@@ -74,11 +74,12 @@ export function signUp (username, password) {
     })
 }
 
-export function createTaskLists(taskListId, taskName) {
+export function createTaskLists(taskListId, taskName, token) {
   return fetch(API_URL, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + token
     },
     body: JSON.stringify({
       query: CREATE_TASK_LISTS,
