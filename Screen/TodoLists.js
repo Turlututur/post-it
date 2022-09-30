@@ -3,6 +3,6 @@ import { View, Text, Button } from 'react-native'
 
 export default function TodoLists(){
     return (
-        <Text>Liste des TodoLists</Text>
+        <Text>La Liste des TodoLists</Text>
     )
 }
