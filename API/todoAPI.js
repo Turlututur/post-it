@@ -6,6 +6,12 @@ const SIGN_IN =
 const SIGN_UP =
   'mutation($username:String!, $password:String!){signUp(username:$username, password:$password)}'
 
+const CREATE_TASK_LISTS =
+  'mutation($id:String!, $title:String!){createTaskLists(input:{title:$title, owner:{connect:{where:{id:$id}}}})}'
+
+const CREATE_TASK = 
+'mutation($taskListID:ID,$taskName:String){createTasks(input:{content:$taskName, done:false, belongsTo:{connect:{where:{id:$taskListID}}}})'
+
 export function signIn (username, password) {
   return fetch(API_URL, {
     method: 'POST',
@@ -56,6 +62,62 @@ export function signUp (username, password) {
         throw jsonResponse.errors[0]
       }
       return jsonResponse.data.signUp
+    })
+    .catch(error => {
+      throw error
+    })
+}
+
+export function createTaskLists(taskListId, taskName) {
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: CREATE_TASK_LISTS,
+      variables: {
+        id: id,
+        title: title
+      }
+    })
+  })
+    .then(response => {
+      return response.json()
+    })
+    .then(jsonResponse => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0]
+      }
+      return jsonResponse.data.createTaskLists
+    })
+    .catch(error => {
+      throw error
+    })
+}
+
+export function createTask(taskId, taskName) {
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: CREATE_TASK,
+      variables: {
+        taskId: taskId,
+        taskName: taskName
+      }
+    })
+  })
+    .then(response => {
+      return response.json()
+    })
+    .then(jsonResponse => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0]
+      }
+      return jsonResponse.data.createTask
     })
     .catch(error => {
       throw error

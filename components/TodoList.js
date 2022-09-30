@@ -4,9 +4,12 @@ import { StyleSheet, View, TextInput, Button, Text, FlatList, Switch } from 'rea
 import todoData from '../Helpers/todoData';
 import TodoItem from './TodoItem';
 
+/*Dois faire une requete dans les données pour afficher la todolist*/ 
 
 export default function TodoList(){
-
+    /*ICI utiliser useEffecst
+    useEffect(blabla)
+    */
     const [count, setCount] = useState(0);
     const updateCount = (offset) => {setCount(count + offset)};
     const [todos, setTodos] = useState(todoData);
