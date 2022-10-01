@@ -18,6 +18,10 @@ const DELETE_TASK_LISTS  =
 const DELETE_TASK =
   'mutation()'
 
+const TASKLIST = 
+  'query taskLists($username: String!) {taskLists(where: { owner: { username: $username } }) {id title}}'
+
+
 export function signIn (username, password) {
   return fetch(API_URL, {
     method: 'POST',
@@ -129,4 +133,32 @@ export function createTask(taskId, taskName) {
     .catch(error => {
       throw error
     })
+}
+
+export function getTaskList (username,token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: TASKLIST,
+      variables: {
+        username: username
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.taskLists
+  })
+  .catch(error => {
+    throw error
+  })
 }
