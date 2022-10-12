@@ -78,7 +78,7 @@ export function signUp (username, password) {
     })
 }
 
-export function createTaskLists(taskListId, taskName, token) {
+export function createTaskLists(id, title, token) {
   return fetch(API_URL, {
     method: 'POST',
     headers: {

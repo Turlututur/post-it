@@ -1,21 +1,26 @@
 import React from 'react'
-import { View, Text, Button, Dimensions, StyleSheet } from 'react-native'
+import { View, Text, Button, Dimensions, StyleSheet, SliderComponent } from 'react-native'
 import TodoList from '../components/TodoList';
 
 import { getTaskList } from '../API/todoAPI';
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TodoLists(){
 
+    var tasksID = []
+    var tasksName = []
     const TaskList = (username,token) => {
       getTaskList(username,token)
       .then(taskList => {
-        let finalList = [];
         for (let i = 0; i < taskList.length; i++) {
           console.log('tache: ' + taskList[i].title);
-          finalList += taskList[i].title;
+          tasksID.push(taskList[i].id)
+          tasksName.push(taskList[i].title)
         }
+        console.log(tasksName)
+        console.log(tasksID)
       })
   }
 
@@ -28,13 +33,17 @@ export default function TodoLists(){
             <UsernameContext.Consumer>
               {([username, setUsername]) => {
                 return (
-                 TaskList(username,token) 
-                 )
+                  <View>
+                    {TaskList(username, token)}
+                    {console.log('test')}
+                    <Text>Premier ID :{tasksID[0]}</Text>
+                  </View>
+                  
+                 )    
               }}
             </UsernameContext.Consumer>
           )}
         </TokenContext.Consumer>
-
             {/* <TodoList/> */}
         </View>
     )

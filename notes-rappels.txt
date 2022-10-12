@@ -29,7 +29,25 @@ signup qui revoit le token
 mutation {signUp(username:"toto",password:"toto")}
 
 header
-{"authorization": "Bearer token }
+{
+  "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwZTAyZTdmMi1jMzc0LTRlYmItYjA4Zi0zODdlMDcwYzIxMWIiLCJyb2xlcyI6WyJ1c2VyIl0sImp0aSI6IjM5ZDI3MzVmLTA5M2UtNDMzMi1iM2E3LWU5ZTI2NTBjMDQwOCIsImlhdCI6MTY2NTU2MzE2OX0.8C4eXMyvE_1fTqSn-mVuQ2EHpKwCz8A0U501yDqHw58"
+}
 
 avoir l'id d'un user 
 query{users(where:{username:"toto"}){id}}
+
+créer liste de tâches :
+mutation {
+  createTaskLists(
+    input:{
+      title:"ListeDeTest",
+      owner:{
+        connect:{
+          where:{
+          	id:"0e02e7f2-c374-4ebb-b08f-387e070c211b"
+          }
+        }
+      }
+    }
+  )  {taskLists{id, title, owner{id, username}}}
+}
