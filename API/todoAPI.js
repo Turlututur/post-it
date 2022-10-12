@@ -7,7 +7,7 @@ const SIGN_UP =
   'mutation($username:String!, $password:String!){signUp(username:$username, password:$password)}'
 
 const GET_USER_ID = 
-  'query($username:String!){users(where:{username:$username}){id}}'
+  'query($username:String!) {users(where: {username: $username}) {id}}'
 
 const CREATE_TASK_LISTS =
   'mutation($id:ID, $title:String!){createTaskLists(input:{title:$title, owner:{connect:{where:{id:$id}}}}) {taskLists{id, title, owner{id, username}}}}'

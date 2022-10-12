@@ -11,6 +11,7 @@ import todoData from '../Helpers/todoData';
 
 function TaskList({username, token}) {
   const [todos, setTodos] = useState([]);
+  const [userId, setUserId] = useState();
 
   // const callback = useCallback(() => {
   //   getTaskList(username,token)
@@ -31,11 +32,26 @@ function TaskList({username, token}) {
     callback(username, token)
   }, [username, token])
 
+
+  const getId = (username, token) => {
+    getUserId(username, token)
+    .then(id => {
+      setUserId(id)
+    })
+  } 
+
+  useEffect(() => {
+    getId(username, token)
+  }, [username, token])
+
   return (
     <>
+    {console.log(todos)}
+    {console.log(userId)}
       {todos.map((value, index) => {
         return <Text key={index}>{value.title} ; ID : {value.id}</Text>
       })}
+      <Text>test : {userId}</Text>
     </>
   )
 }
@@ -49,16 +65,16 @@ export default function TodoLists(){
         <View style={styles.container}>
           <Text>Liste des TodoLists :</Text>
 
-            <TokenContext.Consumer>
+          <TokenContext.Consumer>
           {([token, setToken]) => (
             <UsernameContext.Consumer>
               {([username, setUsername]) => 
                 <>
                   <TaskList username={username} token={token} />
-                  {/* <Button
+                  <Button
                     onPress={() => createTaskLists(getUserId(username, token), "le test", token)}
                     title='Créer une tâche quelquonque'
-                  /> */}
+                  />
                 </>
               }
               
@@ -78,7 +94,6 @@ const styles = StyleSheet.create({
   container: {
     height: screen.width * 0.8,
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 250,
