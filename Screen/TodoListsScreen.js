@@ -2,7 +2,7 @@ import {useState, useEffect, useCallback} from 'react'
 import { View, Text, Button, Dimensions, StyleSheet, SliderComponent } from 'react-native'
 import TodoList from '../components/TodoList';
 
-import { getTaskList } from '../API/todoAPI';
+import { getTaskList, createTaskLists, getUserId } from '../API/todoAPI';
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
@@ -34,7 +34,7 @@ function TaskList({username, token}) {
   return (
     <>
       {todos.map((value, index) => {
-        return <Text key={index}>{value.title} ; Id : {value.id}</Text>
+        return <Text key={index}>{value.title} ; ID : {value.id}</Text>
       })}
     </>
   )
@@ -52,10 +52,21 @@ export default function TodoLists(){
             <TokenContext.Consumer>
           {([token, setToken]) => (
             <UsernameContext.Consumer>
-              {([username, setUsername]) => <TaskList username={username} token={token} />}
+              {([username, setUsername]) => 
+                <>
+                  <TaskList username={username} token={token} />
+                  {/* <Button
+                    onPress={() => createTaskLists(getUserId(username, token), "le test", token)}
+                    title='Créer une tâche quelquonque'
+                  /> */}
+                </>
+              }
+              
             </UsernameContext.Consumer>
           )}
         </TokenContext.Consumer>
+
+        
 
             {/* <TodoList/> */}
         </View>

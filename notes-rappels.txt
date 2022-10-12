@@ -51,3 +51,12 @@ mutation {
     }
   )  {taskLists{id, title, owner{id, username}}}
 }
+
+avoir l'id d'une tâche
+query {
+  taskLists(
+    where:{
+      title:"Cadeaux noël",
+      owner:{username:"Arthur"}
+    }
+  ){id}}
