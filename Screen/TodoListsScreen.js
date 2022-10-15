@@ -11,7 +11,7 @@ import todoData from '../Helpers/todoData';
 
 function TaskList({username, token}) {
   const [todos, setTodos] = useState([]);
-  const [userId, setUserId] = useState();
+  // const [userId, setUserId] = useState();
 
   // const callback = useCallback(() => {
   //   getTaskList(username,token)
@@ -33,25 +33,24 @@ function TaskList({username, token}) {
   }, [username, token])
 
 
-  const getId = (username, token) => {
-    getUserId(username, token)
-    .then(id => {
-      setUserId(id)
-    })
-  } 
+  // const getId = (username, token) => {
+  //   getUserId(username, token)
+  //   .then(id => {
+  //     setUserId(id)
+  //   })
+  // } 
 
-  useEffect(() => {
-    getId(username, token)
-  }, [username, token])
+  // useEffect(() => {
+  //   getId(username, token)
+  // }, [username, token])
 
   return (
     <>
     {console.log(todos)}
-    {console.log(userId)}
       {todos.map((value, index) => {
         return <Text key={index}>{value.title} ; ID : {value.id}</Text>
       })}
-      <Text>test : {userId}</Text>
+      {/* <Text>ID de l'user : {getUserId(username, token)}</Text> */}
     </>
   )
 }
@@ -70,6 +69,7 @@ export default function TodoLists(){
             <UsernameContext.Consumer>
               {([username, setUsername]) => 
                 <>
+                {console.log(getUserId(username, token).then(res => {console.log("id de l'user :"+  res[0].id)}))}
                   <TaskList username={username} token={token} />
                   <Button
                     onPress={() => createTaskLists(getUserId(username, token), "le test", token)}
