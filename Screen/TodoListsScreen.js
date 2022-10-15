@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react'
-import { View, Text, Button, Dimensions, StyleSheet, SliderComponent } from 'react-native'
+import { RefreshControl, View, Text, Button, Dimensions, StyleSheet, SliderComponent, TextInput } from 'react-native'
 import TodoList from '../components/TodoList';
 
 import { getTaskList, createTaskLists, getUserId } from '../API/todoAPI';
@@ -11,7 +11,8 @@ import todoData from '../Helpers/todoData';
 
 function TaskList({username, token}) {
   const [todos, setTodos] = useState([]);
-  // const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState();
+  const [newTodoText, setNewTodoText] = useState("");
 
   // const callback = useCallback(() => {
   //   getTaskList(username,token)
@@ -33,24 +34,45 @@ function TaskList({username, token}) {
   }, [username, token])
 
 
-  // const getId = (username, token) => {
-  //   getUserId(username, token)
-  //   .then(id => {
-  //     setUserId(id)
-  //   })
-  // } 
+  const getId = (username, token) => {
+    getUserId(username, token)
+    .then(id => {
+      setUserId(id[0].id)
+      console.log(id[0].id)
+    })
+  } 
 
-  // useEffect(() => {
-  //   getId(username, token)
-  // }, [username, token])
+  useEffect(() => {
+    getId(username, token)
+  }, [username, token])
+
 
   return (
     <>
+    <Text>ID de l'user : {userId}</Text>
+    {/* {console.log(getUserId(username, token).then(res => {return res[0].id}))} */}
     {console.log(todos)}
       {todos.map((value, index) => {
         return <Text key={index}>{value.title} ; ID : {value.id}</Text>
       })}
-      {/* <Text>ID de l'user : {getUserId(username, token)}</Text> */}
+      {/* <Button
+        onPress={() => {
+          createTaskLists(userId, "le test", token);
+          window.location.reload(false);
+        }}
+        title='Créer une tâche test'
+      /> */}
+
+      <TextInput
+        onChangeText={(newValue) => setNewTodoText(newValue)}
+        placeholder='liste de tâche'
+        onSubmitEditing={() => createTaskLists(userId, newTodoText, token)}
+        // value={(text) => newTodoText}    
+      />
+      <Button
+        title="Ajouter la tâche"
+        onPress={() => createTaskLists(userId, newTodoText, token)}
+      />
     </>
   )
 }
@@ -69,12 +91,7 @@ export default function TodoLists(){
             <UsernameContext.Consumer>
               {([username, setUsername]) => 
                 <>
-                {console.log(getUserId(username, token).then(res => {console.log("id de l'user :"+  res[0].id)}))}
                   <TaskList username={username} token={token} />
-                  <Button
-                    onPress={() => createTaskLists(getUserId(username, token), "le test", token)}
-                    title='Créer une tâche quelquonque'
-                  />
                 </>
               }
               
