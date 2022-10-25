@@ -16,7 +16,7 @@ const CREATE_TASK =
   'mutation($taskListID:ID,$taskName:String){createTasks(input:{content:$taskName, done:false, belongsTo:{connect:{where:{id:$taskListID}}}})'
 
 const DELETE_TASK_LISTS  =
-  'mutation()'
+  'mutation($taskListID:ID, $userID:ID){deleteTaskLists(where:{id:$taskListID,owner:{id:$userID}}) {nodesDeleted}}'
 
 const DELETE_TASK =
   'mutation()'
@@ -188,6 +188,35 @@ export function getUserId (username, token){
       throw jsonResponse.errors[0]
     }
     return jsonResponse.data.users
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+export function deleteTaskLists (taskID, userID, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: DELETE_TASK_LISTS,
+      variables: {
+        taskID: taskID,
+        userID: userID
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.deleteTaskLists
   })
   .catch(error => {
     throw error

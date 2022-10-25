@@ -60,3 +60,16 @@ query {
       owner:{username:"Arthur"}
     }
   ){id}}
+
+supprimer une liste de tâches: 
+
+mutation{
+  deleteTaskLists(
+    where:{
+      id:"6f9d38c6-1890-4a81-ba0c-9190964e48ce",
+      owner:{
+        id:"bd971de1-b552-486a-8e31-423d9911fd13"
+      }
+    }
+  ) {nodesDeleted}
+}

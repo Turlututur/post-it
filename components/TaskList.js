@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image} from 'react-native'
-import { getTaskList, createTaskLists, getUserId } from '../API/todoAPI';
+import { getTaskList, createTaskLists, getUserId, deleteTaskLists } from '../API/todoAPI';
 import { FlatList } from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
 
@@ -38,7 +38,6 @@ export default function TaskList({username, token}) {
     return (
       <>
       <Text style={styles.text}>ID de l'user : {userId}</Text>
-      {/* {console.log(getUserId(username, token).then(res => {return res[0].id}))} */}
       {console.log(todos)}
       <Text style={styles.text}>Liste des TodoLists :</Text>
       <FlatList
@@ -53,7 +52,15 @@ export default function TaskList({username, token}) {
             }>
             <Text style={{color: '#D6D5A8', textDecorationLine: 'underline'}}>{item.title}</Text>
           </TouchableOpacity> 
-          <TouchableOpacity onPress={() => console.log("todo : delete todoList")}>
+          <TouchableOpacity 
+          onPress={ async (e) => {
+             //supprime TOUT, viens de la query, j'ai test avec un id particulier en dehors de la flatlist
+            e.preventDefault();
+            console.log('suppression de ' + item.id);
+            await deleteTaskLists(item.id, userId, token);
+            callback(username, token);
+          }}
+          >
             <Image source={require('../assets/trash-can-outline.png')} style={{ height: 24, width: 24 }} />
           </TouchableOpacity>
         </View>
