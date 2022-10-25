@@ -13,7 +13,7 @@ import SignOutScreen from '../Screen/SignOutScreen'
 
 import { TokenContext } from '../Context/Context'
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function Navigation () {
   return (
@@ -22,14 +22,14 @@ export default function Navigation () {
         <NavigationContainer>
           {token == null ? (
             <Tab.Navigator>
-              <Tab.Screen name='SignIn' component={SignInScreen} />
-              <Tab.Screen name='SignUp' component={SignUpScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='SignIn' component={SignInScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='SignUp' component={SignUpScreen} />
             </Tab.Navigator>
           ) : (
             <Tab.Navigator>
-              <Tab.Screen name='Home' component={HomeScreen} />
-              <Tab.Screen name='TodoLists' component={TodoListsScreen} />
-              <Tab.Screen name='SignOut' component={SignOutScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Home' component={HomeScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='TodoLists' component={TodoListsScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='SignOut' component={SignOutScreen} />
             </Tab.Navigator>
           )}
         </NavigationContainer>

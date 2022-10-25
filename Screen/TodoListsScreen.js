@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { View, Text, Button, Dimensions, StyleSheet, TextInput, Form, useForm} from 'react-native'
+import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image} from 'react-native'
 import TodoList from '../components/TodoList';
 
 import { getTaskList, createTaskLists, getUserId } from '../API/todoAPI';
@@ -44,17 +44,24 @@ function TaskList({username, token}) {
 
   return (
     <>
-    <Text>ID de l'user : {userId}</Text>
+    <Text style={styles.text}>ID de l'user : {userId}</Text>
     {/* {console.log(getUserId(username, token).then(res => {return res[0].id}))} */}
     {console.log(todos)}
-    <Text>Liste des TodoLists :</Text>
+    <Text style={styles.text}>Liste des TodoLists :</Text>
     <FlatList
       style={{ textAlign:'left' }}
       data={todos}
-      renderItem={({item}) => <Text>{item.title}</Text> } 
+      renderItem={({item}) => 
+      <View style={{flexDirection: 'row'}}>
+        <Text style={styles.text}>{item.title}</Text>
+        <TouchableOpacity onPress={() => console.log("todo : detele todoList")}>
+          <Image source={require('../assets/trash-can-outline.png')} style={{ height: 24, width: 24 }} />
+        </TouchableOpacity>
+      </View>
+       } 
     />
       <TextInput
-      style={{ backgroundColor:'white' }}
+      style={styles.text_input}
         onChangeText={(newValue) => setNewTodoText(newValue)}
         placeholder='liste de tâche'
         onSubmitEditing={ async (e) => {
@@ -63,14 +70,16 @@ function TaskList({username, token}) {
           callback(username, token);
         }}   
       />
-      <Button
-        title="Ajouter la tâche"
+      <Pressable
+      style={styles.pressable}
         onPress={ async (e) => {
           e.preventDefault();
           await createTaskLists(userId, newTodoText, token);
           callback(username, token);
         }}
-      />
+      >
+      <Text style={styles.text}>Ajouter la tâche</Text>
+      </Pressable>
     </>
   )
 }
@@ -102,14 +111,32 @@ export default function TodoLists(){
     )
 }
 
-const screen = Dimensions.get("screen");
 const styles = StyleSheet.create({
   container: {
-    textAlign: 'left',
-    height: screen.width * 0.8,
     flex: 1,
+    backgroundColor: '#1B2430',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 250,
+    paddingTop: 250
   },
-});
+  text : {
+    color: '#D6D5A8'
+  },
+  link : {
+    color: '#816797',
+    textDecorationLine: 'underline'
+  },
+  pressable: {
+    backgroundColor: '#51557E',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:'10px'
+  },
+  text_input: {
+    //borderWidth: 1,
+    backgroundColor: '#D6D5A8',
+    color: '#1B2430',
+    margin: 5
+  }
+})

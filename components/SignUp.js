@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import {
   Text,
   TextInput,
-  Button,
+  Pressable,
   View,
-  StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
+  StyleSheet
 } from 'react-native'
 
 import { signUp } from '../API/todoAPI'
@@ -84,10 +84,13 @@ export default function SignUp () {
                         value={copyPassword}
                       />
                     </View>
-                    <Button
+                    <Pressable
+                      style={styles.pressable}
                       onPress={() => getSignedUp(setToken, setUsername)}
-                      title='Sign Up'
-                    />
+                      //title='Sign Up'
+                    >
+                    <Text style={styles.label}>Sign Up</Text>
+                    </Pressable>
                     {error ? (
                       <Text style={styles.text_error}>{error}</Text>
                     ) : (
@@ -108,14 +111,26 @@ export default function SignUp () {
 
 const styles = StyleSheet.create({
   label: {
-    width: 70
+    width: 70,
+    color: '#D6D5A8'
   },
   text_error: {
     color: 'red'
   },
+  text : {
+    color: '#D6D5A8'
+  },
   text_input: {
     //borderWidth: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#D6D5A8',
+    color: '#1B2430',
     margin: 5
+  },
+  pressable: {
+    backgroundColor: '#51557E',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:'10px'
   }
 })

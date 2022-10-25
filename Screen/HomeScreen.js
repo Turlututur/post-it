@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 import { UsernameContext } from '../Context/Context'
 
@@ -9,13 +9,25 @@ export default function HomeScreen () {
       {([username, setUsername]) => {
         return (
           <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+            style={styles.container}
           >
-            <Text>Welcome !</Text>
-            <Text>You are logged as {username}</Text>
+            <Text style={styles.text}>Welcome !</Text>
+            <Text style={styles.text}>You are logged as {username}</Text>
           </View>
         )
       }}
     </UsernameContext.Consumer>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1B2430',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text : {
+    color: '#D6D5A8'
+  }
+})
