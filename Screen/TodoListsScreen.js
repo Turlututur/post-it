@@ -1,12 +1,12 @@
-import {useState, useEffect, useCallback} from 'react'
-import { RefreshControl, View, Text, Button, Dimensions, StyleSheet, SliderComponent, TextInput } from 'react-native'
+import {useState, useEffect} from 'react'
+import { View, Text, Button, Dimensions, StyleSheet, TextInput, Form, useForm} from 'react-native'
 import TodoList from '../components/TodoList';
 
 import { getTaskList, createTaskLists, getUserId } from '../API/todoAPI';
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
-import todoData from '../Helpers/todoData';
+import { FlatList } from 'react-native-web';
+/* import todoData from '../Helpers/todoData'; */
 
 
 function TaskList({username, token}) {
@@ -14,13 +14,8 @@ function TaskList({username, token}) {
   const [userId, setUserId] = useState();
   const [newTodoText, setNewTodoText] = useState("");
 
-  // const callback = useCallback(() => {
-  //   getTaskList(username,token)
-  //   .then(taskList => {
-  //     setTodos(taskList)
-  //   })
-  // }, [username, token])
-
+  
+  /* const { handleSubmit } = useForm(); */
 
   const callback = (username, token) => {
     getTaskList(username,token)
@@ -52,26 +47,29 @@ function TaskList({username, token}) {
     <Text>ID de l'user : {userId}</Text>
     {/* {console.log(getUserId(username, token).then(res => {return res[0].id}))} */}
     {console.log(todos)}
-      {todos.map((value, index) => {
-        return <Text key={index}>{value.title} ; ID : {value.id}</Text>
-      })}
-      {/* <Button
-        onPress={() => {
-          createTaskLists(userId, "le test", token);
-          window.location.reload(false);
-        }}
-        title='Créer une tâche test'
-      /> */}
-
+    <Text>Liste des TodoLists :</Text>
+    <FlatList
+      style={{ textAlign:'left' }}
+      data={todos}
+      renderItem={({item}) => <Text>{item.title}</Text> } 
+    />
       <TextInput
+      style={{ backgroundColor:'white' }}
         onChangeText={(newValue) => setNewTodoText(newValue)}
         placeholder='liste de tâche'
-        onSubmitEditing={() => createTaskLists(userId, newTodoText, token)}
-        // value={(text) => newTodoText}    
+        onSubmitEditing={ async (e) => {
+          e.preventDefault();
+          await createTaskLists(userId, newTodoText, token);
+          callback(username, token);
+        }}   
       />
       <Button
         title="Ajouter la tâche"
-        onPress={() => createTaskLists(userId, newTodoText, token)}
+        onPress={ async (e) => {
+          e.preventDefault();
+          await createTaskLists(userId, newTodoText, token);
+          callback(username, token);
+        }}
       />
     </>
   )
@@ -84,8 +82,6 @@ export default function TodoLists(){
 
     return (
         <View style={styles.container}>
-          <Text>Liste des TodoLists :</Text>
-
           <TokenContext.Consumer>
           {([token, setToken]) => (
             <UsernameContext.Consumer>
@@ -109,6 +105,7 @@ export default function TodoLists(){
 const screen = Dimensions.get("screen");
 const styles = StyleSheet.create({
   container: {
+    textAlign: 'left',
     height: screen.width * 0.8,
     flex: 1,
     alignItems: 'center',
