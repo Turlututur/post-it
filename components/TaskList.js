@@ -3,13 +3,14 @@ import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image} 
 import { getTaskList, createTaskLists, getUserId, deleteTaskLists } from '../API/todoAPI';
 import { FlatList } from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
+import TodoLists from '../Screen/TodoLists'
 
 export default function TaskList({username, token}) {
     const [todos, setTodos] = useState([]);
     const [userId, setUserId] = useState();
     const [newTodoText, setNewTodoText] = useState("");
     const navigation = useNavigation();
-  
+
     const callback = (username, token) => {
       getTaskList(username,token)
       .then(taskList => {
@@ -46,9 +47,13 @@ export default function TaskList({username, token}) {
         renderItem={({item}) => 
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={() => 
-            // navigation.navigate('../Screen/TodoLists.js', {id: item.id})
+            //navigation.navigate('../Component/TaskList', {id: item.id})
+            navigation.navigate("TodoList", {
+              id: item.id,
+              title: item.title
+            })
             // https://reactnavigation.org/docs/params/ !!!
-            console.log('todo : navigation')
+            //console.log('todo : navigation')
             }>
             <Text style={{color: '#D6D5A8', textDecorationLine: 'underline'}}>{item.title}</Text>
           </TouchableOpacity> 
