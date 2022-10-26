@@ -11,12 +11,12 @@ export default function SignInScreen () {
     >
       <SignIn/>
       <Text style={styles.text}>
-        If you prefer, you can{' '}
+        Vous pouvez aussi vous{' '}
         <Link 
           style={styles.link}
           to={{ screen: 'SignUp' }}
         >
-          Sign Up
+          Inscrire
         </Link>
       </Text>
     </View>

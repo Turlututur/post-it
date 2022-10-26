@@ -11,8 +11,8 @@ export default function HomeScreen () {
           <View
             style={styles.container}
           >
-            <Text style={styles.text}>Welcome !</Text>
-            <Text style={styles.text}>You are logged as {username}</Text>
+            <Text style={styles.text}>Bienvenue !</Text>
+            <Text style={styles.text}>Inscrit sous le login {username}</Text>
           </View>
         )
       }}

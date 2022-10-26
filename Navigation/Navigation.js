@@ -22,16 +22,30 @@ export default function Navigation () {
       {([token, setToken]) => (
         <NavigationContainer>
           {token == null ? (
-            <Tab.Navigator>
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='SignIn' component={SignInScreen} />
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='SignUp' component={SignUpScreen} />
+            <Tab.Navigator
+              screenOptions={{
+                tabBarActiveTintColor: '#1B2430',
+                tabBarInactiveTintColor: 'gray',
+                tabBarActiveBackgroundColor: '#816797',
+                tabBarInactiveBackgroundColor: '#51557E'
+              }}
+            >
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Connexion' component={SignInScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name="S'inscire" component={SignUpScreen} />
             </Tab.Navigator>
           ) : (
-            <Tab.Navigator>
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Home' component={HomeScreen} />
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='TodoLists' component={TodoListsScreen} />
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='SignOut' component={SignOutScreen} />
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='TodoList' component={TodoLists} />
+            <Tab.Navigator
+              screenOptions={{
+                tabBarActiveTintColor: '#1B2430',
+                tabBarInactiveTintColor: 'gray',
+                tabBarActiveBackgroundColor: '#816797',
+                tabBarInactiveBackgroundColor: '#51557E'
+              }}
+            >
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Accueil' component={HomeScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Mes listes' component={TodoListsScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Deconnexion' component={SignOutScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Ma Todolist' component={TodoLists} />
             </Tab.Navigator>
           )}
         </NavigationContainer>

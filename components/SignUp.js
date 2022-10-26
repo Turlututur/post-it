@@ -61,7 +61,7 @@ export default function SignUp () {
                       />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Password</Text>
+                      <Text style={styles.label}>Mot de passe</Text>
                       <TextInput
                         style={styles.text_input}
                         onChangeText={setPassword}
@@ -73,7 +73,7 @@ export default function SignUp () {
                       />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Password Again</Text>
+                      <Text style={styles.label}>Confirmez votre mot de passe</Text>
                       <TextInput
                         style={styles.text_input}
                         onChangeText={setCopyPassword}
@@ -89,7 +89,7 @@ export default function SignUp () {
                       onPress={() => getSignedUp(setToken, setUsername)}
                       //title='Sign Up'
                     >
-                    <Text style={styles.label}>Sign Up</Text>
+                    <Text style={styles.label}>S'inscrire</Text>
                     </Pressable>
                     {error ? (
                       <Text style={styles.text_error}>{error}</Text>

@@ -55,7 +55,7 @@ export default function SignIn () {
                       />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Password</Text>
+                      <Text style={styles.label}>Mot de passe</Text>
                       <TextInput
                         style={styles.text_input}
                         onChangeText={setPassword}
@@ -71,7 +71,7 @@ export default function SignIn () {
                       onPress={() => getSignedIn(setToken, setUsername)}
                       // title='Sign In'
                     >
-                      <Text style={styles.label}>Sign In</Text>
+                      <Text style={styles.label}>Se Connecter</Text>
                     </Pressable>
                     {error ? (
                       <Text style={styles.text_error}>{error}</Text>

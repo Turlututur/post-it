@@ -42,13 +42,13 @@ export default function TaskList({username, token}) {
       {console.log(todos)}
       <Text style={styles.text}>Liste des TodoLists :</Text>
       <FlatList
-        style={{ textAlign:'left' }}
+        style={{ textAlign:'left', paddingLeft: 10, paddingTop:20 }}
         data={todos}
         renderItem={({item}) => 
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={() => 
             //navigation.navigate('../Component/TaskList', {id: item.id})
-            navigation.navigate("TodoList", {
+            navigation.navigate("Ma Todolist", {
               id: item.id,
               title: item.title
             })
@@ -102,7 +102,7 @@ export default function TaskList({username, token}) {
       backgroundColor: '#1B2430',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: 250
+      paddingTop: 200
     },
     text : {
       color: '#D6D5A8'
