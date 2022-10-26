@@ -16,7 +16,17 @@ const CREATE_TASK =
   'mutation($taskListID:ID,$taskName:String){createTasks(input:{content:$taskName, done:false, belongsTo:{connect:{where:{id:$taskListID}}}})'
 
 const DELETE_TASK_LISTS  =
-  'mutation($taskListID:ID, $userID:ID){deleteTaskLists(where:{id:$taskListID,owner:{id:$userID}}) {nodesDeleted}}'
+  `mutation($taskListID:ID, $title:String!, $userID:ID){
+    deleteTaskLists(
+      where:{
+        id:$taskListID,
+        AND:{title:$title}
+        owner:{
+          id:$userID
+        }
+      }
+    ) {nodesDeleted}
+  }`
 
 const DELETE_TASK =
   'mutation()'
@@ -194,7 +204,7 @@ export function getUserId (username, token){
   })
 }
 
-export function deleteTaskLists (taskID, userID, token){
+export function deleteTaskLists (taskID, title, userID, token){
   return fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -205,6 +215,7 @@ export function deleteTaskLists (taskID, userID, token){
       query: DELETE_TASK_LISTS,
       variables: {
         taskID: taskID,
+        title: title,
         userID: userID
       }
     })

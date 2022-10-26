@@ -56,8 +56,8 @@ export default function TaskList({username, token}) {
           onPress={ async (e) => {
              //supprime TOUT, viens de la query, j'ai test avec un id particulier en dehors de la flatlist
             e.preventDefault();
-            console.log('suppression de ' + item.id);
-            await deleteTaskLists(item.id, userId, token);
+            console.log('suppression de ' + item.title +" "+ item.id);
+            await deleteTaskLists(item.id, item.title ,userId, token);
             callback(username, token);
           }}
           >
