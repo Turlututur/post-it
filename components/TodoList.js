@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image, Switch} from 'react-native'
+import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image, Switch, FlatList} from 'react-native'
 import { getTasks, createTask, getUserId, deleteTasks, updateDone } from '../API/todoAPI';
-import { FlatList } from 'react-native-web';
 //import { useNavigation } from '@react-navigation/native';
 
 export default function TaskList({username, token, id}) {
@@ -112,7 +111,7 @@ export default function TaskList({username, token, id}) {
       color: 'white',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius:'10px'
+      borderRadius:10
     },
     text_input: {
       //borderWidth: 1,

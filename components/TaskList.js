@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image} from 'react-native'
+import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image, FlatList} from 'react-native'
 import { getTaskList, createTaskLists, getUserId, deleteTaskLists } from '../API/todoAPI';
-import { FlatList } from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
 
 export default function TaskList({username, token}) {
@@ -36,7 +35,7 @@ export default function TaskList({username, token}) {
   
   
     return (
-      <>
+      <View>
       <Text style={styles.text}>ID de l'user : {userId}</Text>
       {console.log(todos)}
       <Text style={styles.text}>Liste des TodoLists :</Text>
@@ -89,7 +88,7 @@ export default function TaskList({username, token}) {
         >
         <Text style={styles.text}>Ajouter la tâche</Text>
         </Pressable>
-      </>
+      </View>
     )
   }
 
@@ -114,7 +113,7 @@ export default function TaskList({username, token}) {
       color: 'white',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius:'10px'
+      borderRadius:10
     },
     text_input: {
       //borderWidth: 1,

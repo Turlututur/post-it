@@ -11,11 +11,8 @@ export default function TodoLists(){
           {([token, setToken]) => (
             <UsernameContext.Consumer>
               {([username, setUsername]) => 
-                <>
                   <TaskList username={username} token={token} />
-                </>
               }
-              
             </UsernameContext.Consumer>
           )}
           </TokenContext.Consumer>

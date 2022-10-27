@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:4000'
+const API_URL = 'http://192.168.0.31:4000' //à adapter !!!
 
 const SIGN_IN =
   'mutation($username:String!, $password:String!){signIn(username:$username, password:$password)}'

@@ -131,6 +131,6 @@ const styles = StyleSheet.create({
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius:'10px'
+    borderRadius:10
   }
 })
