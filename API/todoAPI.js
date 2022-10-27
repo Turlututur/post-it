@@ -69,6 +69,16 @@ const GET_TASKLIST =
   'query taskLists($username: String!) {taskLists(where: { owner: { username: $username } }) {id title}}'
 
 
+const UPDATE_DONE = 
+`mutation($taskID:ID, $done:Boolean){
+  updateTasks(
+    where:{
+      id:$taskID
+    }
+    update:{done:$done}
+  ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
+}`
+
 export function signIn (username, password) {
   return fetch(API_URL, {
     method: 'POST',
@@ -320,6 +330,35 @@ export function deleteTasks (id, token){
       throw jsonResponse.errors[0]
     }
     return jsonResponse.data.nodesDeleted
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+export function updateDone (taskID, done, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: UPDATE_DONE,
+      variables: {
+        taskID: taskID,
+        done: !done
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.tasks
   })
   .catch(error => {
     throw error

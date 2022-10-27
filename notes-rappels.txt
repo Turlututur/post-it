@@ -116,3 +116,25 @@ mutation {
     }
   ){nodesDeleted}
 }
+
+set done true : 
+
+mutation{
+  updateTasks(
+    where:{
+      id:"05a55cec-b5d1-491e-8520-d36442945300"
+    }
+    update:{done:true}
+  ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
+}
+
+set done false :
+
+mutation{
+  updateTasks(
+    where:{
+      id:"05a55cec-b5d1-491e-8520-d36442945300"
+    }
+    update:{done:true}
+  ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
+}

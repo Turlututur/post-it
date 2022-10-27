@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image, Switch} from 'react-native'
-import { getTasks, createTask, getUserId, deleteTasks } from '../API/todoAPI';
+import { getTasks, createTask, getUserId, deleteTasks, updateDone } from '../API/todoAPI';
 import { FlatList } from 'react-native-web';
 //import { useNavigation } from '@react-navigation/native';
 
@@ -45,11 +45,14 @@ export default function TaskList({username, token, id}) {
         data={todos}
         renderItem={({item}) => 
         <View style={{flexDirection: 'row'}}>
-        <Switch value={false} onValueChange={() => {return;}} />
+        <Switch value={item.done} onValueChange={async () => {
+          await updateDone(item.id, item.done, token);
+          callback(id, token);
+        } } />
           <TouchableOpacity onPress={() => 
-            console.log(item.id)
+            console.log(item.id, item.done)
             }>
-            <Text style={{color: '#D6D5A8'}}>{item.content}</Text>
+            <Text style={{color: '#D6D5A8', textDecorationLine: item.done ? 'line-through' : 'none'}}>{item.content}</Text>
           </TouchableOpacity> 
           <TouchableOpacity 
           onPress={ async (e) => {
