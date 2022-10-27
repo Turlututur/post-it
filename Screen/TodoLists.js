@@ -2,44 +2,27 @@ import React from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
-import { getTasks } from '../API/todoAPI';
+import TodoList from '../components/TodoList';
 
 export default function TodoLists({route, navigation}){
     const { id, title } = route.params;
-    function todos(id,token){
-      getTasks(id, token)
-      .then(taskList => {
-          console.log(taskList)
-      })
-  }
+
     return (
-        <View style={styles.container}>
-          <TokenContext.Consumer>
-          {([token, setToken]) => (
-            <UsernameContext.Consumer>
-              {([username, setUsername]) => 
-                <>
-                <Text style={styles.text}>La Liste de tâches {title} ayant pour ID : {id}</Text>
-                <Pressable 
-                style={styles.pressable}
-                onPress={() => todos(id, token)}
-                >
-                <Text style={styles.text}>ConsolLog TaskList</Text>
-                </Pressable> 
-                <Pressable 
-                style={styles.pressable}
-                onPress={() => navigation.goBack()}
-                >
-                <Text style={styles.text}>Retour</Text>
-                </Pressable> 
-                </>
-              }
-              
-            </UsernameContext.Consumer>
-          )}
-          </TokenContext.Consumer>
-        </View>
-    )
+      <View style={styles.container}>
+        <TokenContext.Consumer>
+        {([token, setToken]) => (
+          <UsernameContext.Consumer>
+            {([username, setUsername]) => 
+              <>
+                <TodoList username={username} token={token} id={id} />
+              </>
+            }
+            
+          </UsernameContext.Consumer>
+        )}
+        </TokenContext.Consumer>
+      </View>
+  )
 }
 
 const styles = StyleSheet.create({

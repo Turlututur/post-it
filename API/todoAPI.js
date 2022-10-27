@@ -26,10 +26,10 @@ const DELETE_TASK_LISTS  =
   }`
 
   const CREATE_TASK = 
-  `mutation($title:String!, $TaskListID:ID, $userID:ID){
+  `mutation($content:String!, $TaskListID:ID, $userID:ID){
     createTasks(
       input:{
-        content:$title, 
+        content:$content, 
         done:false, 
         belongsTo:{
           connect:{
@@ -234,7 +234,7 @@ export function deleteTaskLists (taskID, title, userID, token){
   })
 }
 
-export function createTask(taskId, taskName, userID, token) {
+export function createTask(taskId, content, userID, token) {
   return fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -245,7 +245,7 @@ export function createTask(taskId, taskName, userID, token) {
       query: CREATE_TASK,
       variables: {
         taskID: taskId,
-        taskName: taskName,
+        content: content,
         userID: userID
       }
     })
