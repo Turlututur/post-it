@@ -5,7 +5,23 @@ import { UsernameContext } from '../Context/Context';
 import TodoList from '../components/TodoList';
 
 export default function TodoLists({route, navigation}){
-    const { id, title } = route.params;
+  const { id, title} = route.params;
+
+  if(id == "") {
+    return (
+    <View style={styles.container}>
+    <Text style={styles.text}>Aucune liste de todos n'est séléctionnée</Text>
+    <Pressable
+        style={styles.pressable}
+          onPress={() => {
+            navigation.navigate("Mes listes")
+          }}
+        >
+        <Text style={styles.text}>Listes de todos</Text>
+        </Pressable>
+    </View>
+    )
+  } else {
 
     return (
       <View style={styles.container}>
@@ -14,6 +30,7 @@ export default function TodoLists({route, navigation}){
           <UsernameContext.Consumer>
             {([username, setUsername]) => 
               <>
+              <Text style={styles.text}>Votre liste {title}:</Text>
                 <TodoList username={username} token={token} id={id} />
               </>
             }
@@ -22,7 +39,7 @@ export default function TodoLists({route, navigation}){
         )}
         </TokenContext.Consumer>
       </View>
-  )
+  )}
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +48,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#1B2430',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: 250
+      paddingTop: 200
     },
     text : {
       color: '#D6D5A8'

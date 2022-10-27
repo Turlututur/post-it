@@ -3,7 +3,6 @@ import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image} 
 import { getTaskList, createTaskLists, getUserId, deleteTaskLists } from '../API/todoAPI';
 import { FlatList } from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
-import TodoLists from '../Screen/TodoLists'
 
 export default function TaskList({username, token}) {
     const [todos, setTodos] = useState([]);
@@ -46,27 +45,26 @@ export default function TaskList({username, token}) {
         data={todos}
         renderItem={({item}) => 
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity onPress={() => 
+          <TouchableOpacity onPress={() => {
             //navigation.navigate('../Component/TaskList', {id: item.id})
             navigation.navigate("Ma Todolist", {
               id: item.id,
               title: item.title
-            })
+            });
             // https://reactnavigation.org/docs/params/ !!!
             //console.log('todo : navigation')
-            }>
-            <Text style={{color: '#D6D5A8', textDecorationLine: 'underline'}}>{item.title}</Text>
+          }}>
+            <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title}</Text>
           </TouchableOpacity> 
           <TouchableOpacity 
           onPress={ async (e) => {
-             //supprime TOUT, viens de la query, j'ai test avec un id particulier en dehors de la flatlist
             e.preventDefault();
             console.log('suppression de ' + item.title +" "+ item.id);
             await deleteTaskLists(item.id, item.title ,userId, token);
             callback(username, token);
           }}
           >
-            <Image source={require('../assets/trash-can-outline.png')} style={{ height: 24, width: 24 }} />
+            <Image source={require('../assets/trash-can-outline-white.png')} style={{ height: 24, width: 24 }} />
           </TouchableOpacity>
         </View>
          } 
@@ -123,5 +121,9 @@ export default function TaskList({username, token}) {
       backgroundColor: '#D6D5A8',
       color: '#1B2430',
       margin: 5
-    }
+    },
+    text_item: {
+      marginLeft: 10,
+      width: 150
+  }
   })

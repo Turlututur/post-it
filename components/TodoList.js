@@ -37,9 +37,8 @@ export default function TaskList({username, token, id}) {
   
     return (
       <>
-      <Text style={styles.text}>ID de l'user : {userId}</Text>
+      {console.log(userId)}
       {console.log(todos)}
-      <Text style={styles.text}>Liste des TodoLists :</Text>
       <FlatList
         style={{ textAlign:'left', paddingLeft: 10, paddingTop:20 }}
         data={todos}
@@ -49,10 +48,12 @@ export default function TaskList({username, token, id}) {
           await updateDone(item.id, item.done, token);
           callback(id, token);
         } } />
-          <TouchableOpacity onPress={() => 
-            console.log(item.id, item.done)
+          <TouchableOpacity onPress={async () => {
+              await updateDone(item.id, item.done, token);
+              callback(id, token);
+            }
             }>
-            <Text style={{color: '#D6D5A8', textDecorationLine: item.done ? 'line-through' : 'none'}}>{item.content}</Text>
+            <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: item.done ? 'line-through' : 'none'}]}>{item.content}</Text>
           </TouchableOpacity> 
           <TouchableOpacity 
           onPress={ async (e) => {
@@ -61,7 +62,7 @@ export default function TaskList({username, token, id}) {
             callback(id, token);
           }}
           >
-            <Image source={require('../assets/trash-can-outline.png')} style={{ height: 24, width: 24 }} />
+            <Image source={require('../assets/trash-can-outline-white.png')} style={{ height: 24, width: 24 }} />
           </TouchableOpacity>
         </View>
          } 
@@ -118,5 +119,9 @@ export default function TaskList({username, token, id}) {
       backgroundColor: '#D6D5A8',
       color: '#1B2430',
       margin: 5
-    }
+    },
+    text_item: {
+      marginLeft: 10,
+      width: 150
+  }
   })
