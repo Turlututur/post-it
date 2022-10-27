@@ -56,8 +56,14 @@ const GET_TASKS =
     ) {id, content, done}
   }`
 
-const DELETE_TASK =
-  'mutation()'
+const DELETE_TASKS =
+  `mutation($id:ID) {
+    deleteTasks(
+      where:{
+        id:$id
+      }
+    ){nodesDeleted}
+  }`
 
 const GET_TASKLIST = 
   'query taskLists($username: String!) {taskLists(where: { owner: { username: $username } }) {id title}}'
@@ -286,6 +292,34 @@ export function getTasks (taskListID, token){
       throw jsonResponse.errors[0]
     }
     return jsonResponse.data.tasks
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+export function deleteTasks (id, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: DELETE_TASKS,
+      variables: {
+        id: id
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.nodesDeleted
   })
   .catch(error => {
     throw error

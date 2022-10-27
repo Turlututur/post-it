@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image, Switch} from 'react-native'
-import { getTasks, createTask, getUserId, deleteTaskLists } from '../API/todoAPI';
+import { getTasks, createTask, getUserId, deleteTasks } from '../API/todoAPI';
 import { FlatList } from 'react-native-web';
 //import { useNavigation } from '@react-navigation/native';
 
@@ -45,17 +45,17 @@ export default function TaskList({username, token, id}) {
         data={todos}
         renderItem={({item}) => 
         <View style={{flexDirection: 'row'}}>
-        <Switch value={false} onValueChange={console.log('todo')} />
+        <Switch value={false} onValueChange={() => {return;}} />
           <TouchableOpacity onPress={() => 
-            console.log('todo : clic')
+            console.log(item.id)
             }>
             <Text style={{color: '#D6D5A8'}}>{item.content}</Text>
           </TouchableOpacity> 
           <TouchableOpacity 
           onPress={ async (e) => {
-             //supprime TOUT, viens de la query, j'ai test avec un id particulier en dehors de la flatlist
             e.preventDefault();
-            console.log('todo: delete task');
+            await deleteTasks(item.id, token);
+            callback(id, token);
           }}
           >
             <Image source={require('../assets/trash-can-outline.png')} style={{ height: 24, width: 24 }} />

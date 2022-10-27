@@ -106,3 +106,13 @@ query {
     }
   ) {id, content, done}
 }
+
+delete tasks : 
+
+mutation {
+  deleteTasks(
+    where:{
+      id:"a0257785-75c8-4e39-b9c4-ad5017f16dd6"
+    }
+  ){nodesDeleted}
+}
