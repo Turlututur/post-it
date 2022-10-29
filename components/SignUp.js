@@ -50,8 +50,8 @@ export default function SignUp () {
                 {visible ? (
                   <>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Login</Text>
                       <TextInput
+                        placeholder="Nom d'utilisateur"
                         style={styles.text_input}
                         onChangeText={setLogin}
                         onSubmitEditing={() =>
@@ -61,8 +61,8 @@ export default function SignUp () {
                       />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Mot de passe</Text>
                       <TextInput
+                      placeholder='Mot de passe'
                         style={styles.text_input}
                         onChangeText={setPassword}
                         secureTextEntry={true}
@@ -73,8 +73,8 @@ export default function SignUp () {
                       />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Confirmez votre mot de passe</Text>
                       <TextInput
+                      placeholder='Confirmez votre mot de passe'
                         style={styles.text_input}
                         onChangeText={setCopyPassword}
                         secureTextEntry={true}
@@ -121,16 +121,23 @@ const styles = StyleSheet.create({
     color: '#D6D5A8'
   },
   text_input: {
-    //borderWidth: 1,
+    borderWidth: 1,
     backgroundColor: '#D6D5A8',
     color: '#1B2430',
-    margin: 5
+    margin: 15,
+    height: 40,
+    width: 300,
+    borderRadius: 10,
+    paddingLeft:10
   },
   pressable: {
     backgroundColor: '#51557E',
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 15,
+    height: 40,
+    width: 300,
     borderRadius:10
   }
 })

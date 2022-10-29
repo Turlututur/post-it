@@ -44,8 +44,10 @@ export default function SignIn () {
                 {visible ? (
                   <>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Login</Text>
+                      
+                      {/* <Text style={styles.label}>Login</Text> */}
                       <TextInput
+                        placeholder = "Nom d'utilisateur"
                         style={styles.text_input}
                         onChangeText={setLogin}
                         onSubmitEditing={() =>
@@ -55,8 +57,9 @@ export default function SignIn () {
                       />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.label}>Mot de passe</Text>
+                      {/* <Text style={styles.label}>Mot de passe</Text> */}
                       <TextInput
+                        placeholder = "Mot de passe"
                         style={styles.text_input}
                         onChangeText={setPassword}
                         secureTextEntry={true}
@@ -71,7 +74,7 @@ export default function SignIn () {
                       onPress={() => getSignedIn(setToken, setUsername)}
                       // title='Sign In'
                     >
-                      <Text style={styles.label}>Se Connecter</Text>
+                      <Text style={styles.label}>Connexion</Text>
                     </Pressable>
                     {error ? (
                       <Text style={styles.text_error}>{error}</Text>
@@ -97,6 +100,7 @@ export default function SignIn () {
 
 const styles = StyleSheet.create({
   label: {
+    justifyContent: 'center',
     width: 70,
     color: '#D6D5A8'
   },
@@ -107,16 +111,23 @@ const styles = StyleSheet.create({
     color: '#D6D5A8'
   },
   text_input: {
-    //borderWidth: 1,
+    borderWidth: 1,
     backgroundColor: '#D6D5A8',
     color: '#1B2430',
-    margin: 5
+    margin: 15,
+    height: 40,
+    width: 300,
+    borderRadius: 10,
+    paddingLeft:10
   },
   pressable: {
     backgroundColor: '#51557E',
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 15,
+    height: 40,
+    width: 300,
     borderRadius:10
   }
 })

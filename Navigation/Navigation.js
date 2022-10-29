@@ -32,7 +32,7 @@ export default function Navigation () {
               }}
             >
               <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name='Connexion' component={SignInScreen} />
-              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name="S'inscire" component={SignUpScreen} />
+              <Tab.Screen options={{headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}} name="S'inscrire" component={SignUpScreen} />
             </Tab.Navigator>
           ) : (
             <Tab.Navigator

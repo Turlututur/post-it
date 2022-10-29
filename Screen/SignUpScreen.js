@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
+import { Link } from '@react-navigation/native'
 
 import SignUp from '../components/SignUp'
 
@@ -9,6 +10,15 @@ export default function SignUpScreen ({ navigation }) {
       style={styles.container}
     >
       <SignUp />
+      <Text style={styles.text}>
+        Déjà un compte ? {' '}
+        <Link 
+          style={styles.link}
+          to={{ screen: "Connexion" }}
+        >
+          Se connecter
+        </Link>
+      </Text>
     </View>
   )
 }

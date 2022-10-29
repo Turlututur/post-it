@@ -14,9 +14,9 @@ export default function SignInScreen () {
         Vous pouvez aussi vous{' '}
         <Link 
           style={styles.link}
-          to={{ screen: 'SignUp' }}
+          to={{ screen: "S'inscrire" }}
         >
-          Inscrire
+          inscrire
         </Link>
       </Text>
     </View>

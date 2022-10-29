@@ -69,9 +69,9 @@ export default function TaskList({username, token}) {
          } 
       />
         <TextInput
-        style={styles.text_input}
+          style={styles.text_input}
           onChangeText={(newValue) => setNewTodoText(newValue)}
-          placeholder='liste de tâche'
+          placeholder='Nom de la liste'
           onSubmitEditing={ async (e) => {
             e.preventDefault();
             await createTaskLists(userId, newTodoText, token);
@@ -108,18 +108,25 @@ export default function TaskList({username, token}) {
       color: '#816797',
       textDecorationLine: 'underline'
     },
+    text_input: {
+      borderWidth: 1,
+      backgroundColor: '#D6D5A8',
+      color: '#1B2430',
+      margin: 15,
+      height: 40,
+      width: 300,
+      borderRadius: 10,
+      paddingLeft:10
+    },
     pressable: {
       backgroundColor: '#51557E',
       color: 'white',
       alignItems: 'center',
       justifyContent: 'center',
+      margin: 15,
+      height: 40,
+      width: 300,
       borderRadius:10
-    },
-    text_input: {
-      //borderWidth: 1,
-      backgroundColor: '#D6D5A8',
-      color: '#1B2430',
-      margin: 5
     },
     text_item: {
       marginLeft: 10,
