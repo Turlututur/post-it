@@ -15,7 +15,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
 import HomeScreen from '../Screen/HomeScreen'
 import SignInScreen from '../Screen/SignInScreen'
 import SignUpScreen from '../Screen/SignUpScreen'
-import SignOutScreen from '../Screen/SignOutScreen'
+import MyAccount from '../Screen/MyAccountScreen'
 import { TokenContext } from '../Context/Context'
 
 
@@ -44,7 +44,7 @@ export default function Navigation () {
                     <Text style={styles.text}>
                     <Link 
                       style={styles.link}
-                      to={{ screen: "Deconnexion" }}
+                      to={{ screen: "Mon compte" }}
                     >
                       <FontAwesomeIcon 
                       icon={faUser}
@@ -57,7 +57,7 @@ export default function Navigation () {
               }} 
               name='Accueil' component={HomeScreen} />
 
-              <Stack.Screen name="Deconnexion" component={SignOutScreen} options={{ headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}}/>    
+              <Stack.Screen name="Mon compte" component={MyAccount} options={{ headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}}/>    
 
             </Stack.Navigator>
             

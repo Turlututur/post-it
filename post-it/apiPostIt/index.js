@@ -26,7 +26,7 @@ const User = ogm.model("User");
 
 const resolvers = {
     Mutation: {
-        signUp: async (_source, { username, password }) => {
+        signUp: async (_source, { username, password, role }) => {
             const [existing] = await User.find({
                 where: {
                     username,
@@ -36,7 +36,7 @@ const resolvers = {
 	    console.log("existing", existing);
 
             if (existing) {
-                throw new Error(`User with username ${username} already exists!`);
+                throw new Error(`L'utilisateur ${username} existe déjà !`);
             }
 
 	    const roles = ["user"];
@@ -45,6 +45,7 @@ const resolvers = {
                     {
                         username,
                         password,
+                        role,
 			roles
                     }
                 ]
@@ -60,13 +61,13 @@ const resolvers = {
             });
 
             if (!user) {
-                throw new Error(`User with username ${username} not found!`);
+                throw new Error(`L'utilisateur ${username} n'existe pas !`);
             }
 
             const correctPassword = password == user.password;
 
             if (!correctPassword) {
-                throw new Error(`Incorrect password for user with username ${username}!`);
+                throw new Error(`Le mot de passe du compte ${username} est incorrect!`);
             }
 
             return nJwt.create({ sub: user.id, roles: user.roles }, signingKey).setExpiration().compact();
