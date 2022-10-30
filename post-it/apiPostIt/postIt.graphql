@@ -5,7 +5,7 @@ type Post{
   content: String
   desc: String 
   comment: String
-  state: [String]
+  state: String
 }
 
 extend type Post @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR : [{roles: ["admin"]}, {bind: { belongsTo: {owner:{id: "$jwt.sub" }}}, allow: { belongsTo: {owner:{id: "$jwt.sub" }}}}]}])

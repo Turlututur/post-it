@@ -12,7 +12,7 @@ dotenv.config();
 
 // Load GraphQL type definitions from schema.graphql file
 const typeDefs = fs
-  .readFileSync(path.join(__dirname, "todo.graphql"))
+  .readFileSync(path.join(__dirname, "postIt.graphql"))
   .toString("utf-8");
 
 // Create Neo4j driver instance

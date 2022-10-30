@@ -1,0 +1,125 @@
+#virtualbox-createtp -c dbadmin 2022-01-03_dbadmin
+
+
+
+# Write your query or mutation here
+mutation {
+  createUsers(
+    input: { username: "admin", password: "rootroot", roles: ["admin"] }
+  ) {
+    users {
+      id
+      username
+    }
+  }
+}
+
+## graphQl
+
+@private -> champs non renvoyable
+
+#règles d'auth
+
+
+
+# eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhNmNlN2Q5Mi1mOTgwLTQ5YzMtOWJmNS0xOGZlNjUyMWM3OWYiLCJyb2xlcyI6WyJ1c2VyIl0sImp0aSI6Ijg3YjAxNDRiLWY4ZTktNDRhYS1hMTViLWY2ZTY2OTY5MGJiNSIsImlhdCI6MTY2MzkyNDU0Nn0.pQV0D5aFn7L8oUpwKtqSRPbypVbMeCuPS5kGAIsSyjg
+
+
+#signup qui revoit le token
+mutation {signUp(username:"toto",password:"toto")}
+
+header
+{
+  "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwZTAyZTdmMi1jMzc0LTRlYmItYjA4Zi0zODdlMDcwYzIxMWIiLCJyb2xlcyI6WyJ1c2VyIl0sImp0aSI6IjM5ZDI3MzVmLTA5M2UtNDMzMi1iM2E3LWU5ZTI2NTBjMDQwOCIsImlhdCI6MTY2NTU2MzE2OX0.8C4eXMyvE_1fTqSn-mVuQ2EHpKwCz8A0U501yDqHw58"
+}
+
+avoir l'id d'un user 
+query{users(where:{username:"toto"}){id}}
+
+mutation{
+  signUp(
+    username:"tutur",
+    password:"tutur"
+  )
+}
+
+mutation {
+  signIn(username:"tutur", password:"tutur")
+}
+
+query{users(where:{username:"tutur"}){id}}
+
+mutation {
+  createProjects(
+    input:{
+      title:"Projet1", 
+      owner:{
+        connect:{
+          where:{
+            id:"bd971de1-b552-486a-8e31-423d9911fd13"
+          }
+        }
+      }
+    }
+  ) {projects{id, title, owner{id, username}}}
+}
+
+query {
+  projects(
+    where:{
+      title:"Projet1",
+      owner:{username:"tutur"}
+    }
+  ){id}}
+
+
+mutation{
+  deleteProjects(
+    where:{
+      id:"id project",
+      owner:{
+        id:"owner id"
+      }
+    }
+  ) {nodesDeleted}
+}
+
+mutation {
+  createPosts(
+    input:{
+      title:"Premier Post",
+      content:"Ceci est le premier post de l'app Post It !",
+      desc:"Il s'agit d'un test.",
+      comment:"Peut être posté",
+      state:["Validé"],
+      belongsTo:{
+        connect:{
+          where:{
+            id:"ba9f3d74-a09f-470b-a1b9-8aeb10217017",
+            owner:{
+              id:"bd971de1-b552-486a-8e31-423d9911fd13"
+            }
+          }
+        }
+      }
+    }
+  ) {posts{id,title,content,desc,comment,state,belongsTo{id, owner{id}}}}
+}
+
+query {
+  posts(
+    where:{
+      belongsTo:{
+        id:"ba9f3d74-a09f-470b-a1b9-8aeb10217017"
+      }
+    }
+  ) {id, title, content, desc, comment, state}
+}
+
+mutation {
+  deletePosts(
+    where:{
+      id:"c5d4743e-225e-43b9-8e2c-d8fb27f242e2"
+    }
+  ){nodesDeleted}
+}
