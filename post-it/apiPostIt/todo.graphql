@@ -1,0 +1,34 @@
+type Post{
+  id: ID! @id
+  title: String
+  belongsTo: Project @relationship(type: "BELONGS_TO", direction: OUT)
+  content: String
+  desc: String 
+  comment: String
+  state: [String]
+}
+
+extend type Post @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR : [{roles: ["admin"]}, {bind: { belongsTo: {owner:{id: "$jwt.sub" }}}, allow: { belongsTo: {owner:{id: "$jwt.sub" }}}}]}])
+
+type Project{
+  id: ID @id
+  title: String
+#  contains: [Task] @relationship(type: "CONTAINS", direction: OUT)
+  owner: User @relationship(type: "OWNED_BY", direction: OUT)
+}
+
+extend type Project @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR : [{roles: ["admin"]}, {bind: { owner:{id: "$jwt.sub" }}, allow: { owner:{id: "$jwt.sub" }}}]}])
+
+type User{
+  id: ID @id
+  username: String!
+  password: String! @private
+  roles: [String!]
+}
+
+extend type User @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR: [{ roles: ["admin"] }, { allow: { id: "$jwt.sub" } }] }])
+
+type Mutation {
+  signUp(username: String!, password: String!): String! ### JWT
+  signIn(username: String!, password: String!): String! ### JWT
+}

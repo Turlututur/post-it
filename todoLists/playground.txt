@@ -1,0 +1,79 @@
+# Write your query or mutation here
+# mutation{
+#   signUp(
+#     username:"Arthur",
+#     password:"Arthur"
+#   )
+# }
+
+# mutation {
+#   signIn(username:"tutur", password:"tutur")
+# }
+
+# query{users(where:{username:"Arthur"}){id}}
+
+# mutation {
+#   createTaskLists(
+#     input:{
+#       title:"Cadeaux noël", 
+#       owner:{
+#         connect:{
+#           where:{
+#             id:"0e02e7f2-c374-4ebb-b08f-387e070c211b"
+#           }
+#         }
+#       }
+#     }
+#   )  {taskLists{id, title, owner{id, username}}}
+# }
+
+# query {
+#   taskLists(
+#     where:{
+#       title:"Cadeaux noël",
+#       owner:{username:"Arthur"}
+#     }
+#   ){id}}
+
+# query{users(where: {username: "Arthur"}) {id}}
+
+# mutation{
+#   deleteTaskLists(
+#     where:{
+#       id:"8a0a4aa4-1240-46ba-82bf-9020c2d6ccdf"
+#       AND:{title:"test"}
+#       owner:{
+#         id:"bd971de1-b552-486a-8e31-423d9911fd13"
+#       }
+#     }
+#   ) {nodesDeleted}
+# }
+
+# mutation{
+#   createTasks(
+#     input:{
+#       content:"Thé mamie", 
+#       done:false, 
+#       belongsTo:{
+#         connect:{
+#           where:{
+#             id:"63326476-f615-4cb4-a6e0-d64ec0fc4228",
+#             owner:{
+#               id:"bd971de1-b552-486a-8e31-423d9911fd13"
+#             }
+#           }
+#         }
+#       }
+#     }
+#   ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
+# }
+
+query {
+  tasks(
+    where:{
+      belongsTo:{
+        id:"63326476-f615-4cb4-a6e0-d64ec0fc4228"
+      }
+    }
+  ) {id, content, done} 
+}
