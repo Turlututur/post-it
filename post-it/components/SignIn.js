@@ -85,9 +85,6 @@ export default function SignIn () {
                 ) : (
                   <ActivityIndicator />
                 )}
-                 {/* <Button onPress={() => signUp("leTest","ouiLeTest").then(result => console.log(result))}
-                  title='Print token on console'
-                /> */}
               </View>
             )
           }}
