@@ -6,8 +6,8 @@ const SIGN_IN =
 const SIGN_UP =
   'mutation($username:String!, $password:String!){signUp(username:$username, password:$password)}'
 
-const GET_USER_ID = 
-  'query users($username:String!) {users(where: {username: $username}) {id}}'
+const GET_USER_DATA = 
+  'query users($username:String!) {users(where: {username: $username}) {id, role}}'
 
 // const CREATE_TASK_LISTS =
 //   'mutation($id:ID, $title:String!){createTaskLists(input:{title:$title, owner:{connect:{where:{id:$id}}}}) {taskLists{id, title, owner{id, username}}}}'
@@ -192,7 +192,7 @@ export function signUp (username, password) {
 //   })
 // }
 
-export function getUserId (username, token){
+export function getUserData (username, token){
   return fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -200,7 +200,7 @@ export function getUserId (username, token){
       'Authorization': "Bearer "+token
     },
     body: JSON.stringify({
-      query: GET_USER_ID,
+      query: GET_USER_DATA,
       variables: {
         username: username
       }

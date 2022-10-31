@@ -3,3 +3,5 @@ todoLists/node_modules/
 
 post-it/.expo/
 post-it/node_modules/
+node_modules
+.expo
