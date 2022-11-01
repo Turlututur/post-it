@@ -12,6 +12,33 @@ const SIGN_UP =
 const GET_USER_DATA = 
   'query users($username:String!) {users(where: {username: $username}) {id, role}}'
 
+// Mutation de création de projet
+const CREATE_PROJECT =
+`mutation($title:String!, userId:ID, $username:String!) {
+  createProjects(
+    input:{
+      title:$title, 
+      asignedWritter: $username
+      owner:{
+        connect:{
+          where:{
+            id:$userId
+          }
+        }
+      }
+    }
+  ) {projects{id, title, owner{id, username}}}
+}` 
+
+// Query permettant de récupérer les projets d'un utilisateur assigné.
+const GET_PROJECTS =
+`query($username:String!) {
+  projects(
+    where:{
+      asignedWritter_INCLUDES:$username
+    }
+  ){title, id, asignedWritter}}`
+
 
 /**
  * Fonction de connexion. 
@@ -117,6 +144,77 @@ export function getUserData (username, token){
       throw jsonResponse.errors[0]
     }
     return jsonResponse.data.users
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+/**
+ * Fonction permettant de créer un projet dans l'api.
+ * @param {String} title  Le titre du nouveau projet.
+ * @param {ID} userId     L'id de l'utilisateur créant le projet.
+ * @param {String} token  Le token d'autorisation.
+ * @returns Une erreur si elle a lieu.
+ */
+export function createProjects (title, userId, username, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: CREATE_PROJECT,
+      variables: {
+        title: title,
+        userId: userId,
+        username: username
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.createProjects
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+/**
+ * Fonction permettant de récuperer les projets d'un utilisateur.
+ * @param {String} username Le nom de l'utilisateur.
+ * @param {String} token    Le token d'autorisation.
+ * @returns La liste des projets (titre et id) ou une erreur.
+ */
+export function getProjects (username, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: GET_PROJECTS,
+      variables: {
+        username: username
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.projects
   })
   .catch(error => {
     throw error

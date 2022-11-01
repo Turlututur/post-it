@@ -1,6 +1,6 @@
 type Post{
   id: ID! @id
-  title: String
+  title: String!
   belongsTo: Project @relationship(type: "BELONGS_TO", direction: OUT)
   content: String
   desc: String 
@@ -8,16 +8,25 @@ type Post{
   state: String
 }
 
-extend type Post @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR : [{roles: ["admin"]}, {bind: { belongsTo: {owner:{id: "$jwt.sub" }}}, allow: { belongsTo: {owner:{id: "$jwt.sub" }}}}]}])
-
-type Project{
+extend type Post @auth(
+  rules: [
+    { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # si cette abération est toujours présente c'est que je n'ai pas réussi à gérer les authorisations en fonction du rôle...
+    ]
+  )
+  
+type Project {
   id: ID @id
-  title: String
+  title: String!
 #  contains: [Task] @relationship(type: "CONTAINS", direction: OUT)
   owner: User @relationship(type: "OWNED_BY", direction: OUT)
+  asignedWritter: [String]
 }
 
-extend type Project @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR : [{roles: ["admin"]}, {bind: { owner:{id: "$jwt.sub" }}, allow: { owner:{id: "$jwt.sub" }}}]}])
+extend type Project @auth(
+  rules: [
+    { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # croyez moi, ça m'a fait mal d'écrire ça...
+    ]
+  )
 
 type User{
   id: ID @id

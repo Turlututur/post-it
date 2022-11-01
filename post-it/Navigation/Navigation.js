@@ -42,12 +42,8 @@ export default function Navigation () {
               options={{
                 headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8',
                 headerRight: () => (
-                  <Pressable
-                    style={styles.pressable}
-                  >
-                    <Text style={styles.text}>
                     <Link 
-                      style={styles.link}
+                      style={[styles.link, {paddingRight: 20}]}
                       to={{ screen: "Mon compte" }}
                     >
                       <FontAwesomeIcon 
@@ -55,8 +51,6 @@ export default function Navigation () {
                       color='#D6D5A8'
                       size={25}/>
                     </Link>
-                    </Text>
-                  </Pressable>
                 ),
               }} 
               name='Accueil' component={HomeScreen} />
@@ -66,12 +60,8 @@ export default function Navigation () {
               options={{
                 headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8',
                 headerRight: () => (
-                  <Pressable
-                    style={styles.pressable}
-                  >
-                    <Text style={styles.text}>
                     <Link 
-                      style={styles.link}
+                      style={[styles.link, {paddingRight: 20}]}
                       to={{ screen: "Mon compte" }}
                     >
                       <FontAwesomeIcon 
@@ -79,8 +69,6 @@ export default function Navigation () {
                       color='#D6D5A8'
                       size={25}/>
                     </Link>
-                    </Text>
-                  </Pressable>
                 ),
               }}/>    
 
