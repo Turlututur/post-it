@@ -1,3 +1,4 @@
+// npm install react-native-select-dropdown
 import React, { useState } from 'react'
 import {
   Text,
@@ -8,31 +9,37 @@ import {
   StyleSheet
 } from 'react-native'
 
+import SelectDropdown from 'react-native-select-dropdown'
+
 import { signUp } from '../API/postItAPI'
 
 import { TokenContext } from '../Context/Context'
 import { UsernameContext } from '../Context/Context'
+import { UserRoleContext } from '../Context/Context'
 
 export default function SignUp () {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState('')
+  const roles = ["manager", "writter"]
   const [copyPassword, setCopyPassword] = useState('')
   const [error, setError] = useState('')
   const [visible, setVisible] = useState(true)
 
-  const getSignedUp = (setToken, setUsername) => {
+  const getSignedUp = (setToken, setUsername, setUserRole) => {
     setError('')
-    if (login == '' || password == '' || copyPassword == '') return
+    if (login == '' || role == '' || password == '' || copyPassword == '') return
     if (password != copyPassword){
-        setError("Passwords don't match")
+        setError("Les mots de passe sont differents !")
         return
     } 
     setVisible(false)
-    signUp(login, password)
+    signUp(login, password, role)
       .then(token => {
         setUsername(login)
         setToken(token)
-        console.log('token', token)
+        setUserRole(role)
+        //console.log('token', token)
       })
       .catch(err => {
         setError(err.message)
@@ -41,71 +48,117 @@ export default function SignUp () {
   }
 
   return (
-    <TokenContext.Consumer>
-      {([token, setToken]) => (
-        <UsernameContext.Consumer>
-          {([username, setUsername]) => {
-            return (
-              <View>
-                {visible ? (
-                  <>
-                    <View style={{ flexDirection: 'row' }}>
-                      <TextInput
-                        placeholder="Nom d'utilisateur"
-                        style={styles.text_input}
-                        onChangeText={setLogin}
-                        onSubmitEditing={() =>
-                          getSignedUp(setToken, setUsername)
-                        }
-                        value={login}
+      <UserRoleContext.Consumer>
+      {([userRole, setUserRole]) => (
+      <TokenContext.Consumer>
+        {([token, setToken]) => (
+          <UsernameContext.Consumer>
+            {([username, setUsername]) => {
+              return (
+                <View>
+                  {visible ? (
+                    <>
+                      <View style={{ flexDirection: 'row' }}>
+                        <TextInput
+                          placeholder="Nom d'utilisateur"
+                          style={styles.text_input}
+                          onChangeText={setLogin}
+                          onSubmitEditing={() =>
+                            getSignedUp(setToken, setUsername, setUserRole)
+                          }
+                          value={login}
+                        />
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                        {/* <TextInput
+                          placeholder="Rôle"
+                          style={styles.text_input}
+                          onChangeText={setRole}
+                          onSubmitEditing={() =>
+                            getSignedUp(setToken, setUsername, setUserRole)
+                          }
+                          value={role}
+                        /> */}
+
+                      <SelectDropdown
+                        dropdownStyle={{
+                          backgroundColor: "#D6D5A8", 
+                          borderRadius:10,
+                          height: 90,
+                          width: 300,
+                        }}
+                        buttonStyle={{
+                          backgroundColor: '#D6D5A8',
+                          color: 'white',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: 15,
+                          height: 40,
+                          width: 300,
+                          borderRadius:10, 
+                        }}
+                        buttonTextStyle={{color:'#1B2430', fontSize:15}}
+                        data={roles}
+                        onSelect={(selectedItem) => {
+                          setRole(selectedItem)
+                        }}
+                        defaultButtonText={'Rôle'}
+                        buttonTextAfterSelection={(selectedItem) => {
+                          return selectedItem
+                        }}
+                        rowTextForSelection={(item) => {
+                          return item
+                        }}
                       />
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                      <TextInput
-                      placeholder='Mot de passe'
-                        style={styles.text_input}
-                        onChangeText={setPassword}
-                        secureTextEntry={true}
-                        onSubmitEditing={() =>
-                          getSignedUp(setToken, setUsername)
-                        }
-                        value={password}
-                      />
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                      <TextInput
-                      placeholder='Confirmez votre mot de passe'
-                        style={styles.text_input}
-                        onChangeText={setCopyPassword}
-                        secureTextEntry={true}
-                        onSubmitEditing={() =>
-                          getSignedUp(setToken, setUsername)
-                        }
-                        value={copyPassword}
-                      />
-                    </View>
-                    <Pressable
-                      style={styles.pressable}
-                      onPress={() => getSignedUp(setToken, setUsername)}
-                      //title='Sign Up'
-                    >
-                    <Text style={styles.label}>S'inscrire</Text>
-                    </Pressable>
-                    {error ? (
-                      <Text style={styles.text_error}>{error}</Text>
-                    ) : (
-                      []
-                    )}
-                  </>
-                ) : (
-                  <ActivityIndicator />
-                )}
-              </View>
-            )
-          }}
-        </UsernameContext.Consumer>
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                        <TextInput
+                        placeholder='Mot de passe'
+                          style={styles.text_input}
+                          onChangeText={setPassword}
+                          secureTextEntry={true}
+                          onSubmitEditing={() =>
+                            getSignedUp(setToken, setUsername, setUserRole)
+                          }
+                          value={password}
+                        />
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                        <TextInput
+                        placeholder='Confirmez votre mot de passe'
+                          style={styles.text_input}
+                          onChangeText={setCopyPassword}
+                          secureTextEntry={true}
+                          onSubmitEditing={() =>
+                            getSignedUp(setToken, setUsername, setUserRole)
+                          }
+                          value={copyPassword}
+                        />
+                      </View>
+                      <Pressable
+                        style={styles.pressable}
+                        onPress={() => getSignedUp(setToken, setUsername, setUserRole)}
+                        //title='Sign Up'
+                      >
+                      <Text style={styles.label}>S'inscrire</Text>
+                      </Pressable>
+                      {error ? (
+                        <Text style={styles.text_error}>{error}</Text>
+                      ) : (
+                        []
+                      )}
+                    </>
+                  ) : (
+                    <ActivityIndicator />
+                  )}
+                </View>
+              )
+            }}
+          </UsernameContext.Consumer>
+            )}
+        </TokenContext.Consumer>
       )}
-    </TokenContext.Consumer>
+      </UserRoleContext.Consumer>
   )
 }
 

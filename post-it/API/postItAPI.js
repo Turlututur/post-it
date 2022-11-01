@@ -1,10 +1,10 @@
 const API_URL = 'http://192.168.0.31:4000' //à adapter !!!
 
 const SIGN_IN =
-  'mutation($username:String!, $password:String!){signIn(username:$username, password:$password)}'
+  'mutation($username:String!, $password:String!, $role:String!){signIn(username:$username, password:$password, role:$role)}'
 
 const SIGN_UP =
-  'mutation($username:String!, $password:String!){signUp(username:$username, password:$password)}'
+  'mutation($username:String!, $password:String!, $role:String!){signUp(username:$username, password:$password, role:$role)}'
 
 const GET_USER_DATA = 
   'query users($username:String!) {users(where: {username: $username}) {id, role}}'
@@ -79,7 +79,7 @@ const GET_USER_DATA =
 //   ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
 // }`
 
-export function signIn (username, password) {
+export function signIn (username, password, role) {
   return fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -89,7 +89,8 @@ export function signIn (username, password) {
       query: SIGN_IN,
       variables: {
         username: username,
-        password: password
+        password: password,
+        role: role
       }
     })
   })
@@ -107,7 +108,7 @@ export function signIn (username, password) {
     })
 }
 
-export function signUp (username, password) {
+export function signUp (username, password, role) {
   return fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -117,7 +118,8 @@ export function signUp (username, password) {
       query: SIGN_UP,
       variables: {
         username: username,
-        password: password
+        password: password,
+        role: role
       }
     })
   })

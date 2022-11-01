@@ -30,6 +30,6 @@ type User{
 extend type User @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR: [{ roles: ["admin"] }, { allow: { id: "$jwt.sub" } }] }])
 
 type Mutation {
-  signUp(username: String!, password: String!, role: String): String! ### JWT
-  signIn(username: String!, password: String!): String! ### JWT
+  signUp(username: String!, password: String!, role: String!): String! ### JWT
+  signIn(username: String!, password: String!, role: String!): String! ### JWT
 }

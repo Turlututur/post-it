@@ -53,13 +53,12 @@ const resolvers = {
 	    
             return nJwt.create({ sub: user.users[0].id, roles: user.users[0].roles }, signingKey).setExpiration().compact();
         },
-        signIn: async (_source, { username, password }) => {
+        signIn: async (_source, { username, password, role }) => {
             const [user] = await User.find({
                 where: {
                     username,
                 },
             });
-
             if (!user) {
                 throw new Error(`L'utilisateur ${username} n'existe pas !`);
             }
@@ -67,7 +66,13 @@ const resolvers = {
             const correctPassword = password == user.password;
 
             if (!correctPassword) {
-                throw new Error(`Le mot de passe du compte ${username} est incorrect!`);
+                throw new Error(`Le mot de passe du compte ${username} est incorrect !`);
+            }
+
+            const correctRole = role == user.role;
+
+            if (!correctRole) {
+                throw new Error(`Le role du compte ${username} est incorrect !`);
             }
 
             return nJwt.create({ sub: user.id, roles: user.roles }, signingKey).setExpiration().compact();

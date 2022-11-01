@@ -18,7 +18,7 @@ export default function HomeScreen () {
               Vous pouvez aussi vous{' '}
               <Link 
                 style={styles.link}
-                to={{ screen: "Deconnexion" }}
+                to={{ screen: "Mon compte" }}
               >
                 deconnecter
               </Link>
