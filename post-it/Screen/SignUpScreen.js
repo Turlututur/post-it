@@ -4,6 +4,12 @@ import { Link } from '@react-navigation/native'
 
 import SignUp from '../components/SignUp'
 
+
+/**
+ * Ecran d'inscription de l'application.
+ * @param {*} navigation Si il ya des données de Navigation 
+ * @returns Un formulaire d'inscription. 
+ */
 export default function SignUpScreen ({ navigation }) {
   return (
     <View

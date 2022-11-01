@@ -16,11 +16,15 @@ import HomeScreen from '../Screen/HomeScreen'
 import SignInScreen from '../Screen/SignInScreen'
 import SignUpScreen from '../Screen/SignUpScreen'
 import MyAccount from '../Screen/MyAccountScreen'
+import Projects from '../Screen/ProjectsScreen';
 import { TokenContext } from '../Context/Context'
 
 
 const Stack = createStackNavigator();
 
+/**
+ * Permet de gérer la navigation de l'application via la création de 'screens', pages de l'app.
+ */
 export default function Navigation () {
 
   return (
@@ -57,7 +61,28 @@ export default function Navigation () {
               }} 
               name='Accueil' component={HomeScreen} />
 
-              <Stack.Screen name="Mon compte" component={MyAccount} options={{ headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}}/>    
+              <Stack.Screen name="Mon compte" component={MyAccount} options={{ headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8'}}/>
+              <Stack.Screen name="Projets" component={Projects} 
+              options={{
+                headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8',
+                headerRight: () => (
+                  <Pressable
+                    style={styles.pressable}
+                  >
+                    <Text style={styles.text}>
+                    <Link 
+                      style={styles.link}
+                      to={{ screen: "Mon compte" }}
+                    >
+                      <FontAwesomeIcon 
+                      icon={faUser}
+                      color='#D6D5A8'
+                      size={25}/>
+                    </Link>
+                    </Text>
+                  </Pressable>
+                ),
+              }}/>    
 
             </Stack.Navigator>
             

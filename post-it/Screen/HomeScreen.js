@@ -1,9 +1,14 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Link } from '@react-navigation/native'
 
 import { UsernameContext } from '../Context/Context'
 
+/**
+ * Ecran permettant d'afficher un accueil, base de la navigation de l'app.
+ * @returns Des informations basiques et la possiblité de naviguer dans l'app.
+ * @todo    Une jolie interface de bienvenue !
+ */
 export default function HomeScreen () {
   return (
     <UsernameContext.Consumer>
@@ -23,6 +28,18 @@ export default function HomeScreen () {
                 deconnecter
               </Link>
             </Text>
+            <Pressable
+                    style={styles.pressable}
+                  >
+                    <Text style={styles.text}>
+                    <Link 
+                      style={styles.text}
+                      to={{ screen: "Projets" }}
+                    >
+                      Projets
+                    </Link>
+                    </Text>
+                  </Pressable>
           </View>
         )
       }}
@@ -43,5 +60,15 @@ const styles = StyleSheet.create({
   link : {
     color: '#816797',
     textDecorationLine: 'underline'
+  },
+  pressable: {
+    backgroundColor: '#51557E',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 15,
+    height: 40,
+    width: 300,
+    borderRadius:10
   }
 })

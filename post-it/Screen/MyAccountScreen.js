@@ -4,7 +4,12 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { TokenContext } from '../Context/Context'
 import { UsernameContext } from '../Context/Context'
 
-
+/**
+ * Ecran d'affichage des paramètres utilisateurs.
+ * @param {*} navigation Si il ya des données de Navigation 
+ * @returns La possiblité de se déconnecter de l'api.
+ * @todo Suppression de l'user, modification de mot de passe, modification de rôle...
+ */
 export default function MyAccount ({ navigation }) {
   return (
     

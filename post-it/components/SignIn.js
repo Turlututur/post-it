@@ -17,6 +17,11 @@ import { TokenContext } from '../Context/Context'
 import { UsernameContext } from '../Context/Context'
 import { UserRoleContext } from '../Context/Context'
 
+
+/**
+ * Composant de connexion de l'application
+ * @returns Un formulaire qui sera affiché dans l'écran de connexion de l'app !
+ */
 export default function SignIn () {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -25,6 +30,13 @@ export default function SignIn () {
   const [error, setError] = useState('')
   const [visible, setVisible] = useState(true)
 
+  /**
+   * Fonction permettant de se connecter et d'initier les variables globales :
+   * @param {String} setToken    Le token de l'app.
+   * @param {String} setUsername Le nom de l'utilisateur qui se connecte.
+   * @param {String} setUserRole Le role de l'utilisateur qui se connecte.
+   * @returns Un message d'erreur si il a lieu d'être.
+   */
   const getSignedIn = (setToken, setUsername, setUserRole) => {
     setError('')
     if (login == '' || password == '' || role == '') return

@@ -17,6 +17,11 @@ import { TokenContext } from '../Context/Context'
 import { UsernameContext } from '../Context/Context'
 import { UserRoleContext } from '../Context/Context'
 
+
+/**
+ * Composant permettant de s'inscrire sur l'api de l'app.
+ * @returns Un formulaire d'inscription.
+ */
 export default function SignUp () {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -26,6 +31,14 @@ export default function SignUp () {
   const [error, setError] = useState('')
   const [visible, setVisible] = useState(true)
 
+
+  /**
+   * Fonction permettant de s'inscrire et d'initier les variables globales :
+   * @param {String} setToken    Le token de l'app.
+   * @param {String} setUsername Le nom de l'utilisateur qui s'inscrit.
+   * @param {String} setUserRole Le role de l'utilisateur qui s'inscrit.
+   * @returns Un message d'erreur si il a lieu d'être.
+   */
   const getSignedUp = (setToken, setUsername, setUserRole) => {
     setError('')
     if (login == '' || role == '' || password == '' || copyPassword == '') return

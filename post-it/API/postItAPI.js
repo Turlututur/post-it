@@ -1,84 +1,27 @@
 const API_URL = 'http://192.168.0.31:4000' //à adapter !!!
 
+// Mutation de connexion
 const SIGN_IN =
   'mutation($username:String!, $password:String!, $role:String!){signIn(username:$username, password:$password, role:$role)}'
 
+// Mutation d'inscription
 const SIGN_UP =
   'mutation($username:String!, $password:String!, $role:String!){signUp(username:$username, password:$password, role:$role)}'
 
+// Query permettant de récuperer le role et l'id d'un utilisateur grâce à son nom
 const GET_USER_DATA = 
   'query users($username:String!) {users(where: {username: $username}) {id, role}}'
 
-// const CREATE_TASK_LISTS =
-//   'mutation($id:ID, $title:String!){createTaskLists(input:{title:$title, owner:{connect:{where:{id:$id}}}}) {taskLists{id, title, owner{id, username}}}}'
 
-// const DELETE_TASK_LISTS  =
-//   `mutation($taskListID:ID, $title:String!, $userID:ID){
-//     deleteTaskLists(
-//       where:{
-//         id:$taskListID,
-//         AND:{title:$title}
-//         owner:{
-//           id:$userID
-//         }
-//       }
-//     ) {nodesDeleted}
-//   }`
-
-//   const CREATE_TASK = 
-//   `mutation($content:String!, $TaskListID:ID, $userID:ID){
-//     createTasks(
-//       input:{
-//         content:$content, 
-//         done:false, 
-//         belongsTo:{
-//           connect:{
-//             where:{
-//               id:$TaskListID,
-//               owner:{
-//                 id:$userID
-//               }
-//             }
-//           }
-//         }
-//       }
-//     ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
-//   }`
-
-// const GET_TASKS = 
-//   `query($taskListID:ID) {
-//     tasks(
-//       where:{
-//         belongsTo:{
-//           id:$taskListID
-//         }
-//       }
-//     ) {id, content, done}
-//   }`
-
-// const DELETE_TASKS =
-//   `mutation($id:ID) {
-//     deleteTasks(
-//       where:{
-//         id:$id
-//       }
-//     ){nodesDeleted}
-//   }`
-
-// const GET_TASKLIST = 
-//   'query taskLists($username: String!) {taskLists(where: { owner: { username: $username } }) {id title}}'
-
-
-// const UPDATE_DONE = 
-// `mutation($taskID:ID, $done:Boolean){
-//   updateTasks(
-//     where:{
-//       id:$taskID
-//     }
-//     update:{done:$done}
-//   ) {tasks{id, content, done, belongsTo{id, title, owner{id, username, roles}}}}
-// }`
-
+/**
+ * Fonction de connexion. 
+ * Permet de se connecter à l'api grâce au nom d'utilisateur, 
+ * mot de passe et role.
+ * @param {String} username Le nom de l'utilisateur
+ * @param {String} password Le mot de passe de l'utilisateur
+ * @param {String} role     Le rôle de l'usilisateur
+ * @returns La reponse de l'api (erreur par exemple).
+ */
 export function signIn (username, password, role) {
   return fetch(API_URL, {
     method: 'POST',
@@ -108,6 +51,15 @@ export function signIn (username, password, role) {
     })
 }
 
+/**
+ * Fonction d'inscription.
+ * Permet de s'inscrire auprès de l'api grâce au nom d'utilisateur, 
+ * mot de passe et role.
+ * @param {String} username Le nom de l'utilisateur
+ * @param {String} password Le mot de passe de l'utilisateur
+ * @param {String} role     Le rôle de l'usilisateur
+ * @returns La reponse de l'api (erreur par exemple).
+ */
 export function signUp (username, password, role) {
   return fetch(API_URL, {
     method: 'POST',
@@ -137,63 +89,12 @@ export function signUp (username, password, role) {
     })
 }
 
-// export function createTaskLists(id, title, token) {
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization' : 'Bearer ' + token
-//     },
-//     body: JSON.stringify({
-//       query: CREATE_TASK_LISTS,
-//       variables: {
-//         id: id,
-//         title: title
-//       }
-//     })
-//   })
-//     .then(response => {
-//       return response.json()
-//     })
-//     .then(jsonResponse => {
-//       if (jsonResponse.errors != null) {
-//         throw jsonResponse.errors[0]
-//       }
-//       return jsonResponse.data.createTaskLists
-//     })
-//     .catch(error => {
-//       throw error
-//     })
-// }
-
-// export function getTaskList (username, token){
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer "+token
-//     },
-//     body: JSON.stringify({
-//       query: GET_TASKLIST,
-//       variables: {
-//         username: username
-//       }
-//     })
-//   })
-//   .then(response => {
-//     return response.json()
-//   })
-//   .then(jsonResponse => {
-//     if (jsonResponse.errors != null) {
-//       throw jsonResponse.errors[0]
-//     }
-//     return jsonResponse.data.taskLists
-//   })
-//   .catch(error => {
-//     throw error
-//   })
-// }
-
+/**
+ * Fonction permettant de récuperer des informations sur un utilisateur.
+ * @param {String} username Le nom d'utilisateur.
+ * @param {String} token    Le token permettant de valider la requête auprès de l'api.
+ * @returns Les données liées à l'utilisateur ou bien l'erreur d'execution (si elle a lieu).
+ */
 export function getUserData (username, token){
   return fetch(API_URL, {
     method: 'POST',
@@ -221,148 +122,3 @@ export function getUserData (username, token){
     throw error
   })
 }
-
-// export function deleteTaskLists (taskID, title, userID, token){
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer "+token
-//     },
-//     body: JSON.stringify({
-//       query: DELETE_TASK_LISTS,
-//       variables: {
-//         taskID: taskID,
-//         title: title,
-//         userID: userID
-//       }
-//     })
-//   })
-//   .then(response => {
-//     return response.json()
-//   })
-//   .then(jsonResponse => {
-//     if (jsonResponse.errors != null) {
-//       throw jsonResponse.errors[0]
-//     }
-//     return jsonResponse.data.deleteTaskLists
-//   })
-//   .catch(error => {
-//     throw error
-//   })
-// }
-
-// export function createTask(taskId, content, userID, token) {
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer "+token
-//     },
-//     body: JSON.stringify({
-//       query: CREATE_TASK,
-//       variables: {
-//         taskID: taskId,
-//         content: content,
-//         userID: userID
-//       }
-//     })
-//   })
-//     .then(response => {
-//       return response.json()
-//     })
-//     .then(jsonResponse => {
-//       if (jsonResponse.errors != null) {
-//         throw jsonResponse.errors[0]
-//       }
-//       return jsonResponse.data.createTask
-//     })
-//     .catch(error => {
-//       throw error
-//     })
-// }
-
-// export function getTasks (taskListID, token){
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer "+token
-//     },
-//     body: JSON.stringify({
-//       query: GET_TASKS,
-//       variables: {
-//         taskListID: taskListID
-//       }
-//     })
-//   })
-//   .then(response => {
-//     return response.json()
-//   })
-//   .then(jsonResponse => {
-//     if (jsonResponse.errors != null) {
-//       throw jsonResponse.errors[0]
-//     }
-//     return jsonResponse.data.tasks
-//   })
-//   .catch(error => {
-//     throw error
-//   })
-// }
-
-// export function deleteTasks (id, token){
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer "+token
-//     },
-//     body: JSON.stringify({
-//       query: DELETE_TASKS,
-//       variables: {
-//         id: id
-//       }
-//     })
-//   })
-//   .then(response => {
-//     return response.json()
-//   })
-//   .then(jsonResponse => {
-//     if (jsonResponse.errors != null) {
-//       throw jsonResponse.errors[0]
-//     }
-//     return jsonResponse.data.nodesDeleted
-//   })
-//   .catch(error => {
-//     throw error
-//   })
-// }
-
-// export function updateDone (taskID, done, token){
-//   return fetch(API_URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': "Bearer "+token
-//     },
-//     body: JSON.stringify({
-//       query: UPDATE_DONE,
-//       variables: {
-//         taskID: taskID,
-//         done: !done
-//       }
-//     })
-//   })
-//   .then(response => {
-//     return response.json()
-//   })
-//   .then(jsonResponse => {
-//     if (jsonResponse.errors != null) {
-//       throw jsonResponse.errors[0]
-//     }
-//     return jsonResponse.data.tasks
-//   })
-//   .catch(error => {
-//     throw error
-//   })
-// }

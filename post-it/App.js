@@ -3,6 +3,10 @@ import Navigation from './Navigation/Navigation'
 
 import { TokenContext, UsernameContext, UserRoleContext } from './Context/Context'
 
+/**
+ * La base de l'application
+ * @returns Le lancement des composants et écrans...
+ */
 export default function App () {
   const [token, setToken] = useState(null)
   const [username, setUsername] = useState(null)

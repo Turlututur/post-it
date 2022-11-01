@@ -4,6 +4,10 @@ import { Link } from '@react-navigation/native'
 
 import SignIn from '../components/SignIn'
 
+/**
+ * Ecran de connexion de l'aplication.
+ * @returns Une formulaire pour se connecter.
+ */
 export default function SignInScreen () {
   return (
     <View
