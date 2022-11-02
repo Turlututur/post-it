@@ -2,13 +2,13 @@ import { View, Text, StyleSheet, Pressable} from 'react-native'
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
 import { UserRoleContext } from '../Context/Context';
-import ProjectList from  '../components/ProjectList'
+import NewProjectForm from '../components/NewProjectForm'
 
 /**
- * Ecran permettant d'afficher la liste de projets 
+ * Ecran permettant d'afficher un formulaire de création de projet 
  * @returns L'affichage de la liste des projets et d'un bouton de création en fonction du rôle
  */
-export default function Projects(){
+export default function NewProject(){
 
     return (
         <View style={styles.container}>
@@ -18,13 +18,22 @@ export default function Projects(){
           {([token, setToken]) => (
             <UsernameContext.Consumer>
               {([username, setUsername]) => {
-                  return (
-                    <>
-                    <Text style={styles.text}>Votre Rôle : {userRole}</Text>
-                    {/* Le composant importé : */}
-                    <ProjectList username={username} token={token} userRole={userRole}></ProjectList> 
-                    </>
-                  )
+
+                if(userRole == "manager") {
+                    return (
+                        <>
+                        <Text style={styles.text}>Créer un nouveau projet</Text>
+                        <NewProjectForm username={username} token={token}/>                    
+                        </>
+                      )
+                } else {
+                    return (
+                        <>
+                        <Text style={styles.text}>Vous n'êtes pas autorisé à créer de projet. Cette page ne devrait même pas vous être accessible ?</Text>                    
+                        </>
+                      )
+                }
+                  
               }}
             </UsernameContext.Consumer>
           )}

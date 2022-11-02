@@ -14,11 +14,11 @@ const GET_USER_DATA =
 
 // Mutation de création de projet
 const CREATE_PROJECT =
-`mutation($title:String!, userId:ID, $username:String!) {
+`mutation($title:String!, $userId:ID, $username:String!, $writter:String) {
   createProjects(
     input:{
       title:$title, 
-      asignedWritter: $username
+      asignedWritter:[$username, $writter]
       owner:{
         connect:{
           where:{
@@ -38,6 +38,16 @@ const GET_PROJECTS =
       asignedWritter_INCLUDES:$username
     }
   ){title, id, asignedWritter}}`
+
+const DELETE_PROJECT = 
+`mutation($projectId:ID, $title:String){
+  deleteProjects(
+    where:{
+      id:$projectId,
+      AND:{title:$title}
+    }
+  ) {nodesDeleted}
+}`
 
 
 /**
@@ -157,7 +167,7 @@ export function getUserData (username, token){
  * @param {String} token  Le token d'autorisation.
  * @returns Une erreur si elle a lieu.
  */
-export function createProjects (title, userId, username, token){
+export function createProjects (title, userId, username, writter, token){
   return fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -169,7 +179,8 @@ export function createProjects (title, userId, username, token){
       variables: {
         title: title,
         userId: userId,
-        username: username
+        username: username,
+        writter: writter
       }
     })
   })
@@ -215,6 +226,43 @@ export function getProjects (username, token){
       throw jsonResponse.errors[0]
     }
     return jsonResponse.data.projects
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+
+/**
+ * Fonction de suppresion de projet en fonction de son identifiant ET de son titre.
+ * @param {ID} projectId L'ID du projet.
+ * @param {String} title Le titre du projet.
+ * @param {String} token Le token d'autorisation de l'application.
+ * @returns Une erreur si elle a lieu.
+ */
+export function deleteProject (projectId, title, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: DELETE_PROJECT,
+      variables: {
+        projectId: projectId,
+        title: title
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.deleteProject
   })
   .catch(error => {
     throw error

@@ -5,8 +5,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, Pressable, StyleSheet } from 'react-native';
-import { Icon } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
 import { Link } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
@@ -17,6 +16,7 @@ import SignInScreen from '../Screen/SignInScreen'
 import SignUpScreen from '../Screen/SignUpScreen'
 import MyAccount from '../Screen/MyAccountScreen'
 import Projects from '../Screen/ProjectsScreen';
+import NewProject from '../Screen/NewProjectScreen';
 import { TokenContext } from '../Context/Context'
 
 
@@ -70,7 +70,23 @@ export default function Navigation () {
                       size={25}/>
                     </Link>
                 ),
-              }}/>    
+              }}/>  
+
+              <Stack.Screen name="Nouveau Projet" component={NewProject} 
+              options={{
+                headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8',
+                headerRight: () => (
+                    <Link 
+                      style={[styles.link, {paddingRight: 20}]}
+                      to={{ screen: "Mon compte" }}
+                    >
+                      <FontAwesomeIcon 
+                      icon={faUser}
+                      color='#D6D5A8'
+                      size={25}/>
+                    </Link>
+                ),
+              }}/>  
 
             </Stack.Navigator>
             

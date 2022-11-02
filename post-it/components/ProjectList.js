@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, TouchableOpacity, StyleSheet, TextInput, Image, FlatList} from 'react-native'
-import { getProjects, getUserData } from '../API/postItAPI';
+import { View, Text, TouchableOpacity, StyleSheet, Image, FlatList} from 'react-native'
+import { getProjects, deleteProject, getUserData } from '../API/postItAPI';
 import { useNavigation } from '@react-navigation/native';
 
 /**
@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
  * @returns Une flatlist de projets.
  * @todo Suppression de Projets en fonction du rôle (manager a le droit, writter n'a pas le droit)
  */
-export default function ProjectList({username, token}) {
+export default function ProjectList({username, token, userRole}) {
     const [projects, setProjects] = useState([]);
     const [userId, setUserId] = useState();
     const navigation = useNavigation(); //utile pour plus tard...
@@ -50,34 +50,102 @@ export default function ProjectList({username, token}) {
       getId(username, token)
     }, [username, token])
   
-  
-    return (
-      <View>
-      <Text style={styles.text}>ID de l'user : {userId}</Text>
-      {console.log(projects)}
-      <Text style={styles.text}>Liste des Projets :</Text>
-      <FlatList
-        style={{ textAlign:'left', paddingLeft: 10, paddingTop:20 }}
-        data={projects}
-        renderItem={({item}) => 
-        <View style={{flexDirection: 'row'}}>
-        <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title}</Text>
-          <TouchableOpacity 
-          onPress={ async (e) => {
-            // e.preventDefault();
-            // console.log('suppression de ' + item.title +" "+ item.id);
-            // await deleteTaskLists(item.id, item.title ,userId, token);
-            // callback(username, token);
-            console.log('todo : delete')
-          }}
-          >
-            <Image source={require('../assets/trash-can-outline-white.png')} style={{ height: 24, width: 24 }} />
+    const clickHandler = () => {
+      //function to handle click on floating Action Button
+      alert('Todo : page de création de projet !');
+    };
+    
+    if(userRole == "manager") {
+
+      return (
+        <>
+        <View>
+        <Text style={styles.text}>ID de l'user : {userId}</Text>
+        {console.log(projects)}
+        <Text style={styles.text}>Liste des Projets :</Text>
+        <FlatList
+          style={{ textAlign:'left', paddingLeft: 10, paddingTop:20 }}
+          data={projects}
+          renderItem={({item}) => 
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={() => {
+            //navigation.navigate('../Component/TaskList', {id: item.id})
+            // navigation.navigate("Ma Todolist", {
+            //   id: item.id,
+            //   title: item.title
+            // });
+            // https://reactnavigation.org/docs/params/ !!!
+            console.log('todo : navigation')
+          }}>
+            <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title}</Text>
           </TouchableOpacity>
+            <TouchableOpacity 
+            onPress={ async (e) => {
+              e.preventDefault();
+              console.log('suppression de ' + item.title +" "+ item.id);
+              await deleteProject(item.id, item.title, token);
+              callback(username, token);
+            }}
+            >
+              <Image source={require('../assets/trash-can-outline-white.png')} style={{ height: 24, width: 24 }} />
+            </TouchableOpacity>
+          </View>
+           } 
+        />
         </View>
-         } 
-      />
-      </View>
-    )
+        
+        <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => {navigation.navigate("Nouveau Projet")}}
+        style={styles.touchableOpacityStyle}>
+        <Image
+          // FAB using TouchableOpacity with an image
+          // For online image
+          source={require('../assets/plus_icon_repaint.png')}
+          // For local image
+          //source={require('./images/float-add-icon.png')}
+          style={styles.floatingButtonStyle}
+        />
+      </TouchableOpacity>
+      </>
+      )
+    }
+
+    if(userRole == "writter") {
+      return (
+      <View>
+        <Text style={styles.text}>ID de l'user : {userId}</Text>
+        {console.log(projects)}
+        <Text style={styles.text}>Liste des Projets :</Text>
+        <FlatList
+          style={{ textAlign:'center', paddingLeft: 10, paddingTop:20 }}
+          data={projects}
+          renderItem={({item}) => 
+          <View>
+            <TouchableOpacity onPress={() => {
+            //navigation.navigate('../Component/TaskList', {id: item.id})
+            // navigation.navigate("Ma Todolist", {
+            //   id: item.id,
+            //   title: item.title
+            // });
+            // https://reactnavigation.org/docs/params/ !!!
+            console.log('todo : navigation')
+          }}>
+          <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title}</Text>
+          </TouchableOpacity>
+          </View>
+           } 
+        />
+        </View>  
+      )    
+    } else {
+      // En théorie ça ne dervait jamais s'afficher 
+      return (
+        <><Text style={styles.text}>Vous n'avez pas de rôle ???</Text></>
+      )
+    }
+  
+    
   }
 
 
@@ -87,7 +155,7 @@ export default function ProjectList({username, token}) {
       backgroundColor: '#1B2430',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: 200
+      paddingTop: 150
     },
     text : {
       color: '#D6D5A8'
@@ -119,5 +187,20 @@ export default function ProjectList({username, token}) {
     text_item: {
       marginLeft: 10,
       width: 150
+  },
+  touchableOpacityStyle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 30,
+  },
+  floatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50,
+    //backgroundColor:'black'
   }
   })
