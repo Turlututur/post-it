@@ -2,14 +2,14 @@ import { View, Text, StyleSheet, Pressable} from 'react-native'
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
 import { UserRoleContext } from '../Context/Context';
-import ProjectList from  '../components/ProjectList'
+import PostsList from '../components/PostsList';
 
 /**
- * Ecran permettant d'afficher la liste de projets 
- * @returns L'affichage de la liste des projets et d'un bouton de création en fonction du rôle
+ * Ecran permettant d'afficher la liste de posts 
+ * @returns L'affichage de la liste des posts en fonction de leur titre et état.
  */
-export default function Projects(){
-
+export default function Posts({route, navigation}){
+    const { id, title } = route.params;
     return (
         <View style={styles.container}>
           <UserRoleContext.Consumer>
@@ -21,8 +21,8 @@ export default function Projects(){
                   return (
                     <>
                     <Text style={styles.text}>Votre Rôle : {userRole}</Text>
-                    {/* Le composant importé : */}
-                    <ProjectList username={username} token={token} userRole={userRole}></ProjectList> 
+                    <Text style={styles.text}>Projet : {id} ; {title}</Text>
+                    <PostsList username={username} token={token} userRole={userRole} id={id} />
                     </>
                   )
               }}
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1B2430',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 100
   },
   text : {
     color: '#D6D5A8'

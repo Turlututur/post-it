@@ -39,6 +39,7 @@ const GET_PROJECTS =
     }
   ){title, id, asignedWritter}}`
 
+  // Mutation de suppression de Projet
 const DELETE_PROJECT = 
 `mutation($projectId:ID, $title:String){
   deleteProjects(
@@ -49,6 +50,48 @@ const DELETE_PROJECT =
   ) {nodesDeleted}
 }`
 
+// Mutation de création de post 
+const CREATE_POST = 
+`mutation($title:String!, $content:String!, $desc:String, $projectId:ID) {
+  createPosts(
+    input:{
+      title:$title,
+      content:$content,
+      desc:$desc,
+      comment:"",
+      state:"En attente",
+      belongsTo:{
+        connect:{
+          where:{
+            id:$projectId
+            }
+          }
+        }
+      }
+  ) {posts{id,title,content,desc,comment,state,belongsTo{id, owner{id}}}}
+}`
+
+// Query de récuperation de posts
+const GET_POSTS =
+`query($projectId:ID) {
+  posts(
+    where:{
+      belongsTo:{
+        id:$projectId
+      }
+    }
+  ) {id, title, content, desc, comment, state}
+}`
+
+// Mutation de suppression de post
+const DELETE_POST = 
+`mutation($postId:ID) {
+  deletePosts(
+    where:{
+      id:$postId
+    }
+  ){nodesDeleted}
+}`
 
 /**
  * Fonction de connexion. 
@@ -263,6 +306,116 @@ export function deleteProject (projectId, title, token){
       throw jsonResponse.errors[0]
     }
     return jsonResponse.data.deleteProject
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+/**
+ * Fonction de création de post destinée aux community manager.
+ * @param {String!} title   Le titre du post (ne peut être vide).
+ * @param {String!} content Le contenu du post (ne peut être vide).
+ * @param {String} desc     La description destinée au supérieur hiérarchique 
+ *                          (peut être vide pour l'instant, mais il n'est pas exclu que cela change...).
+ * @param {ID} projectId    L'id du projet qui contient le post.
+ * @param {String} token    Le token d'autorisation de l'application.
+ * @returns Retourne une erreur sie lle a lieu ou le resultat de la mutation effectuée.
+ */
+export function createPost (title, content, desc, projectId, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: CREATE_POST,
+      variables: {
+        title: title,
+        content: content,
+        desc: desc,
+        projectId: projectId,
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.createPost
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+/**
+ * Fonction de récuperation de posts.
+ * @param {ID} projectId L'id du projet qui contient le post.
+ * @param {String} token Le token d'autorisation de l'app.
+ * @returns Les posts et leur titre, contenu, description, commentaire et état.
+ */
+export function getPosts (projectId, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: GET_POSTS,
+      variables: {
+        projectId: projectId
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.posts
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+
+/**
+ * Fonction de suppression de post.
+ * @param {ID} postId     L'id du post à supprimer.
+ * @param {String} token  Le token d'autorisation de l'application.
+ * @returns Le nombre de noeuds supprimés ou un erreur si elle a lieu.
+ */
+export function deletePost (postId, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: DELETE_POST,
+      variables: {
+        postId: postId
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.nodesDeleted
   })
   .catch(error => {
     throw error
