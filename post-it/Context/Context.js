@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Les variables globales de l'application :

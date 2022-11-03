@@ -1,18 +1,17 @@
-import React from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import React from "react";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 
-import { TokenContext } from '../Context/Context'
-import { UsernameContext } from '../Context/Context'
+import { TokenContext } from "../Context/Context";
+import { UsernameContext } from "../Context/Context";
 
 /**
  * Ecran d'affichage des paramètres utilisateurs.
- * @param {*} navigation Si il ya des données de Navigation 
+ * @param {*} navigation Si il ya des données de Navigation
  * @returns La possiblité de se déconnecter de l'api.
  * @todo Suppression de l'user, modification de mot de passe, modification de rôle...
  */
-export default function MyAccount ({ navigation }) {
+export default function MyAccount({ navigation }) {
   return (
-    
     <TokenContext.Consumer>
       {([token, setToken]) => (
         <UsernameContext.Consumer>
@@ -20,50 +19,49 @@ export default function MyAccount ({ navigation }) {
             return (
               <View style={styles.container}>
                 <Text style={styles.text}>Votre compte {username}</Text>
-                <Pressable 
+                <Pressable
                   style={styles.pressable}
-                  onPress={() => setToken(null)} >
+                  onPress={() => setToken(null)}
+                >
                   <Text style={styles.text}>Me deconnecter</Text>
                 </Pressable>
               </View>
-            )
+            );
           }}
         </UsernameContext.Consumer>
       )}
     </TokenContext.Consumer>
-
-    
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1B2430',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: "#1B2430",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  text : {
-    color: '#D6D5A8'
+  text: {
+    color: "#D6D5A8",
   },
   text_input: {
     borderWidth: 1,
-    backgroundColor: '#D6D5A8',
-    color: '#1B2430',
+    backgroundColor: "#D6D5A8",
+    color: "#1B2430",
     margin: 15,
     height: 40,
     width: 300,
     borderRadius: 10,
-    paddingLeft:10
+    paddingLeft: 10,
   },
   pressable: {
-    backgroundColor: '#51557E',
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#51557E",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
     margin: 15,
     height: 40,
     width: 300,
-    borderRadius:10
-  }
-})
+    borderRadius: 10,
+  },
+});

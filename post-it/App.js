@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
-import Navigation from './Navigation/Navigation'
+import React, { useState } from "react";
+import Navigation from "./Navigation/Navigation";
 
-import { TokenContext, UsernameContext, UserRoleContext } from './Context/Context'
+import {
+  TokenContext,
+  UsernameContext,
+  UserRoleContext,
+} from "./Context/Context";
 
 /**
  * La base de l'application
  * @returns Le lancement des composants et écrans...
  */
-export default function App () {
-  const [token, setToken] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [userRole, setUserRole] = useState(null)
+export default function App() {
+  const [token, setToken] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
-  console.log('token', token)
-  console.log('role', userRole)
+  console.log("token", token);
+  console.log("role", userRole);
   return (
     <UsernameContext.Provider value={[username, setUsername]}>
       <TokenContext.Provider value={[token, setToken]}>
@@ -22,7 +26,7 @@ export default function App () {
         </UserRoleContext.Provider>
       </TokenContext.Provider>
     </UsernameContext.Provider>
-  )
+  );
 }
 
 //styles : colorPalette : https://colorhunt.co/palette/1b243051557e816797d6d5a8
