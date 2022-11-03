@@ -19,6 +19,7 @@ import Projects from '../Screen/ProjectsScreen';
 import NewProject from '../Screen/NewProjectScreen';
 import Posts from '../Screen/PostsScreen';
 import NewPost from '../Screen/NewPostScreen';
+import PostDetailsScreen from '../Screen/PostDetailsScreen';
 import { TokenContext } from '../Context/Context'
 
 
@@ -121,6 +122,22 @@ export default function Navigation () {
                     </Link>
                 ),
               }}/> 
+
+              <Stack.Screen name="Détails du post" component={PostDetailsScreen} 
+              options={{
+                headerStyle: {backgroundColor: '#1B2430'}, headerTintColor: '#D6D5A8',
+                headerRight: () => (
+                    <Link 
+                      style={[styles.link, {paddingRight: 20}]}
+                      to={{ screen: "Mon compte" }}
+                    >
+                      <FontAwesomeIcon 
+                      icon={faUser}
+                      color='#D6D5A8'
+                      size={25}/>
+                    </Link>
+                ),
+              }}/>
 
             </Stack.Navigator>
             

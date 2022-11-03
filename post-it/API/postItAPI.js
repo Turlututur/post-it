@@ -83,6 +83,12 @@ const GET_POSTS =
   ) {id, title, content, desc, comment, state}
 }`
 
+// Query pour récuperer un post en particulier en fonction de son ID
+const GET_POST_BY_ID = 
+`query($id:ID) {
+  posts(where:{id:$id}) {id, title, content, desc, comment, state}
+}`
+
 // Mutation de suppression de post
 const DELETE_POST = 
 `mutation($postId:ID) {
@@ -370,6 +376,40 @@ export function getPosts (projectId, token){
       query: GET_POSTS,
       variables: {
         projectId: projectId
+      }
+    })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(jsonResponse => {
+    if (jsonResponse.errors != null) {
+      throw jsonResponse.errors[0]
+    }
+    return jsonResponse.data.posts
+  })
+  .catch(error => {
+    throw error
+  })
+}
+
+/**
+ * Fonction de récupération de post en fonction de son ID
+ * @param {ID} id 
+ * @param {String} token 
+ * @returns Le post et ses paramètres.
+ */
+export function getPostById (id, token){
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+token
+    },
+    body: JSON.stringify({
+      query: GET_POST_BY_ID,
+      variables: {
+        id: id
       }
     })
   })

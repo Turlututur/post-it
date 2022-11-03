@@ -48,11 +48,9 @@ export default function PostsList({username, token, userRole, id}) {
           renderItem={({item}) => 
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => {
-              // On navigue vers la liste de posts en passant l'id et le titre du projet en paramètres
-            //   navigation.navigate("Posts", {
-            //   id: item.id,
-            //   title: item.title
-            // });
+              navigation.navigate("Détails du post", {
+              post: item,
+            });
           }}>
             <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title} ; Etat : {item.state}</Text>
           </TouchableOpacity>
@@ -86,11 +84,9 @@ export default function PostsList({username, token, userRole, id}) {
           renderItem={({item}) => 
           <View>
             <TouchableOpacity onPress={() => {
-              // On navigue vers la liste de posts en passant l'id et le titre du projet en paramètres
-            //   navigation.navigate("Posts", {
-            //     id: item.id,
-            //     title: item.title
-            //   });
+              navigation.navigate("Détails du post", {
+              post: item
+            });
           }}>
           <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title} ; {item.state}</Text>
           </TouchableOpacity>
@@ -102,7 +98,7 @@ export default function PostsList({username, token, userRole, id}) {
         activeOpacity={0.7}
         onPress={() => {
           navigation.navigate("Nouveau post", {
-            id: projectID
+            post: item
           })
         }}
         style={styles.touchableOpacityStyle}>
