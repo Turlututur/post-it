@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native';
  * @returns Une flatlist de posts.
  */
 export default function PostsList({username, token, userRole, id}) {
+    const projectID = id;
+    console.log(projectID)
     const [posts, setPosts] = useState([]);
     const navigation = useNavigation();     //utile pour plus tard
 
@@ -68,22 +70,13 @@ export default function PostsList({username, token, userRole, id}) {
            } 
         />
         </View>
-        
-        <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={() => {console.log('todo : create post page')}}
-        style={styles.touchableOpacityStyle}>
-        <Image
-          source={require('../assets/plus_icon_repaint.png')}
-          style={styles.floatingButtonStyle}
-        />
-      </TouchableOpacity>
       </>
       )
     }
 
     if(userRole == "writter") {
       return (
+      <>
       <View>
         {console.log(posts)}
         <Text style={styles.text}>Liste des Projets :</Text>
@@ -105,6 +98,20 @@ export default function PostsList({username, token, userRole, id}) {
            } 
         />
         </View>  
+        <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => {
+          navigation.navigate("Nouveau post", {
+            id: projectID
+          })
+        }}
+        style={styles.touchableOpacityStyle}>
+        <Image
+          source={require('../assets/plus_icon_repaint.png')}
+          style={styles.floatingButtonStyle}
+        />
+      </TouchableOpacity>
+      </>
       )    
     } else {
       // En théorie ça ne dervait jamais s'afficher 

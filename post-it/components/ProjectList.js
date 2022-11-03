@@ -71,8 +71,7 @@ export default function ProjectList({username, token, userRole}) {
             <TouchableOpacity onPress={() => {
               // On navigue vers la liste de posts en passant l'id et le titre du projet en paramètres
               navigation.navigate("Posts", {
-              id: item.id,
-              title: item.title
+              id: item.id
             });
           }}>
             <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title}</Text>
@@ -119,8 +118,7 @@ export default function ProjectList({username, token, userRole}) {
             <TouchableOpacity onPress={() => {
               // On navigue vers la liste de posts en passant l'id et le titre du projet en paramètres
               navigation.navigate("Posts", {
-                id: item.id,
-                title: item.title
+                id: item.id
               });
           }}>
           <Text style={[styles.text_item, {color: '#D6D5A8', textDecorationLine: 'underline'}]}>{item.title}</Text>

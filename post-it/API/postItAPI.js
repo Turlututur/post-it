@@ -1,4 +1,4 @@
-const API_URL = 'http://192.168.0.31:4000' //à adapter !!!
+const API_URL = 'http://192.168.0.28:4000' //à adapter !!!
 
 // Mutation de connexion
 const SIGN_IN =
@@ -52,13 +52,13 @@ const DELETE_PROJECT =
 
 // Mutation de création de post 
 const CREATE_POST = 
-`mutation($title:String!, $content:String!, $desc:String, $projectId:ID) {
+`mutation($title:String!, $content:String!, $desc:String!, $projectId:ID) {
   createPosts(
     input:{
       title:$title,
       content:$content,
       desc:$desc,
-      comment:"",
+      comment:"En attente de commentaire",
       state:"En attente",
       belongsTo:{
         connect:{
@@ -68,7 +68,7 @@ const CREATE_POST =
           }
         }
       }
-  ) {posts{id,title,content,desc,comment,state,belongsTo{id, owner{id}}}}
+  ) {posts{id,title,content,desc,comment,state,belongsTo{id}}}
 }`
 
 // Query de récuperation de posts

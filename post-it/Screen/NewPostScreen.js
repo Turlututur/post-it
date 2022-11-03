@@ -2,14 +2,16 @@ import { View, Text, StyleSheet, Pressable} from 'react-native'
 import { TokenContext } from '../Context/Context';
 import { UsernameContext } from '../Context/Context';
 import { UserRoleContext } from '../Context/Context';
-import PostsList from '../components/PostsList';
+import NewPostForm from '../components/NewPostForm';
 
 /**
- * Ecran permettant d'afficher la liste de posts 
- * @returns L'affichage de la liste des posts en fonction de leur titre et état.
+ * Ecran permettant d'afficher un formulaire de création de post 
+ * @returns L'affichage d'un formulaire
  */
-export default function Posts({route, navigation}){
-    const id = route.params.id;
+export default function NewPost({route, navigation}){
+    console.log(route)
+    const id = route.params.id
+    console.log("id", id)
     return (
         <View style={styles.container}>
           <UserRoleContext.Consumer>
@@ -18,13 +20,13 @@ export default function Posts({route, navigation}){
           {([token, setToken]) => (
             <UsernameContext.Consumer>
               {([username, setUsername]) => {
-                  return (
-                    <>
-                    <Text style={styles.text}>Votre Rôle : {userRole}</Text>
-                    <Text style={styles.text}>Projet : {id}</Text>
-                    <PostsList username={username} token={token} userRole={userRole} id={id} />
-                    </>
-                  )
+
+                    return (
+                        <>
+                        <Text style={styles.text}>Créer un nouveau projet {id}</Text>
+                        <NewPostForm username={username} token={token} id={id}/>                    
+                        </>
+                      ) 
               }}
             </UsernameContext.Consumer>
           )}
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1B2430',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 250
   },
   text : {
     color: '#D6D5A8'
