@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#1B2430",
-    alignItems: "left",
+    flexDirection: 'row',
     paddingTop: 70,
     paddingLeft: 70,
   },
