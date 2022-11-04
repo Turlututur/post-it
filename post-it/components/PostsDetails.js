@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
-  Image,
   FlatList,
+  TextInput,
+  Pressable,
 } from "react-native";
-import { getPostById } from "../API/postItAPI";
+import { getPostById, reviewPost, modifyPost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
+import SelectDropdown from "react-native-select-dropdown";
 
 /**
  * Composant d'affichage du contenu d'un post
@@ -16,12 +17,17 @@ import { useNavigation } from "@react-navigation/native";
  * @param {String} token    Le token d'autorisation de l'app.
  * @param {String} userRole Le rôle de l'utilisateur.
  * @param {String} id       L'id du post sur lequel on travaille.
- * @returns                 L'affichage du contenu du post et @todo un formulaire de modification
+ * @returns                 L'affichage du contenu du post et un formulaire de modification
  *                          en fonction du rôle de l'utilisateur.
  */
 export default function PostDetails({ username, token, userRole, id }) {
   const [post, setPost] = useState([]);
-  const navigation = useNavigation(); //utile pour plus tard
+  const [reviewComment, setReviewComment] = useState("");
+  const [state, setState] = useState("");
+  const states = ["Validé", "Rejeté"];
+  const [newContent, setNewContent] = useState("");
+  const [newDesc, setNewDesc] = useState("");
+  const navigation = useNavigation(); //utile pour plus tard (ou pas...)
 
   /**
    * Fonction permettant de récuperer un post grâce à getPostById, provenant de ../API/postitApi.js
@@ -41,45 +47,149 @@ export default function PostDetails({ username, token, userRole, id }) {
 
   if (userRole == "manager") {
     return (
-      <>
-        <FlatList
-          data={post}
-          renderItem={({ item }) => (
-            <View>
-              {console.log(item)}
-              <Text style={styles.text}>Titre: {item.title}</Text>
-              <Text style={styles.text}>Contenu: {item.content}</Text>
-              <Text style={styles.text}>Description: {item.desc}</Text>
-              <Text style={styles.text}>Etat de validation: {item.state}</Text>
-              <Text style={styles.text}>
-                Commentaire de manager: {item.comment}
-              </Text>
-            </View>
-          )}
-        />
-      </>
+      <View>
+        <View style={{ flexDirection: "row" }}>
+          <FlatList
+            data={post}
+            renderItem={({ item }) => (
+              <View>
+                <Text style={styles.text}>Titre: {item.title}</Text>
+                <Text style={styles.text}>Contenu: {item.content}</Text>
+                <Text style={styles.text}>Description: {item.desc}</Text>
+                <Text style={styles.text}>
+                  Etat de validation: {item.state}
+                </Text>
+                <Text style={styles.text}>
+                  Commentaire de manager: {item.comment}
+                </Text>
+              </View>
+            )}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.text}>Passer le post en revue :</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={styles.text_input}
+            onChangeText={(newValue) => setReviewComment(newValue)}
+            placeholder="Commentaire"
+            onSubmitEditing={async (e) => {
+              e.preventDefault();
+              await reviewPost(id, state, reviewComment, token);
+              callback(id, token);
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <SelectDropdown
+            dropdownStyle={{
+              backgroundColor: "#D6D5A8",
+              borderRadius: 10,
+              height: 90,
+              width: 300,
+            }}
+            buttonStyle={{
+              backgroundColor: "#D6D5A8",
+              color: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 15,
+              height: 40,
+              width: 300,
+              borderRadius: 10,
+            }}
+            buttonTextStyle={{ color: "#1B2430", fontSize: 15 }}
+            data={states}
+            onSelect={(selectedItem) => {
+              setState(selectedItem);
+            }}
+            defaultButtonText={"Etat à assigner"}
+            buttonTextAfterSelection={(selectedItem) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item) => {
+              return item;
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Pressable
+            style={styles.pressable}
+            onPress={async (e) => {
+              e.preventDefault();
+              await reviewPost(id, state, reviewComment, token);
+              callback(id, token);
+            }}
+          >
+            <Text>Passer en revue</Text>
+          </Pressable>
+        </View>
+      </View>
     );
   }
 
   if (userRole == "writter") {
     return (
-      <>
-        <FlatList
-          data={post}
-          renderItem={({ item }) => (
-            <View>
-              {console.log(item)}
-              <Text style={styles.text}>Titre: {item.title}</Text>
-              <Text style={styles.text}>Contenu: {item.content}</Text>
-              <Text style={styles.text}>Description: {item.desc}</Text>
-              <Text style={styles.text}>Etat de validation: {item.state}</Text>
-              <Text style={styles.text}>
-                Commentaire de manager: {item.comment}
-              </Text>
-            </View>
-          )}
-        />
-      </>
+      <View>
+        <View style={{ flexDirection: "row" }}>
+          <FlatList
+            data={post}
+            renderItem={({ item }) => (
+              <View>
+                <Text style={styles.text}>Titre: {item.title}</Text>
+                <Text style={styles.text}>Contenu: {item.content}</Text>
+                <Text style={styles.text}>Description: {item.desc}</Text>
+                <Text style={styles.text}>
+                  Etat de validation: {item.state}
+                </Text>
+                <Text style={styles.text}>
+                  Commentaire de manager: {item.comment}
+                </Text>
+              </View>
+            )}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.text}>Modifier le post :</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={styles.text_input}
+            onChangeText={(newValue) => setNewContent(newValue)}
+            placeholder="Contenu"
+            onSubmitEditing={async (e) => {
+              e.preventDefault();
+              await modifyPost(id, newContent, newDesc, token);
+              callback(id, token);
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={styles.text_input}
+            onChangeText={(newValue) => setNewDesc(newValue)}
+            placeholder="Description"
+            onSubmitEditing={async (e) => {
+              e.preventDefault();
+              await modifyPost(id, newContent, newDesc, token);
+              callback(id, token);
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Pressable
+            style={styles.pressable}
+            onPress={async (e) => {
+              e.preventDefault();
+              await modifyPost(id, newContent, newDesc, token);
+              callback(id, token);
+            }}
+          >
+            <Text>Mettre à jour le post</Text>
+          </Pressable>
+        </View>
+      </View>
     );
   } else {
     // En théorie ça ne dervait jamais s'afficher
@@ -117,7 +227,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   pressable: {
-    backgroundColor: "#51557E",
+    backgroundColor: "#D6D5A8",
     color: "white",
     alignItems: "center",
     justifyContent: "center",

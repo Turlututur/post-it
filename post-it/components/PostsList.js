@@ -20,7 +20,6 @@ import { useNavigation } from "@react-navigation/native";
  */
 export default function PostsList({ username, token, userRole, id }) {
   const projectID = id;
-  console.log(projectID);
   const [posts, setPosts] = useState([]);
   const navigation = useNavigation(); //utile pour plus tard
 
@@ -44,7 +43,6 @@ export default function PostsList({ username, token, userRole, id }) {
     return (
       <>
         <View>
-          {console.log(posts)}
           <Text style={styles.text}>Liste des Projets :</Text>
           <FlatList
             style={{ textAlign: "left", paddingLeft: 10, paddingTop: 20 }}
@@ -70,7 +68,6 @@ export default function PostsList({ username, token, userRole, id }) {
                 <TouchableOpacity
                   onPress={async (e) => {
                     e.preventDefault();
-                    console.log("suppression de " + item.title + " " + item.id);
                     await deletePost(item.id, token);
                     callback(id, token);
                   }}
@@ -92,7 +89,6 @@ export default function PostsList({ username, token, userRole, id }) {
     return (
       <>
         <View>
-          {console.log(posts)}
           <Text style={styles.text}>Liste des Projets :</Text>
           <FlatList
             style={{ textAlign: "center", paddingLeft: 10, paddingTop: 20 }}

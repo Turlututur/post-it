@@ -1,16 +1,31 @@
 const API_URL = "http://192.168.0.28:4000"; //à adapter !!!
 
 // Mutation de connexion
-const SIGN_IN =
-  "mutation($username:String!, $password:String!, $role:String!){signIn(username:$username, password:$password, role:$role)}";
+const SIGN_IN = `mutation($username:String!, $password:String!, $role:String!) {
+  signIn(
+    username:$username, 
+    password:$password, 
+    role:$role
+    )
+  }`;
 
 // Mutation d'inscription
-const SIGN_UP =
-  "mutation($username:String!, $password:String!, $role:String!){signUp(username:$username, password:$password, role:$role)}";
+const SIGN_UP = `mutation($username:String!, $password:String!, $role:String!) {
+  signUp(
+    username:$username, 
+    password:$password, 
+    role:$role
+    )
+  }`;
 
 // Query permettant de récuperer le role et l'id d'un utilisateur grâce à son nom
-const GET_USER_DATA =
-  "query users($username:String!) {users(where: {username: $username}) {id, role}}";
+const GET_USER_DATA = `query users($username:String!) {
+  users(
+    where: {
+      username: $username
+    }
+    ) {id, role}
+  }`;
 
 // Mutation de création de projet
 const CREATE_PROJECT = `mutation($title:String!, $userId:ID, $username:String!, $writter:String) {
@@ -90,6 +105,35 @@ const DELETE_POST = `mutation($postId:ID) {
       id:$postId
     }
   ){nodesDeleted}
+}`;
+
+// Mutation de modification de post, destinée à la revue par un manager.
+const REVIEW_POST = `mutation($postId:ID, $state:String!, $comment:String!) {
+  updatePosts(
+    where:{
+      id:$postId,
+    }
+    update:{
+      state:$state,
+      comment:$comment
+    }
+  ) {posts{id, title, content, desc, comment, state}}
+}`;
+
+// Mutation de modification de post, destinée à la modifcation de contenu et description pour un writter.
+// Note : on remet le state à "En attente" automatiquement, une modification necessite forcément revue.
+const MODIFY_POST = `mutation($postId:ID, $content:String!, $desc:String!) {
+  updatePosts(
+    where:{
+      id:$postId,
+    }
+    update:{
+      state:"En attente",
+      comment:"",
+      content:$content,
+      desc:$desc
+    }
+  ) {posts{id, title, content, desc, comment, state}}
 }`;
 
 /**
@@ -447,6 +491,84 @@ export function deletePost(postId, token) {
         throw jsonResponse.errors[0];
       }
       return jsonResponse.data.nodesDeleted;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
+/**
+ * Fonction de mise à jour de post destinées aux managers : la mise à jour se fait sur
+ * l'état du post (peut on le poster ?) ainsi que sur le commentaire de cet revue.
+ * @param {ID} postId       ID du post à modifier.
+ * @param {String} state    Etat à attribuer au post.
+ * @param {String} comment  Commentaire à ajouter pour expliquer la revue de post.
+ * @param {String} token    Token d'autorisation de l'app.
+ * @returns Une erreur si elle a lieu, les données modifiées sinon.
+ */
+export function reviewPost(postId, state, comment, token) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      query: REVIEW_POST,
+      variables: {
+        postId: postId,
+        state: state,
+        comment: comment,
+      },
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonResponse) => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0];
+      }
+      return jsonResponse.data.posts;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
+/**
+ * Fonction de modification du post dédiés à un writter.
+ * La fonction utilise une mutation qui va remetre la review à zéro si elle a déjà été réalisée !
+ * @param {ID} postId       L'ID du post à modifier.
+ * @param {String} content  Le contenu du post à modfiier.
+ * @param {String} desc     La description du post à modifier.
+ * @param {String} token    Le token d'autorisation de l'app.
+ * @returns Une erreur si elle a lieu, le post modifié sinon.
+ */
+export function modifyPost(postId, content, desc, token) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      query: MODIFY_POST,
+      variables: {
+        postId: postId,
+        content: content,
+        desc: desc,
+      },
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonResponse) => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0];
+      }
+      return jsonResponse.data.posts;
     })
     .catch((error) => {
       throw error;
