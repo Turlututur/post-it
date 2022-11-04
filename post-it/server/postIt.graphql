@@ -1,34 +1,36 @@
-type Post{
+type Post {
   id: ID! @id
   title: String!
   belongsTo: Project @relationship(type: "BELONGS_TO", direction: OUT)
   content: String
-  desc: String 
+  desc: String
   comment: String
   state: String
 }
 
-extend type Post @auth(
-  rules: [
-    { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # si cette abération est toujours présente c'est que je n'ai pas réussi à gérer les authorisations en fonction du rôle...
+extend type Post
+  @auth(
+    rules: [
+      { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # si cette abération est toujours présente c'est que je n'ai pas réussi à gérer les authorisations en fonction du rôle...
     ]
   )
-  
+
 type Project {
   id: ID @id
   title: String!
-#  contains: [Task] @relationship(type: "CONTAINS", direction: OUT)
+  #  contains: [Task] @relationship(type: "CONTAINS", direction: OUT)
   owner: User @relationship(type: "OWNED_BY", direction: OUT)
   asignedWritter: [String]
 }
 
-extend type Project @auth(
-  rules: [
-    { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # croyez moi, ça m'a fait mal d'écrire ça...
+extend type Project
+  @auth(
+    rules: [
+      { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # croyez moi, ça m'a fait mal d'écrire ça...
     ]
   )
 
-type User{
+type User {
   id: ID @id
   username: String!
   password: String! @private
@@ -36,7 +38,15 @@ type User{
   roles: [String!]
 }
 
-extend type User @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], OR: [{ roles: ["admin"] }, { allow: { id: "$jwt.sub" } }] }])
+extend type User
+  @auth(
+    rules: [
+      {
+        operations: [CREATE, READ, UPDATE, DELETE]
+        OR: [{ roles: ["admin"] }, { allow: { id: "$jwt.sub" } }]
+      }
+    ]
+  )
 
 type Mutation {
   signUp(username: String!, password: String!, role: String!): String! ### JWT
