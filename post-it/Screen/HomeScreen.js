@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { Link } from "@react-navigation/native";
 
 import { UsernameContext } from "../Context/Context";
@@ -15,7 +15,11 @@ export default function HomeScreen() {
       {([username, setUsername]) => {
         return (
           <View style={styles.container}>
-            <Text style={styles.text}>Bienvenue !</Text>
+            <Image
+              source={require("../assets/PostItCapt.png")}
+              style={{ width: 231 / 1.04, height: 140 / 1.04 }}
+            />
+            <Text style={[styles.text, { marginTop: 100 }]}>Bienvenue !</Text>
             <Text style={styles.text}>Inscrit sous le login {username}</Text>
             <Text style={styles.text}>
               Vous pouvez aussi vous{" "}
@@ -43,6 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1B2430",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: -400,
   },
   text: {
     color: "#D6D5A8",
