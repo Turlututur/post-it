@@ -1,6 +1,13 @@
 // npm install react-native-super-grid
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { getProjects, deleteProject } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import { FlatGrid } from "react-native-super-grid";
@@ -98,24 +105,23 @@ export default function ProjectList({ username, token, userRole }) {
             )}
           />
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
+
+        <Pressable
+          style={[styles.roundPressable, styles.refreshButton]}
           onPress={() => {
             callback(username, token);
           }}
-          style={styles.refreshTouchableOpacityStyle}
         >
           <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        </Pressable>
+        <Pressable
+          style={[styles.roundPressable, styles.plusButton]}
           onPress={() => {
             navigation.navigate("Nouveau Projet");
           }}
-          style={styles.plusTouchableOpacityStyle}
         >
           <FontAwesomeIcon icon={faPlus} color="#D6D5A8" size={35} />
-        </TouchableOpacity>
+        </Pressable>
       </>
     );
   }
@@ -179,15 +185,14 @@ export default function ProjectList({ username, token, userRole }) {
             )}
           /> */}
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        <Pressable
+          style={[styles.roundPressable, styles.refreshButton]}
           onPress={() => {
             callback(username, token);
           }}
-          style={styles.refreshTouchableOpacityStyle}
         >
           <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
-        </TouchableOpacity>
+        </Pressable>
       </>
     );
   } else {
@@ -235,22 +240,31 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 10,
   },
-  plusTouchableOpacityStyle: {
+  roundPressable: {
+    backgroundColor: "#1B2430",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 15,
+    height: 54,
+    width: 54,
+    borderRadius: 100,
+  },
+  plusButton: {
     position: "absolute",
     width: 50,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    right: 30,
+    right: 20,
     bottom: 30,
   },
-  refreshTouchableOpacityStyle: {
+  refreshButton: {
     position: "absolute",
     width: 50,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    right: 30,
+    right: 20,
     bottom: 90,
   },
   floatingButtonStyle: {
