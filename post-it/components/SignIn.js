@@ -67,6 +67,7 @@ export default function SignIn() {
                           {/* <Text style={styles.label}>Login</Text> */}
                           <TextInput
                             placeholder="Nom d'utilisateur"
+                            maxLength={16}
                             style={styles.text_input}
                             onChangeText={setLogin}
                             onSubmitEditing={() =>

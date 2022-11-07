@@ -73,6 +73,7 @@ export default function SignUp() {
                         <View style={{ flexDirection: "row" }}>
                           <TextInput
                             placeholder="Nom d'utilisateur"
+                            maxLength={16}
                             style={styles.text_input}
                             onChangeText={setLogin}
                             onSubmitEditing={() =>

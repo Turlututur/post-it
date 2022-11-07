@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { getPosts, deletePost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons/faArrowsRotate";
 
 /**
  * Composant permettant de récupérrer et d'afficher les posts d'un projet.
@@ -81,6 +84,15 @@ export default function PostsList({ username, token, userRole, id }) {
             )}
           />
         </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => {
+            callback(id, token);
+          }}
+          style={styles.refreshTouchableOpacityStyle}
+        >
+          <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
+        </TouchableOpacity>
       </>
     );
   }
@@ -118,16 +130,23 @@ export default function PostsList({ username, token, userRole, id }) {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
+            callback(id, token);
+          }}
+          style={styles.refreshTouchableOpacityStyle}
+        >
+          <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={(e) => {
+            e.preventDefault();
             navigation.navigate("Nouveau post", {
               post: projectID,
             });
           }}
-          style={styles.touchableOpacityStyle}
+          style={styles.plusTouchableOpacityStyle}
         >
-          <Image
-            source={require("../assets/plus_icon_repaint.png")}
-            style={styles.floatingButtonStyle}
-          />
+          <FontAwesomeIcon icon={faPlus} color="#D6D5A8" size={35} />
         </TouchableOpacity>
       </>
     );
@@ -180,7 +199,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 150,
   },
-  touchableOpacityStyle: {
+  plusTouchableOpacityStyle: {
     position: "absolute",
     width: 50,
     height: 50,
@@ -188,6 +207,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     right: 30,
     bottom: 30,
+  },
+  refreshTouchableOpacityStyle: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 30,
+    bottom: 90,
   },
   floatingButtonStyle: {
     resizeMode: "contain",

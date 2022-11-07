@@ -32,7 +32,7 @@ export default function NewPostForm({ username, token, id }) {
               id,
               token
             );
-            navigation.navigate("Posts", { id: id });
+            navigation.goBack(null);
           }}
         />
         <TextInput
@@ -48,7 +48,7 @@ export default function NewPostForm({ username, token, id }) {
               id,
               token
             );
-            navigation.navigate("Posts", { id: id });
+            navigation.goBack(null);
           }}
         />
         <TextInput
@@ -64,7 +64,7 @@ export default function NewPostForm({ username, token, id }) {
               id,
               token
             );
-            navigation.navigate("Posts", { id: id });
+            navigation.goBack(null);
           }}
         />
         <Pressable
@@ -78,7 +78,7 @@ export default function NewPostForm({ username, token, id }) {
               id,
               token
             );
-            navigation.navigate("Posts", { id: id });
+            navigation.goBack(null);
           }}
         >
           <Text style={styles.text}>Créer le post</Text>

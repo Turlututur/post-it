@@ -56,6 +56,7 @@ export default function NewProjectForm({ username, token }) {
           style={styles.text_input}
           onChangeText={(newValue) => setNewProjectText(newValue)}
           placeholder="Titre du projet"
+          maxLength={16}
           onSubmitEditing={async (e) => {
             e.preventDefault();
             await createProjects(
@@ -73,6 +74,7 @@ export default function NewProjectForm({ username, token }) {
           style={styles.text_input}
           onChangeText={(newValue) => setNewWritter(newValue)}
           placeholder="Nom du community manager à assigner"
+          maxLength={16}
           onSubmitEditing={async (e) => {
             e.preventDefault();
             await createProjects(

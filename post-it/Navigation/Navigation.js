@@ -5,7 +5,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { Link } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
@@ -37,6 +37,19 @@ export default function Navigation() {
                 options={{
                   headerStyle: { backgroundColor: "#1B2430" },
                   headerTintColor: "#D6D5A8",
+                  headerTitle: "",
+                  headerRight: () => (
+                    <Image
+                      style={[
+                        StyleSheet.absoluteFill,
+                        {
+                          width: 231 / 2.2,
+                          height: 140 / 2.2,
+                        },
+                      ]}
+                      source={require("../assets/PostIt.png")}
+                    />
+                  ),
                 }}
                 name="Connexion"
                 component={SignInScreen}
@@ -45,6 +58,19 @@ export default function Navigation() {
                 options={{
                   headerStyle: { backgroundColor: "#1B2430" },
                   headerTintColor: "#D6D5A8",
+                  headerTitle: "",
+                  headerRight: () => (
+                    <Image
+                      style={[
+                        StyleSheet.absoluteFill,
+                        {
+                          width: 231 / 2.2,
+                          height: 140 / 2.2,
+                        },
+                      ]}
+                      source={require("../assets/PostIt.png")}
+                    />
+                  ),
                 }}
                 name="S'inscrire"
                 component={SignUpScreen}

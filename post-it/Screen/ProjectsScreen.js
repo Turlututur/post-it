@@ -19,7 +19,6 @@ export default function Projects() {
                 {([username, setUsername]) => {
                   return (
                     <>
-                      <Text style={styles.text}>Votre Rôle : {userRole}</Text>
                       {/* Le composant importé : */}
                       <ProjectList
                         username={username}
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1B2430",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 100,
+    paddingTop: 15,
   },
   text: {
     color: "#D6D5A8",
