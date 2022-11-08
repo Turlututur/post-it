@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, KeyboardAvoidingView } from "react-native";
 import styles from "../styles/styles";
 import { Link } from "@react-navigation/native";
 
@@ -11,15 +11,20 @@ import SignIn from "../components/SignIn";
  */
 export default function SignInScreen() {
   return (
-    <View style={styles.container}>
-      <SignIn />
-      <Text style={styles.tinyText}>
-        Vous pouvez aussi vous{" "}
-        <Link style={styles.link} to={{ screen: "S'inscrire" }}>
-          inscrire
-        </Link>
-      </Text>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <View style={[styles.container, { marginTop: -250 }]}>
+        <SignIn />
+        <Text style={styles.tinyText}>
+          Vous pouvez aussi vous{" "}
+          <Link style={styles.link} to={{ screen: "S'inscrire" }}>
+            inscrire
+          </Link>
+        </Text>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
