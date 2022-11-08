@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
+import styles from "../styles/styles";
 import { Link } from "@react-navigation/native";
 
 import { UsernameContext } from "../Context/Context";
@@ -19,17 +20,19 @@ export default function HomeScreen() {
               source={require("../assets/PostItCapt.png")}
               style={{ width: 231 / 1.04, height: 140 / 1.04 }}
             />
-            <Text style={[styles.text, { marginTop: 100 }]}>Bienvenue !</Text>
-            <Text style={styles.text}>Inscrit sous le login {username}</Text>
-            <Text style={styles.text}>
+            <Text style={styles.text}>Bienvenue !</Text>
+            <Text style={styles.tinyText}>
+              Inscrit sous le login {username}
+            </Text>
+            <Text style={styles.tinyText}>
               Vous pouvez aussi vous{" "}
               <Link style={styles.link} to={{ screen: "Mon compte" }}>
                 deconnecter
               </Link>
             </Text>
             <Pressable style={styles.pressable}>
-              <Text style={styles.text}>
-                <Link style={styles.text} to={{ screen: "Projets" }}>
+              <Text style={styles.tinyText}>
+                <Link style={styles.tinyText} to={{ screen: "Projets" }}>
                   Projets
                 </Link>
               </Text>
@@ -40,30 +43,3 @@ export default function HomeScreen() {
     </UsernameContext.Consumer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#1B2430",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: -400,
-  },
-  text: {
-    color: "#D6D5A8",
-  },
-  link: {
-    color: "#816797",
-    textDecorationLine: "underline",
-  },
-  pressable: {
-    backgroundColor: "#51557E",
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-  },
-});

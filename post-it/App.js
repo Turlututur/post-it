@@ -16,8 +16,6 @@ export default function App() {
   const [username, setUsername] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
-  console.log("token", token);
-  console.log("role", userRole);
   return (
     <UsernameContext.Provider value={[username, setUsername]}>
       <TokenContext.Provider value={[token, setToken]}>

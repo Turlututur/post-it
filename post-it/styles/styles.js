@@ -1,0 +1,115 @@
+import { StyleSheet } from "react-native";
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#1B2430",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 20,
+  },
+  text: {
+    color: "#D6D5A8",
+    fontSize: 20,
+  },
+  tinyText: {
+    color: "#D6D5A8",
+  },
+  link: {
+    color: "#816797",
+    textDecorationLine: "underline",
+  },
+  label: {
+    width: 70,
+    color: "#D6D5A8",
+  },
+  text_error: {
+    color: "red",
+  },
+  text_input: {
+    borderWidth: 1,
+    backgroundColor: "#D6D5A8",
+    color: "#1B2430",
+    margin: 15,
+    height: 40,
+    width: 300,
+    borderRadius: 10,
+    paddingLeft: 10,
+  },
+  pressable: {
+    backgroundColor: "#51557E",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 15,
+    height: 40,
+    width: 300,
+    borderRadius: 10,
+  },
+  roundPressable: {
+    backgroundColor: "#1B2430",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 15,
+    height: 54,
+    width: 54,
+    borderRadius: 100,
+  },
+  plusButton: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 20,
+    bottom: 30,
+  },
+  refreshButton: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 20,
+    bottom: 90,
+  },
+  plusTouchableOpacityStyle: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 30,
+    bottom: 30,
+  },
+  refreshTouchableOpacityStyle: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 30,
+    bottom: 90,
+  },
+  floatingButtonStyle: {
+    resizeMode: "contain",
+    width: 50,
+    height: 50,
+    //backgroundColor:'black'
+  },
+  gridView: {
+    marginTop: 10,
+    flex: 1,
+  },
+  itemContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: 75,
+  },
+  text_item: {
+    marginLeft: 5,
+    width: 150,
+    marginBottom: 20,
+  },
+});

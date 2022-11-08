@@ -5,10 +5,9 @@ import {
   TextInput,
   Pressable,
   View,
-  StyleSheet,
   ActivityIndicator,
 } from "react-native";
-
+import styles from "../styles/styles";
 import { signIn, signUp } from "../API/postItAPI";
 
 import SelectDropdown from "react-native-select-dropdown";
@@ -159,37 +158,3 @@ export default function SignIn() {
     </UserRoleContext.Consumer>
   );
 }
-
-const styles = StyleSheet.create({
-  label: {
-    justifyContent: "center",
-    width: 70,
-    color: "#D6D5A8",
-  },
-  text_error: {
-    color: "red",
-  },
-  text: {
-    color: "#D6D5A8",
-  },
-  text_input: {
-    borderWidth: 1,
-    backgroundColor: "#D6D5A8",
-    color: "#1B2430",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-    paddingLeft: 10,
-  },
-  pressable: {
-    backgroundColor: "#51557E",
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-  },
-});

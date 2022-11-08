@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TextInput,
-  Pressable,
-} from "react-native";
+import { View, Text, FlatList, TextInput, Pressable } from "react-native";
+import styles from "../styles/styles";
 import { getPostById, reviewPost, modifyPost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from "react-native-select-dropdown";
@@ -53,13 +47,13 @@ export default function PostDetails({ username, token, userRole, id }) {
             data={post}
             renderItem={({ item }) => (
               <View>
-                <Text style={styles.text}>Titre: {item.title}</Text>
-                <Text style={styles.text}>Contenu: {item.content}</Text>
-                <Text style={styles.text}>Description: {item.desc}</Text>
-                <Text style={styles.text}>
+                <Text style={styles.tinyText}>Titre: {item.title}</Text>
+                <Text style={styles.tinyText}>Contenu: {item.content}</Text>
+                <Text style={styles.tinyText}>Description: {item.desc}</Text>
+                <Text style={styles.tinyText}>
                   Etat de validation: {item.state}
                 </Text>
-                <Text style={styles.text}>
+                <Text style={styles.tinyText}>
                   Commentaire de manager: {item.comment}
                 </Text>
               </View>
@@ -67,7 +61,7 @@ export default function PostDetails({ username, token, userRole, id }) {
           />
         </View>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.text}>Passer le post en revue :</Text>
+          <Text style={styles.tinyText}>Passer le post en revue :</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <TextInput
@@ -122,7 +116,7 @@ export default function PostDetails({ username, token, userRole, id }) {
               callback(id, token);
             }}
           >
-            <Text>Passer en revue</Text>
+            <Text style={styles.tinyText}>Passer en revue</Text>
           </Pressable>
         </View>
       </View>
@@ -201,58 +195,58 @@ export default function PostDetails({ username, token, userRole, id }) {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#1B2430",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 150,
-  },
-  text: {
-    color: "#D6D5A8",
-  },
-  link: {
-    color: "#816797",
-    textDecorationLine: "underline",
-  },
-  text_input: {
-    borderWidth: 1,
-    backgroundColor: "#D6D5A8",
-    color: "#1B2430",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-    paddingLeft: 10,
-  },
-  pressable: {
-    backgroundColor: "#D6D5A8",
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-  },
-  text_item: {
-    marginLeft: 10,
-    width: 150,
-  },
-  touchableOpacityStyle: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    right: 30,
-    bottom: 30,
-  },
-  floatingButtonStyle: {
-    resizeMode: "contain",
-    width: 50,
-    height: 50,
-    //backgroundColor:'black'
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#1B2430",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     paddingTop: 150,
+//   },
+//   text: {
+//     color: "#D6D5A8",
+//   },
+//   link: {
+//     color: "#816797",
+//     textDecorationLine: "underline",
+//   },
+//   text_input: {
+//     borderWidth: 1,
+//     backgroundColor: "#D6D5A8",
+//     color: "#1B2430",
+//     margin: 15,
+//     height: 40,
+//     width: 300,
+//     borderRadius: 10,
+//     paddingLeft: 10,
+//   },
+//   pressable: {
+//     backgroundColor: "#D6D5A8",
+//     color: "white",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     margin: 15,
+//     height: 40,
+//     width: 300,
+//     borderRadius: 10,
+//   },
+//   text_item: {
+//     marginLeft: 10,
+//     width: 150,
+//   },
+//   touchableOpacityStyle: {
+//     position: "absolute",
+//     width: 50,
+//     height: 50,
+//     alignItems: "center",
+//     justifyContent: "center",
+//     right: 30,
+//     bottom: 30,
+//   },
+//   floatingButtonStyle: {
+//     resizeMode: "contain",
+//     width: 50,
+//     height: 50,
+//     //backgroundColor:'black'
+//   },
+// });

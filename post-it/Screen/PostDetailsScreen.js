@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View } from "react-native";
+import styles from "../styles/styles";
 import { TokenContext } from "../Context/Context";
 import { UsernameContext } from "../Context/Context";
 import { UserRoleContext } from "../Context/Context";
@@ -37,26 +38,3 @@ export default function PostDetailsScreen({ route, navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#1B2430",
-    flexDirection: 'row',
-    paddingTop: 70,
-    paddingLeft: 70,
-  },
-  text: {
-    color: "#D6D5A8",
-  },
-  pressable: {
-    backgroundColor: "#51557E",
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-  },
-});

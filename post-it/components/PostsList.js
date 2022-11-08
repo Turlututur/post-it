@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import styles from "../styles/styles";
 import { getPosts, deletePost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -46,7 +40,7 @@ export default function PostsList({ username, token, userRole, id }) {
     return (
       <>
         <View>
-          <Text style={styles.text}>Liste des Projets :</Text>
+          <Text style={styles.text}>Liste des Posts :</Text>
           <FlatList
             style={{ textAlign: "left", paddingLeft: 10, paddingTop: 20 }}
             data={posts}
@@ -160,67 +154,67 @@ export default function PostsList({ username, token, userRole, id }) {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#1B2430",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 150,
-  },
-  text: {
-    color: "#D6D5A8",
-  },
-  link: {
-    color: "#816797",
-    textDecorationLine: "underline",
-  },
-  text_input: {
-    borderWidth: 1,
-    backgroundColor: "#D6D5A8",
-    color: "#1B2430",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-    paddingLeft: 10,
-  },
-  pressable: {
-    backgroundColor: "#51557E",
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-  },
-  text_item: {
-    marginLeft: 10,
-    width: 150,
-  },
-  plusTouchableOpacityStyle: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    right: 30,
-    bottom: 30,
-  },
-  refreshTouchableOpacityStyle: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    right: 30,
-    bottom: 90,
-  },
-  floatingButtonStyle: {
-    resizeMode: "contain",
-    width: 50,
-    height: 50,
-    //backgroundColor:'black'
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#1B2430",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     paddingTop: 150,
+//   },
+//   text: {
+//     color: "#D6D5A8",
+//   },
+//   link: {
+//     color: "#816797",
+//     textDecorationLine: "underline",
+//   },
+//   text_input: {
+//     borderWidth: 1,
+//     backgroundColor: "#D6D5A8",
+//     color: "#1B2430",
+//     margin: 15,
+//     height: 40,
+//     width: 300,
+//     borderRadius: 10,
+//     paddingLeft: 10,
+//   },
+//   pressable: {
+//     backgroundColor: "#51557E",
+//     color: "white",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     margin: 15,
+//     height: 40,
+//     width: 300,
+//     borderRadius: 10,
+//   },
+//   text_item: {
+//     marginLeft: 10,
+//     width: 150,
+//   },
+//   plusTouchableOpacityStyle: {
+//     position: "absolute",
+//     width: 50,
+//     height: 50,
+//     alignItems: "center",
+//     justifyContent: "center",
+//     right: 30,
+//     bottom: 30,
+//   },
+//   refreshTouchableOpacityStyle: {
+//     position: "absolute",
+//     width: 50,
+//     height: 50,
+//     alignItems: "center",
+//     justifyContent: "center",
+//     right: 30,
+//     bottom: 90,
+//   },
+//   floatingButtonStyle: {
+//     resizeMode: "contain",
+//     width: 50,
+//     height: 50,
+//     //backgroundColor:'black'
+//   },
+// });

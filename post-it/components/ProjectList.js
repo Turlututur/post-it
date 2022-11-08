@@ -1,13 +1,7 @@
 // npm install react-native-super-grid
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Pressable,
-  StyleSheet,
-  Alert,
-} from "react-native";
+import { View, Text, TouchableOpacity, Pressable, Alert } from "react-native";
+import styles from "../styles/styles";
 import { getProjects, deleteProject } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import { FlatGrid } from "react-native-super-grid";
@@ -159,31 +153,6 @@ export default function ProjectList({ username, token, userRole }) {
               </View>
             )}
           />
-          {/* <FlatList
-            style={{ textAlign: "center", paddingLeft: 10, paddingTop: 20 }}
-            data={projects}
-            renderItem={({ item }) => (
-              <View>
-                <TouchableOpacity
-                  onPress={() => {
-                    // On navigue vers la liste de posts en passant l'id et le titre du projet en paramètres
-                    navigation.navigate("Posts", {
-                      id: item.id,
-                    });
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.text_item,
-                      { color: "#D6D5A8", textDecorationLine: "underline" },
-                    ]}
-                  >
-                    {item.title}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          /> */}
         </View>
         <Pressable
           style={[styles.roundPressable, styles.refreshButton]}
@@ -204,88 +173,3 @@ export default function ProjectList({ username, token, userRole }) {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#1B2430",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 20,
-  },
-  text: {
-    color: "#D6D5A8",
-    fontSize: 20,
-  },
-  link: {
-    color: "#816797",
-    textDecorationLine: "underline",
-  },
-  text_input: {
-    borderWidth: 1,
-    backgroundColor: "#D6D5A8",
-    color: "#1B2430",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-    paddingLeft: 10,
-  },
-  pressable: {
-    backgroundColor: "#51557E",
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 40,
-    width: 300,
-    borderRadius: 10,
-  },
-  roundPressable: {
-    backgroundColor: "#1B2430",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 15,
-    height: 54,
-    width: 54,
-    borderRadius: 100,
-  },
-  plusButton: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    right: 20,
-    bottom: 30,
-  },
-  refreshButton: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    right: 20,
-    bottom: 90,
-  },
-  floatingButtonStyle: {
-    resizeMode: "contain",
-    width: 50,
-    height: 50,
-    //backgroundColor:'black'
-  },
-  gridView: {
-    marginTop: 10,
-    flex: 1,
-  },
-  itemContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-    height: 75,
-  },
-  text_item: {
-    marginLeft: 5,
-    width: 150,
-    marginBottom: 20,
-  },
-});
