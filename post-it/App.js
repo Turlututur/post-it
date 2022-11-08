@@ -26,5 +26,3 @@ export default function App() {
     </UsernameContext.Provider>
   );
 }
-
-//styles : colorPalette : https://colorhunt.co/palette/1b243051557e816797d6d5a8

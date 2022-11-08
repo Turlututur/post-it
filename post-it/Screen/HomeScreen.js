@@ -15,7 +15,7 @@ export default function HomeScreen() {
     <UsernameContext.Consumer>
       {([username, setUsername]) => {
         return (
-          <View style={styles.container}>
+          <View style={[styles.container, { marginTop: -500 }]}>
             <Image
               source={require("../assets/PostItCapt.png")}
               style={{ width: 231 / 1.04, height: 140 / 1.04 }}
@@ -32,7 +32,7 @@ export default function HomeScreen() {
             </Text>
             <Pressable style={styles.pressable}>
               <Text style={styles.tinyText}>
-                <Link style={styles.tinyText} to={{ screen: "Projets" }}>
+                <Link style={styles.tinyTextWhite} to={{ screen: "Projets" }}>
                   Projets
                 </Link>
               </Text>

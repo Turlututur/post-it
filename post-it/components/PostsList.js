@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  FlatList,
+} from "react-native";
 import styles from "../styles/styles";
+import * as color from "../styles/colors";
 import { getPosts, deletePost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -56,7 +64,10 @@ export default function PostsList({ username, token, userRole, id }) {
                   <Text
                     style={[
                       styles.text_item,
-                      { color: "#D6D5A8", textDecorationLine: "underline" },
+                      {
+                        color: color.textColor,
+                        textDecorationLine: "underline",
+                      },
                     ]}
                   >
                     {item.title} ; Etat : {item.state}
@@ -78,15 +89,18 @@ export default function PostsList({ username, token, userRole, id }) {
             )}
           />
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        <Pressable
+          style={[styles.roundPressable, styles.refreshButton]}
           onPress={() => {
             callback(id, token);
           }}
-          style={styles.refreshTouchableOpacityStyle}
         >
-          <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
-        </TouchableOpacity>
+          <FontAwesomeIcon
+            icon={faArrowsRotate}
+            color={color.mainColor}
+            size={35}
+          />
+        </Pressable>
       </>
     );
   }
@@ -111,7 +125,10 @@ export default function PostsList({ username, token, userRole, id }) {
                   <Text
                     style={[
                       styles.text_item,
-                      { color: "#D6D5A8", textDecorationLine: "underline" },
+                      {
+                        color: color.textColor,
+                        textDecorationLine: "underline",
+                      },
                     ]}
                   >
                     {item.title} ; {item.state}
@@ -121,16 +138,30 @@ export default function PostsList({ username, token, userRole, id }) {
             )}
           />
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        <Pressable
+          style={[styles.roundPressable, styles.refreshButton]}
           onPress={() => {
             callback(id, token);
           }}
-          style={styles.refreshTouchableOpacityStyle}
         >
-          <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
-        </TouchableOpacity>
-        <TouchableOpacity
+          <FontAwesomeIcon
+            icon={faArrowsRotate}
+            color={color.mainColor}
+            size={35}
+          />
+        </Pressable>
+        <Pressable
+          style={[styles.roundPressable, styles.plusButton]}
+          onPress={(e) => {
+            e.preventDefault();
+            navigation.navigate("Nouveau post", {
+              post: projectID,
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faPlus} color={color.mainColor} size={35} />
+        </Pressable>
+        {/* <TouchableOpacity
           activeOpacity={0.7}
           onPress={(e) => {
             e.preventDefault();
@@ -140,8 +171,8 @@ export default function PostsList({ username, token, userRole, id }) {
           }}
           style={styles.plusTouchableOpacityStyle}
         >
-          <FontAwesomeIcon icon={faPlus} color="#D6D5A8" size={35} />
-        </TouchableOpacity>
+          <FontAwesomeIcon icon={faPlus} color={color.textColor} size={35} />
+        </TouchableOpacity> */}
       </>
     );
   } else {
@@ -153,68 +184,3 @@ export default function PostsList({ username, token, userRole, id }) {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#1B2430",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     paddingTop: 150,
-//   },
-//   text: {
-//     color: "#D6D5A8",
-//   },
-//   link: {
-//     color: "#816797",
-//     textDecorationLine: "underline",
-//   },
-//   text_input: {
-//     borderWidth: 1,
-//     backgroundColor: "#D6D5A8",
-//     color: "#1B2430",
-//     margin: 15,
-//     height: 40,
-//     width: 300,
-//     borderRadius: 10,
-//     paddingLeft: 10,
-//   },
-//   pressable: {
-//     backgroundColor: "#51557E",
-//     color: "white",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     margin: 15,
-//     height: 40,
-//     width: 300,
-//     borderRadius: 10,
-//   },
-//   text_item: {
-//     marginLeft: 10,
-//     width: 150,
-//   },
-//   plusTouchableOpacityStyle: {
-//     position: "absolute",
-//     width: 50,
-//     height: 50,
-//     alignItems: "center",
-//     justifyContent: "center",
-//     right: 30,
-//     bottom: 30,
-//   },
-//   refreshTouchableOpacityStyle: {
-//     position: "absolute",
-//     width: 50,
-//     height: 50,
-//     alignItems: "center",
-//     justifyContent: "center",
-//     right: 30,
-//     bottom: 90,
-//   },
-//   floatingButtonStyle: {
-//     resizeMode: "contain",
-//     width: 50,
-//     height: 50,
-//     //backgroundColor:'black'
-//   },
-// });

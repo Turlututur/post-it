@@ -6,6 +6,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Image, StyleSheet } from "react-native";
+import * as color from "../styles/colors";
 import { Link } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
@@ -35,8 +36,8 @@ export default function Navigation() {
             <Stack.Navigator>
               <Stack.Screen
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerTitle: "",
                   headerRight: () => (
                     <Image
@@ -56,8 +57,8 @@ export default function Navigation() {
               />
               <Stack.Screen
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerTitle: "",
                   headerRight: () => (
                     <Image
@@ -80,8 +81,8 @@ export default function Navigation() {
             <Stack.Navigator>
               <Stack.Screen
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerRight: () => (
                     <Link
                       style={[styles.link, { paddingRight: 20 }]}
@@ -89,7 +90,7 @@ export default function Navigation() {
                     >
                       <FontAwesomeIcon
                         icon={faUser}
-                        color="#D6D5A8"
+                        color={color.textColor}
                         size={25}
                       />
                     </Link>
@@ -103,16 +104,16 @@ export default function Navigation() {
                 name="Mon compte"
                 component={MyAccount}
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                 }}
               />
               <Stack.Screen
                 name="Projets"
                 component={Projects}
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerRight: () => (
                     <Link
                       style={[styles.link, { paddingRight: 20 }]}
@@ -120,7 +121,7 @@ export default function Navigation() {
                     >
                       <FontAwesomeIcon
                         icon={faUser}
-                        color="#D6D5A8"
+                        color={color.textColor}
                         size={25}
                       />
                     </Link>
@@ -132,8 +133,8 @@ export default function Navigation() {
                 name="Nouveau Projet"
                 component={NewProject}
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerRight: () => (
                     <Link
                       style={[styles.link, { paddingRight: 20 }]}
@@ -141,7 +142,7 @@ export default function Navigation() {
                     >
                       <FontAwesomeIcon
                         icon={faUser}
-                        color="#D6D5A8"
+                        color={color.textColor}
                         size={25}
                       />
                     </Link>
@@ -153,8 +154,8 @@ export default function Navigation() {
                 name="Nouveau post"
                 component={NewPost}
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerRight: () => (
                     <Link
                       style={[styles.link, { paddingRight: 20 }]}
@@ -162,7 +163,7 @@ export default function Navigation() {
                     >
                       <FontAwesomeIcon
                         icon={faUser}
-                        color="#D6D5A8"
+                        color={color.textColor}
                         size={25}
                       />
                     </Link>
@@ -174,8 +175,8 @@ export default function Navigation() {
                 name="Posts"
                 component={Posts}
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerRight: () => (
                     <Link
                       style={[styles.link, { paddingRight: 20 }]}
@@ -183,7 +184,7 @@ export default function Navigation() {
                     >
                       <FontAwesomeIcon
                         icon={faUser}
-                        color="#D6D5A8"
+                        color={color.textColor}
                         size={25}
                       />
                     </Link>
@@ -195,8 +196,8 @@ export default function Navigation() {
                 name="Détails du post"
                 component={PostDetailsScreen}
                 options={{
-                  headerStyle: { backgroundColor: "#1B2430" },
-                  headerTintColor: "#D6D5A8",
+                  headerStyle: { backgroundColor: color.mainColor },
+                  headerTintColor: color.textColor,
                   headerRight: () => (
                     <Link
                       style={[styles.link, { paddingRight: 20 }]}
@@ -204,7 +205,7 @@ export default function Navigation() {
                     >
                       <FontAwesomeIcon
                         icon={faUser}
-                        color="#D6D5A8"
+                        color={color.textColor}
                         size={25}
                       />
                     </Link>
@@ -222,18 +223,18 @@ export default function Navigation() {
 const styles = StyleSheet.create({
   label: {
     width: 70,
-    color: "#D6D5A8",
+    color: color.textColor,
   },
   text_error: {
     color: "red",
   },
   text: {
-    color: "#D6D5A8",
+    color: color.textColor,
   },
   text_input: {
     borderWidth: 1,
-    backgroundColor: "#D6D5A8",
-    color: "#1B2430",
+    backgroundColor: color.textColor,
+    color: color.mainColor,
     margin: 15,
     height: 40,
     width: 300,
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   pressable: {
-    backgroundColor: "#1B2430",
+    backgroundColor: color.mainColor,
     alignItems: "center",
     justifyContent: "center",
     margin: 15,

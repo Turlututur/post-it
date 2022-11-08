@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Pressable, Alert } from "react-native";
 import styles from "../styles/styles";
+import * as color from "../styles/colors";
 import { getProjects, deleteProject } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import { FlatGrid } from "react-native-super-grid";
@@ -49,7 +50,10 @@ export default function ProjectList({ username, token, userRole }) {
             spacing={10}
             renderItem={({ item }) => (
               <View
-                style={[styles.itemContainer, { backgroundColor: "#51557E" }]}
+                style={[
+                  styles.itemContainer,
+                  { backgroundColor: color.thirdColor },
+                ]}
               >
                 <TouchableOpacity
                   onPress={() => {
@@ -62,7 +66,10 @@ export default function ProjectList({ username, token, userRole }) {
                   <Text
                     style={[
                       styles.text_item,
-                      { color: "#D6D5A8", textDecorationLine: "underline" },
+                      {
+                        color: color.mainColor,
+                        textDecorationLine: "underline",
+                      },
                     ]}
                   >
                     {item.title}
@@ -93,7 +100,11 @@ export default function ProjectList({ username, token, userRole }) {
                     );
                   }}
                 >
-                  <FontAwesomeIcon icon={faTrash} color="#D6D5A8" size={15} />
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    color={color.mainColor}
+                    size={15}
+                  />
                 </TouchableOpacity>
               </View>
             )}
@@ -106,7 +117,11 @@ export default function ProjectList({ username, token, userRole }) {
             callback(username, token);
           }}
         >
-          <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
+          <FontAwesomeIcon
+            icon={faArrowsRotate}
+            color={color.mainColor}
+            size={35}
+          />
         </Pressable>
         <Pressable
           style={[styles.roundPressable, styles.plusButton]}
@@ -114,7 +129,7 @@ export default function ProjectList({ username, token, userRole }) {
             navigation.navigate("Nouveau Projet");
           }}
         >
-          <FontAwesomeIcon icon={faPlus} color="#D6D5A8" size={35} />
+          <FontAwesomeIcon icon={faPlus} color={color.mainColor} size={35} />
         </Pressable>
       </>
     );
@@ -131,7 +146,10 @@ export default function ProjectList({ username, token, userRole }) {
             spacing={10}
             renderItem={({ item }) => (
               <View
-                style={[styles.itemContainer, { backgroundColor: "#51557E" }]}
+                style={[
+                  styles.itemContainer,
+                  { backgroundColor: color.thirdColor },
+                ]}
               >
                 <TouchableOpacity
                   onPress={() => {
@@ -144,7 +162,10 @@ export default function ProjectList({ username, token, userRole }) {
                   <Text
                     style={[
                       styles.text_item,
-                      { color: "#D6D5A8", textDecorationLine: "underline" },
+                      {
+                        color: color.mainColor,
+                        textDecorationLine: "underline",
+                      },
                     ]}
                   >
                     {item.title}
@@ -160,7 +181,11 @@ export default function ProjectList({ username, token, userRole }) {
             callback(username, token);
           }}
         >
-          <FontAwesomeIcon icon={faArrowsRotate} color="#D6D5A8" size={35} />
+          <FontAwesomeIcon
+            icon={faArrowsRotate}
+            color={color.mainColor}
+            size={35}
+          />
         </Pressable>
       </>
     );

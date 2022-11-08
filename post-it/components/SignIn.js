@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import styles from "../styles/styles";
+import * as color from "../styles/colors";
 import { signIn, signUp } from "../API/postItAPI";
 
 import SelectDropdown from "react-native-select-dropdown";
@@ -101,13 +102,13 @@ export default function SignIn() {
 
                           <SelectDropdown
                             dropdownStyle={{
-                              backgroundColor: "#D6D5A8",
+                              backgroundColor: color.mainColor,
                               borderRadius: 10,
                               height: 90,
                               width: 300,
                             }}
                             buttonStyle={{
-                              backgroundColor: "#D6D5A8",
+                              backgroundColor: color.thirdColor,
                               color: "white",
                               alignItems: "center",
                               justifyContent: "center",
@@ -116,7 +117,10 @@ export default function SignIn() {
                               width: 300,
                               borderRadius: 10,
                             }}
-                            buttonTextStyle={{ color: "#1B2430", fontSize: 15 }}
+                            buttonTextStyle={{
+                              color: color.mainColor,
+                              fontSize: 15,
+                            }}
                             data={roles}
                             onSelect={(selectedItem) => {
                               setRole(selectedItem);
@@ -137,7 +141,7 @@ export default function SignIn() {
                           }
                           // title='Sign In'
                         >
-                          <Text style={styles.label}>Connexion</Text>
+                          <Text style={styles.tinyTextWhite}>Connexion</Text>
                         </Pressable>
                         {error ? (
                           <Text style={styles.text_error}>{error}</Text>

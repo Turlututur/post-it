@@ -1,35 +1,39 @@
 import { StyleSheet } from "react-native";
+import * as color from "./colors";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1B2430",
+    backgroundColor: color.mainColor,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 20,
   },
   text: {
-    color: "#D6D5A8",
+    color: color.textColor,
     fontSize: 20,
   },
   tinyText: {
-    color: "#D6D5A8",
+    color: color.textColor,
+  },
+  tinyTextWhite: {
+    color: color.mainColor,
   },
   link: {
-    color: "#816797",
+    color: color.thirdColor,
     textDecorationLine: "underline",
   },
   label: {
     width: 70,
-    color: "#D6D5A8",
+    color: color.textColor,
   },
   text_error: {
     color: "red",
   },
   text_input: {
     borderWidth: 1,
-    backgroundColor: "#D6D5A8",
-    color: "#1B2430",
+    backgroundColor: color.mainColor,
+    color: color.textColor,
     margin: 15,
     height: 40,
     width: 300,
@@ -37,7 +41,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
   },
   pressable: {
-    backgroundColor: "#51557E",
+    backgroundColor: color.thirdColor,
     color: "white",
     alignItems: "center",
     justifyContent: "center",
@@ -47,7 +51,7 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   roundPressable: {
-    backgroundColor: "#1B2430",
+    backgroundColor: color.secondColor,
     alignItems: "center",
     justifyContent: "center",
     margin: 15,
