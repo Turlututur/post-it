@@ -108,7 +108,7 @@ export default function SignIn() {
                               width: 300,
                             }}
                             buttonStyle={{
-                              backgroundColor: color.thirdColor,
+                              backgroundColor: color.secondColor,
                               color: "white",
                               alignItems: "center",
                               justifyContent: "center",

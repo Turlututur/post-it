@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, KeyboardAvoidingView } from "react-native";
+import { View, Text, KeyboardAvoidingView, Image } from "react-native";
 import styles from "../styles/styles";
 import { Link } from "@react-navigation/native";
 
@@ -16,6 +16,10 @@ export default function SignInScreen() {
       style={styles.container}
     >
       <View style={[styles.container, { marginTop: -250 }]}>
+        <Image
+          source={require("../assets/corpoImg.png")}
+          style={{ width: 1500 / 3.04, height: 741 / 3.04 }}
+        />
         <SignIn />
         <Text style={styles.tinyText}>
           Vous pouvez aussi vous{" "}
