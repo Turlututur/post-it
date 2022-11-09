@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import styles from "../styles/styles";
 import { TokenContext } from "../Context/Context";
 import { UsernameContext } from "../Context/Context";
@@ -20,6 +20,10 @@ export default function Projects() {
                 {([username, setUsername]) => {
                   return (
                     <>
+                      <Image
+                        source={require("../assets/managerProject.png")}
+                        style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
+                      />
                       {/* Le composant importé : */}
                       <ProjectList
                         username={username}

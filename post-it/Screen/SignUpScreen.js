@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, KeyboardAvoidingView } from "react-native";
+import { View, Text, Image, KeyboardAvoidingView } from "react-native";
 import { Link } from "@react-navigation/native";
 import styles from "../styles/styles";
 import SignUp from "../components/SignUp";
@@ -16,7 +16,11 @@ export default function SignUpScreen({ navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <View style={[styles.container, { marginTop: -200 }]}>
+        <View style={[styles.container, { marginTop: -150 }]}>
+          <Image
+            source={require("../assets/register.png")}
+            style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
+          />
           <SignUp />
           <Text style={styles.tinyText}>
             Déjà un compte ?{" "}

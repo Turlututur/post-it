@@ -107,13 +107,17 @@ export default StyleSheet.create({
   },
   itemContainer: {
     alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
     borderRadius: 5,
-    height: 75,
+    height: 80,
+    width: 350,
+    marginBottom: 10,
   },
   text_item: {
     marginLeft: 5,
     width: 150,
+    fontSize: 20,
     marginBottom: 20,
   },
 });

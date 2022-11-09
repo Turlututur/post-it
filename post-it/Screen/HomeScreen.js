@@ -15,25 +15,43 @@ export default function HomeScreen() {
     <UsernameContext.Consumer>
       {([username, setUsername]) => {
         return (
-          <View style={[styles.container, { marginTop: -500 }]}>
+          <View style={[styles.container, { marginTop: -75 }]}>
             <Image
               source={require("../assets/PostItCapt.png")}
               style={{ width: 231 / 1.04, height: 140 / 1.04 }}
             />
-            <Text style={styles.text}>Bienvenue !</Text>
-            <Text style={styles.tinyText}>
-              Inscrit sous le login {username}
+            <Image
+              source={require("../assets/homepage.png")}
+              style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
+            />
+            <Text style={styles.text}>
+              {"\n"}Hello {username} et bienvenue chez Post It !{"\n"}
             </Text>
-            <Text style={styles.tinyText}>
-              Vous pouvez aussi vous{" "}
-              <Link style={styles.link} to={{ screen: "Mon compte" }}>
-                deconnecter
-              </Link>
+            <View style={{ marginLeft: 15, marginRight: 15 }}>
+              <Text style={styles.tinyText}>
+                Post It va vous permettre de vous organiser. {"\n"}
+                En tant que manager, créez des projets et invitez vos
+                collaborateurs pour qu'ils puissent y déposer leur idées de post
+                et validez leurs propositions.
+                {"\n"}
+                En tant que community manager, soumettez vos idées dans les
+                projets auxquels vous êtes assignés et attendez le feu vert.{" "}
+                {"\n"}
+                {"\n"}
+              </Text>
+            </View>
+            <Text style={styles.text}>
+              {"\n"}3... 2... 1... Postez !{"\n"}
             </Text>
             <Pressable style={styles.pressable}>
-              <Text style={styles.tinyText}>
+              <Text
+                style={[
+                  styles.tinyTextWhite,
+                  { fontWeight: "bold", fontSize: 17 },
+                ]}
+              >
                 <Link style={styles.tinyTextWhite} to={{ screen: "Projets" }}>
-                  Projets
+                  Vos projets
                 </Link>
               </Text>
             </Pressable>

@@ -101,7 +101,7 @@ export default function SignUp() {
                               width: 300,
                             }}
                             buttonStyle={{
-                              backgroundColor: color.thirdColor,
+                              backgroundColor: color.secondColor,
                               color: "white",
                               alignItems: "center",
                               justifyContent: "center",
@@ -152,13 +152,20 @@ export default function SignUp() {
                           />
                         </View>
                         <Pressable
-                          style={styles.pressable}
+                          style={[styles.pressable, { marginTop: 75 }]}
                           onPress={() =>
                             getSignedUp(setToken, setUsername, setUserRole)
                           }
                           //title='Sign Up'
                         >
-                          <Text style={styles.tinyTextWhite}>S'inscrire</Text>
+                          <Text
+                            style={[
+                              styles.tinyTextWhite,
+                              { fontWeight: "bold", fontSize: 14 },
+                            ]}
+                          >
+                            S'inscrire
+                          </Text>
                         </Pressable>
                         {error ? (
                           <Text style={styles.text_error}>{error}</Text>

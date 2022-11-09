@@ -135,13 +135,20 @@ export default function SignIn() {
                           />
                         </View>
                         <Pressable
-                          style={styles.pressable}
+                          style={[styles.pressable, { marginTop: 75 }]}
                           onPress={() =>
                             getSignedIn(setToken, setUsername, setUserRole)
                           }
                           // title='Sign In'
                         >
-                          <Text style={styles.tinyTextWhite}>Connexion</Text>
+                          <Text
+                            style={[
+                              styles.tinyTextWhite,
+                              { fontWeight: "bold", fontSize: 14 },
+                            ]}
+                          >
+                            Connexion
+                          </Text>
                         </Pressable>
                         {error ? (
                           <Text style={styles.text_error}>{error}</Text>

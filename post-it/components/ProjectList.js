@@ -1,6 +1,13 @@
 // npm install react-native-super-grid
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Pressable, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+  Alert,
+  FlatList,
+} from "react-native";
 import styles from "../styles/styles";
 import * as color from "../styles/colors";
 import { getProjects, deleteProject } from "../API/postItAPI";
@@ -44,10 +51,9 @@ export default function ProjectList({ username, token, userRole }) {
       <>
         <View style={styles.container}>
           <Text style={styles.text}>Liste des Projets :</Text>
-          <FlatGrid
+          <FlatList
             data={projects}
             style={styles.gridView}
-            spacing={10}
             renderItem={({ item }) => (
               <View
                 style={[
@@ -75,10 +81,12 @@ export default function ProjectList({ username, token, userRole }) {
                     {item.title}
                   </Text>
                 </TouchableOpacity>
+
                 {/* 
                 La suppression fonctionne avec un alert qui ne fonctionne que sur téléphone
                 Il est impossible d'utiliser cette fonction sur Web !
                 */}
+
                 <TouchableOpacity
                   onPress={async (e) => {
                     e.preventDefault();
@@ -103,7 +111,7 @@ export default function ProjectList({ username, token, userRole }) {
                   <FontAwesomeIcon
                     icon={faTrash}
                     color={color.mainColor}
-                    size={15}
+                    size={20}
                   />
                 </TouchableOpacity>
               </View>
@@ -140,10 +148,9 @@ export default function ProjectList({ username, token, userRole }) {
       <>
         <View style={styles.container}>
           <Text style={styles.text}>Liste des Projets :</Text>
-          <FlatGrid
+          <FlatList
             data={projects}
             style={styles.gridView}
-            spacing={10}
             renderItem={({ item }) => (
               <View
                 style={[
