@@ -16,6 +16,10 @@ export default StyleSheet.create({
   tinyText: {
     color: color.textColor,
   },
+  veryTinyText: {
+    color: color.textColor,
+    fontSize: 8,
+  },
   tinyTextWhite: {
     color: color.mainColor,
   },

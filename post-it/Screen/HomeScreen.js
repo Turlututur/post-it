@@ -24,6 +24,9 @@ export default function HomeScreen() {
               source={require("../assets/homepage.png")}
               style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
             />
+            <Text style={styles.veryTinyText}>
+              Image by storyset on Freepik
+            </Text>
             <Text style={styles.text}>
               {"\n"}Hello {username} et bienvenue chez Post It !{"\n"}
             </Text>

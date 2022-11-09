@@ -12,7 +12,6 @@ import styles from "../styles/styles";
 import * as color from "../styles/colors";
 import { getProjects, deleteProject } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
-import { FlatGrid } from "react-native-super-grid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons/faArrowsRotate";
@@ -27,7 +26,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
  */
 export default function ProjectList({ username, token, userRole }) {
   const [projects, setProjects] = useState([]);
-  const [userId, setUserId] = useState();
   const navigation = useNavigation();
 
   /**

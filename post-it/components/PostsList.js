@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Alert,
   Image,
   Pressable,
   FlatList,
@@ -14,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons/faArrowsRotate";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 
 /**
  * Composant permettant de récupérrer et d'afficher les posts d'un projet.
@@ -35,8 +37,8 @@ export default function PostsList({ username, token, userRole, id }) {
    * @param {String} token    Le token d'autorisation de l'api
    */
   const callback = (id, token) => {
-    getPosts(id, token).then((projectList) => {
-      setPosts(projectList);
+    getPosts(id, token).then((postsList) => {
+      setPosts(postsList);
     });
   };
 
@@ -47,13 +49,18 @@ export default function PostsList({ username, token, userRole, id }) {
   if (userRole == "manager") {
     return (
       <>
-        <View>
+        <View style={styles.container}>
           <Text style={styles.text}>Liste des Posts :</Text>
           <FlatList
-            style={{ textAlign: "left", paddingLeft: 10, paddingTop: 20 }}
+            style={styles.gridView}
             data={posts}
             renderItem={({ item }) => (
-              <View style={{ flexDirection: "row" }}>
+              <View
+                style={[
+                  styles.itemContainer,
+                  { backgroundColor: color.thirdColor },
+                ]}
+              >
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("Détails du post", {
@@ -65,24 +72,39 @@ export default function PostsList({ username, token, userRole, id }) {
                     style={[
                       styles.text_item,
                       {
-                        color: color.textColor,
+                        color: color.mainColor,
                         textDecorationLine: "underline",
                       },
                     ]}
                   >
-                    {item.title} ; Etat : {item.state}
+                    {item.title} : {item.state}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={async (e) => {
                     e.preventDefault();
-                    await deletePost(item.id, token);
-                    callback(id, token);
+                    Alert.alert(
+                      "Suppression",
+                      "Voulez vous supprimer " + item.title + " ?",
+                      [
+                        {
+                          text: "Annuler",
+                        },
+                        {
+                          text: "Oui",
+                          onPress: async () => {
+                            await deletePost(item.id, token);
+                            callback(id, token);
+                          },
+                        },
+                      ]
+                    );
                   }}
                 >
-                  <Image
-                    source={require("../assets/trash-can-outline-white.png")}
-                    style={{ height: 24, width: 24 }}
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    color={color.mainColor}
+                    size={20}
                   />
                 </TouchableOpacity>
               </View>
@@ -108,13 +130,18 @@ export default function PostsList({ username, token, userRole, id }) {
   if (userRole == "writter") {
     return (
       <>
-        <View>
+        <View style={styles.container}>
           <Text style={styles.text}>Liste des Projets :</Text>
           <FlatList
-            style={{ textAlign: "center", paddingLeft: 10, paddingTop: 20 }}
+            style={styles.gridView}
             data={posts}
             renderItem={({ item }) => (
-              <View>
+              <View
+                style={[
+                  styles.itemContainer,
+                  { backgroundColor: color.thirdColor },
+                ]}
+              >
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("Détails du post", {
@@ -126,12 +153,12 @@ export default function PostsList({ username, token, userRole, id }) {
                     style={[
                       styles.text_item,
                       {
-                        color: color.textColor,
+                        color: color.mainColor,
                         textDecorationLine: "underline",
                       },
                     ]}
                   >
-                    {item.title} ; {item.state}
+                    {item.title} : {item.state}
                   </Text>
                 </TouchableOpacity>
               </View>

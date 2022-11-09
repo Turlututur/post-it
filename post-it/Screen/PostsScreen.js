@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Image, Text } from "react-native";
 import styles from "../styles/styles";
 import { TokenContext } from "../Context/Context";
 import { UsernameContext } from "../Context/Context";
@@ -21,6 +21,13 @@ export default function Posts({ route, navigation }) {
                 {([username, setUsername]) => {
                   return (
                     <>
+                      <Image
+                        source={require("../assets/todo.png")}
+                        style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
+                      />
+                      <Text style={styles.veryTinyText}>
+                        Image by storyset on Freepik
+                      </Text>
                       <PostsList
                         username={username}
                         token={token}

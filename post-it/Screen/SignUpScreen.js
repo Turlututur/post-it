@@ -21,6 +21,7 @@ export default function SignUpScreen({ navigation }) {
             source={require("../assets/register.png")}
             style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
           />
+          <Text style={styles.veryTinyText}>Image by storyset on Freepik</Text>
           <SignUp />
           <Text style={styles.tinyText}>
             Déjà un compte ?{" "}

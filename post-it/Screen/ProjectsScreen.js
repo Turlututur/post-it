@@ -24,6 +24,9 @@ export default function Projects() {
                         source={require("../assets/managerProject.png")}
                         style={{ width: 1380 / 4.5, height: 920 / 4.5 }}
                       />
+                      <Text style={styles.veryTinyText}>
+                        Image by storyset on Freepik
+                      </Text>
                       {/* Le composant importé : */}
                       <ProjectList
                         username={username}
