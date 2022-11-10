@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TextInput, Pressable } from "react-native";
 import styles from "../styles/styles";
+import * as color from "../styles/colors";
 import { getPostById, reviewPost, modifyPost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from "react-native-select-dropdown";
@@ -46,22 +47,35 @@ export default function PostDetails({ username, token, userRole, id }) {
           <FlatList
             data={post}
             renderItem={({ item }) => (
-              <View>
-                <Text style={styles.tinyText}>Titre: {item.title}</Text>
-                <Text style={styles.tinyText}>Contenu: {item.content}</Text>
-                <Text style={styles.tinyText}>Description: {item.desc}</Text>
-                <Text style={styles.tinyText}>
-                  Etat de validation: {item.state}
+              <View
+                style={(styles.container, [{ justifyContent: "flex-start" }])}
+              >
+                <Text style={styles.text}>
+                  {item.title}
+                  {"\n"}
                 </Text>
-                <Text style={styles.tinyText}>
+                <Text style={styles.text}>
+                  {item.content}
+                  {"\n"}
+                </Text>
+                <Text style={styles.text}>
+                  {item.desc}
+                  {"\n"}
+                </Text>
+                <Text style={styles.text}>
+                  Etat de validation: {item.state}
+                  {"\n"}
+                </Text>
+                <Text style={styles.text}>
                   Commentaire de manager: {item.comment}
+                  {"\n"}
                 </Text>
               </View>
             )}
           />
         </View>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.tinyText}>Passer le post en revue :</Text>
+          <Text style={styles.text}>Passer le post en revue :</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <TextInput
@@ -78,13 +92,13 @@ export default function PostDetails({ username, token, userRole, id }) {
         <View style={{ flexDirection: "row" }}>
           <SelectDropdown
             dropdownStyle={{
-              backgroundColor: "#D6D5A8",
+              backgroundColor: color.secondColor,
               borderRadius: 10,
               height: 90,
               width: 300,
             }}
             buttonStyle={{
-              backgroundColor: "#D6D5A8",
+              backgroundColor: color.secondColor,
               color: "white",
               alignItems: "center",
               justifyContent: "center",
@@ -93,7 +107,7 @@ export default function PostDetails({ username, token, userRole, id }) {
               width: 300,
               borderRadius: 10,
             }}
-            buttonTextStyle={{ color: "#1B2430", fontSize: 15 }}
+            buttonTextStyle={{ color: color.mainColor, fontSize: 15 }}
             data={states}
             onSelect={(selectedItem) => {
               setState(selectedItem);
@@ -116,7 +130,9 @@ export default function PostDetails({ username, token, userRole, id }) {
               callback(id, token);
             }}
           >
-            <Text style={styles.tinyText}>Passer en revue</Text>
+            <Text style={[styles.tinyText, { color: color.mainColor }]}>
+              Passer en revue
+            </Text>
           </Pressable>
         </View>
       </View>

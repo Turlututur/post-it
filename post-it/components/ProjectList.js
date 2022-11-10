@@ -126,7 +126,7 @@ export default function ProjectList({ username, token, userRole }) {
           <FontAwesomeIcon
             icon={faArrowsRotate}
             color={color.mainColor}
-            size={35}
+            size={29}
           />
         </Pressable>
         <Pressable
@@ -135,7 +135,7 @@ export default function ProjectList({ username, token, userRole }) {
             navigation.navigate("Nouveau Projet");
           }}
         >
-          <FontAwesomeIcon icon={faPlus} color={color.mainColor} size={35} />
+          <FontAwesomeIcon icon={faPlus} color={color.mainColor} size={29} />
         </Pressable>
       </>
     );
@@ -189,7 +189,7 @@ export default function ProjectList({ username, token, userRole }) {
           <FontAwesomeIcon
             icon={faArrowsRotate}
             color={color.mainColor}
-            size={35}
+            size={29}
           />
         </Pressable>
       </>

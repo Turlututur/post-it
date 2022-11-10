@@ -117,9 +117,10 @@ export default StyleSheet.create({
     height: 80,
     width: 350,
     marginBottom: 10,
+    backgroundColor: color.secondColor,
   },
   text_item: {
-    marginLeft: 5,
+    marginLeft: 10,
     width: 150,
     fontSize: 20,
     marginBottom: 20,

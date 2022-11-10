@@ -13,7 +13,7 @@ export default function SignUpScreen({ navigation }) {
   return (
     <>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
         <View style={[styles.container, { marginTop: -150 }]}>

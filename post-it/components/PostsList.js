@@ -54,24 +54,8 @@ export default function PostsList({ username, token, userRole, id }) {
           <FlatList
             style={styles.gridView}
             data={posts}
-            renderItem={({ item }) => {
-              let colorToAssign = "";
-
-              if (item.state == "Validé") {
-                colorToAssign = "green";
-              }
-              if (item.state == "Rejeté") {
-                colorToAssign = "red";
-              } else {
-                colorToAssign = "black";
-              }
-              // à tester !
-              <View
-                style={[
-                  styles.itemContainer,
-                  { backgroundColor: color.thirdColor },
-                ]}
-              >
+            renderItem={({ item }) => (
+              <View style={styles.itemContainer}>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("Détails du post", {
@@ -88,42 +72,59 @@ export default function PostsList({ username, token, userRole, id }) {
                       },
                     ]}
                   >
-                    {item.title} : {item.state}
+                    {item.title}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={async (e) => {
-                    e.preventDefault();
-                    Alert.alert(
-                      "Suppression",
-                      "Voulez vous supprimer " + item.title + " ?",
-                      [
-                        {
-                          text: "Annuler",
-                        },
-                        {
-                          text: "Oui",
-                          onPress: async () => {
-                            await deletePost(item.id, token);
-                            callback(id, token);
-                          },
-                        },
-                      ]
-                    );
-                  }}
+                <Text
+                  style={[
+                    styles.text_item,
+                    {
+                      color: color.mainColor,
+                      fontSize: 18,
+                    },
+                  ]}
                 >
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    color={color.mainColor}
-                    size={20}
-                  />
-                </TouchableOpacity>
-              </View>;
-            }}
+                  {item.state}
+                </Text>
+                <View style={{ marginRight: 13 }}>
+                  <TouchableOpacity
+                    onPress={async (e) => {
+                      e.preventDefault();
+                      Alert.alert(
+                        "Suppression",
+                        "Voulez vous supprimer " + item.title + " ?",
+                        [
+                          {
+                            text: "Annuler",
+                          },
+                          {
+                            text: "Oui",
+                            onPress: async () => {
+                              await deletePost(item.id, token);
+                              callback(id, token);
+                            },
+                          },
+                        ]
+                      );
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      color={color.mainColor}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
           />
         </View>
         <Pressable
-          style={[styles.roundPressable, styles.refreshButton]}
+          style={[
+            styles.roundPressable,
+            styles.refreshButton,
+            { backgroundColor: color.thirdColor },
+          ]}
           onPress={() => {
             callback(id, token);
           }}
@@ -131,7 +132,7 @@ export default function PostsList({ username, token, userRole, id }) {
           <FontAwesomeIcon
             icon={faArrowsRotate}
             color={color.mainColor}
-            size={35}
+            size={29}
           />
         </Pressable>
       </>
@@ -147,12 +148,7 @@ export default function PostsList({ username, token, userRole, id }) {
             style={styles.gridView}
             data={posts}
             renderItem={({ item }) => (
-              <View
-                style={[
-                  styles.itemContainer,
-                  { backgroundColor: color.thirdColor },
-                ]}
-              >
+              <View style={styles.itemContainer}>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("Détails du post", {
@@ -169,15 +165,30 @@ export default function PostsList({ username, token, userRole, id }) {
                       },
                     ]}
                   >
-                    {item.title} : {item.state}
+                    {item.title}
                   </Text>
                 </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.text_item,
+                    {
+                      color: color.mainColor,
+                      fontSize: 18,
+                    },
+                  ]}
+                >
+                  {item.state}
+                </Text>
               </View>
             )}
           />
         </View>
         <Pressable
-          style={[styles.roundPressable, styles.refreshButton]}
+          style={[
+            styles.roundPressable,
+            styles.refreshButton,
+            { backgroundColor: color.thirdColor },
+          ]}
           onPress={() => {
             callback(id, token);
           }}
@@ -185,11 +196,15 @@ export default function PostsList({ username, token, userRole, id }) {
           <FontAwesomeIcon
             icon={faArrowsRotate}
             color={color.mainColor}
-            size={35}
+            size={29}
           />
         </Pressable>
         <Pressable
-          style={[styles.roundPressable, styles.plusButton]}
+          style={[
+            styles.roundPressable,
+            styles.plusButton,
+            { backgroundColor: color.thirdColor },
+          ]}
           onPress={(e) => {
             e.preventDefault();
             navigation.navigate("Nouveau post", {
@@ -197,20 +212,8 @@ export default function PostsList({ username, token, userRole, id }) {
             });
           }}
         >
-          <FontAwesomeIcon icon={faPlus} color={color.mainColor} size={35} />
+          <FontAwesomeIcon icon={faPlus} color={color.mainColor} size={29} />
         </Pressable>
-        {/* <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={(e) => {
-            e.preventDefault();
-            navigation.navigate("Nouveau post", {
-              post: projectID,
-            });
-          }}
-          style={styles.plusTouchableOpacityStyle}
-        >
-          <FontAwesomeIcon icon={faPlus} color={color.textColor} size={35} />
-        </TouchableOpacity> */}
       </>
     );
   } else {
