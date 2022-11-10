@@ -54,7 +54,18 @@ export default function PostsList({ username, token, userRole, id }) {
           <FlatList
             style={styles.gridView}
             data={posts}
-            renderItem={({ item }) => (
+            renderItem={({ item }) => {
+              let colorToAssign = "";
+
+              if (item.state == "Validé") {
+                colorToAssign = "green";
+              }
+              if (item.state == "Rejeté") {
+                colorToAssign = "red";
+              } else {
+                colorToAssign = "black";
+              }
+              // à tester !
               <View
                 style={[
                   styles.itemContainer,
@@ -107,8 +118,8 @@ export default function PostsList({ username, token, userRole, id }) {
                     size={20}
                   />
                 </TouchableOpacity>
-              </View>
-            )}
+              </View>;
+            }}
           />
         </View>
         <Pressable
