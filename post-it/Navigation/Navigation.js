@@ -39,13 +39,14 @@ export default function Navigation() {
                   headerStyle: { backgroundColor: color.mainColor },
                   headerTintColor: color.textColor,
                   headerTitle: "",
-                  headerRight: () => (
+                  headerLeft: () => (
                     <Image
                       style={[
                         StyleSheet.absoluteFill,
                         {
                           width: 231 / 2.2,
                           height: 140 / 2.2,
+                          marginLeft: 50,
                         },
                       ]}
                       source={require("../assets/PostIt.png")}
@@ -60,13 +61,14 @@ export default function Navigation() {
                   headerStyle: { backgroundColor: color.mainColor },
                   headerTintColor: color.textColor,
                   headerTitle: "",
-                  headerRight: () => (
+                  headerLeft: () => (
                     <Image
                       style={[
                         StyleSheet.absoluteFill,
                         {
                           width: 231 / 2.2,
                           height: 140 / 2.2,
+                          marginLeft: 50,
                         },
                       ]}
                       source={require("../assets/PostIt.png")}

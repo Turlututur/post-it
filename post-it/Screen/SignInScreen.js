@@ -12,7 +12,9 @@ import SignIn from "../components/SignIn";
 export default function SignInScreen() {
   return (
     <KeyboardAvoidingView
-      // behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // Permet de ne pas cacher le formulaire avec le clavier sur téléphone.
+      // Mettre en commentaire ligne du dessous si problèmes (Web)...
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <View style={[styles.container, { marginTop: -250 }]}>
