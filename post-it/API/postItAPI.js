@@ -1,4 +1,6 @@
-const API_URL = "http://192.168.1.56:4000"; //à adapter !!!
+import { Settings } from "react-native";
+
+const API_URL = "http://192.168.148.41:4000"; //à adapter !!!
 
 // Mutation de connexion
 const SIGN_IN = `mutation($username:String!, $password:String!, $role:String!) {
@@ -134,6 +136,15 @@ const MODIFY_POST = `mutation($postId:ID, $content:String!, $desc:String!) {
       desc:$desc
     }
   ) {posts{id, title, content, desc, comment, state}}
+}`;
+
+// Mutation de suppression de compte (à tester)
+const DELETE_USER = `mutation($username:String!) {
+  deleteUsers(
+    where:{
+      username:$username
+    }
+  ) {nodesDeleted}
 }`;
 
 /**
@@ -569,6 +580,41 @@ export function modifyPost(postId, content, desc, token) {
         throw jsonResponse.errors[0];
       }
       return jsonResponse.data.posts;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
+/**
+ * Fonction de suppresion d'utilisateur
+ * @param {String} username Le nom de l'utilisateur à supprimer.
+ * @param {String} token    Le token d'autorisation de l'application.
+ * @returns Une erreur si elle a lieu, les noeuds supprimés sinon.
+ * @todo Tester la fonction.
+ */
+export function deleteUser(username, token) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      query: DELETE_USER,
+      variables: {
+        username: username,
+      },
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonResponse) => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0];
+      }
+      return jsonResponse.data.nodesDeleted;
     })
     .catch((error) => {
       throw error;

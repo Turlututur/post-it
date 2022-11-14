@@ -67,6 +67,7 @@ export default function SignIn() {
                           {/* <Text style={styles.label}>Login</Text> */}
                           <TextInput
                             placeholder="Nom d'utilisateur"
+                            placeholderTextColor="#787878"
                             maxLength={16}
                             style={styles.text_input}
                             onChangeText={setLogin}
@@ -80,6 +81,7 @@ export default function SignIn() {
                           {/* <Text style={styles.label}>Mot de passe</Text> */}
                           <TextInput
                             placeholder="Mot de passe"
+                            placeholderTextColor="#787878"
                             style={styles.text_input}
                             onChangeText={setPassword}
                             secureTextEntry={true}

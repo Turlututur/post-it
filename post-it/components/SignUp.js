@@ -73,6 +73,7 @@ export default function SignUp() {
                         <View style={{ flexDirection: "row" }}>
                           <TextInput
                             placeholder="Nom d'utilisateur"
+                            placeholderTextColor="#787878"
                             maxLength={16}
                             style={styles.text_input}
                             onChangeText={setLogin}
@@ -130,6 +131,7 @@ export default function SignUp() {
                         <View style={{ flexDirection: "row" }}>
                           <TextInput
                             placeholder="Mot de passe"
+                            placeholderTextColor="#787878"
                             style={styles.text_input}
                             onChangeText={setPassword}
                             secureTextEntry={true}
@@ -142,6 +144,7 @@ export default function SignUp() {
                         <View style={{ flexDirection: "row" }}>
                           <TextInput
                             placeholder="Confirmez votre mot de passe"
+                            placeholderTextColor="#787878"
                             style={styles.text_input}
                             onChangeText={setCopyPassword}
                             secureTextEntry={true}
