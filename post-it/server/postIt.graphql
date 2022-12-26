@@ -9,11 +9,7 @@ type Post {
 }
 
 extend type Post
-  @auth(
-    rules: [
-      { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # si cette abération est toujours présente c'est que je n'ai pas réussi à gérer les authorisations en fonction du rôle...
-    ]
-  )
+  @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], allow: public }])
 
 type Project {
   id: ID @id
@@ -24,11 +20,7 @@ type Project {
 }
 
 extend type Project
-  @auth(
-    rules: [
-      { operations: [CREATE, READ, UPDATE, DELETE], allow: public } # croyez moi, ça m'a fait mal d'écrire ça...
-    ]
-  )
+  @auth(rules: [{ operations: [CREATE, READ, UPDATE, DELETE], allow: public }])
 
 type User {
   id: ID @id
@@ -36,6 +28,7 @@ type User {
   password: String! @private
   role: String!
   roles: [String!]
+  nbConnections: Int
 }
 
 extend type User

@@ -1,6 +1,6 @@
 import { Settings } from "react-native";
 
-const API_URL = "http://192.168.148.41:4000"; //à adapter !!!
+const API_URL = "http://localhost:4000"; //à adapter !!!
 
 // Mutation de connexion
 const SIGN_IN = `mutation($username:String!, $password:String!, $role:String!) {
@@ -26,7 +26,7 @@ const GET_USER_DATA = `query users($username:String!) {
     where: {
       username: $username
     }
-    ) {id, role}
+    ) {id, role, nbConnections}
   }`;
 
 // Mutation de création de projet
@@ -145,6 +145,14 @@ const DELETE_USER = `mutation($username:String!) {
       username:$username
     }
   ) {nodesDeleted}
+}`;
+
+// Mutation de mise à jour de compteur de connections
+const UPDATE_USER_COUNT = `mutation($username:String!, $nb:Int) 
+{updateUsers(
+  where:{username:$username}
+  update:{nbConnections:$nb}
+){users{id, username, nbConnections}}
 }`;
 
 /**
@@ -591,7 +599,6 @@ export function modifyPost(postId, content, desc, token) {
  * @param {String} username Le nom de l'utilisateur à supprimer.
  * @param {String} token    Le token d'autorisation de l'application.
  * @returns Une erreur si elle a lieu, les noeuds supprimés sinon.
- * @todo Tester la fonction.
  */
 export function deleteUser(username, token) {
   return fetch(API_URL, {
@@ -615,6 +622,42 @@ export function deleteUser(username, token) {
         throw jsonResponse.errors[0];
       }
       return jsonResponse.data.nodesDeleted;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
+/**
+ * Fonction de mise à jour d'utilisateur
+ * @param {String} username Le nom de l'utilisateur à supprimer.
+ * @param {String} token    Le token d'autorisation de l'application.
+ * @param {Int}    nb       L'entier à assigner.
+ * @returns Une erreur si elle a lieu, les donnnées mises à jour sinon.
+ */
+export function updateUserNbConnections(username, token, nb) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      query: UPDATE_USER_COUNT,
+      variables: {
+        username: username,
+        nb: nb,
+      },
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonResponse) => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0];
+      }
+      return jsonResponse.data.users;
     })
     .catch((error) => {
       throw error;

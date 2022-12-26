@@ -14,7 +14,7 @@ export default function SignInScreen() {
     <KeyboardAvoidingView
       // Permet de ne pas cacher le formulaire avec le clavier sur téléphone.
       // Mettre en commentaire ligne du dessous si problèmes (Web)...
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <View style={[styles.container, { marginTop: -250 }]}>
