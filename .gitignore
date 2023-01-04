@@ -1,7 +1,5 @@
-todoLists/.expo/
-todoLists/node_modules/
-
 post-it/.expo/
 post-it/node_modules/
+post-it/package-lock.json
 node_modules
 .expo

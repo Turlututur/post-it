@@ -18,7 +18,7 @@ export default function HomeScreen() {
   const getNbConnections = (username, token) => {
     getUserData(username, token).then((data) => {
       setNbConnections(data[0].nbConnections);
-      console.log(data[0].nbConnections);
+      console.log("Nb logins: ", data[0].nbConnections);
       updateUserNbConnections(username, token, data[0].nbConnections + 1);
     });
   };
