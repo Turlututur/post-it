@@ -31,7 +31,7 @@ export default function HomeScreen() {
             getNbConnections(username, token);
             if (nbConnections < 3) {
               return (
-                <View style={[styles.container, { marginTop: -75 }]}>
+                <View style={[styles.container, { marginTop: -50 }]}>
                   <Image
                     source={require("../assets/PostItCapt.png")}
                     style={{ width: 231 / 1.04, height: 140 / 1.04 }}

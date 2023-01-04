@@ -44,6 +44,11 @@ export default function PostsList({ username, token, userRole, id }) {
 
   useEffect(() => {
     callback(id, token);
+    // Permet de remettre à jour la liste de posts toutes les cinq secondes
+    const interval = setInterval(() => {
+      callback(id, token);
+    }, 5000);
+    return () => clearInterval(interval);
   }, [id, token]);
 
   if (userRole == "manager") {

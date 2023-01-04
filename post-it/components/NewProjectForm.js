@@ -85,7 +85,7 @@ export default function NewProjectForm({ username, token }) {
             navigation.navigate("Projets");
           }}
         >
-          <Text style={styles.tinyText}>Ajouter la tâche</Text>
+          <Text style={styles.tinyTextWhite}>Créer le projet</Text>
         </Pressable>
       </View>
     </>

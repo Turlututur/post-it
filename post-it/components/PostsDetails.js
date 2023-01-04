@@ -42,14 +42,12 @@ export default function PostDetails({ username, token, userRole, id }) {
 
   if (userRole == "manager") {
     return (
-      <View>
+      <View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
           <FlatList
             data={post}
             renderItem={({ item }) => (
-              <View
-                style={(styles.container, [{ justifyContent: "flex-start" }])}
-              >
+              <View style={(styles.container, [{ justifyContent: "center" }])}>
                 <Text style={styles.text}>
                   {item.title}
                   {"\n"}
@@ -92,7 +90,7 @@ export default function PostDetails({ username, token, userRole, id }) {
         <View style={{ flexDirection: "row" }}>
           <SelectDropdown
             dropdownStyle={{
-              backgroundColor: color.secondColor,
+              backgroundColor: color.mainColor,
               borderRadius: 10,
               height: 90,
               width: 300,
@@ -112,7 +110,7 @@ export default function PostDetails({ username, token, userRole, id }) {
             onSelect={(selectedItem) => {
               setState(selectedItem);
             }}
-            defaultButtonText={"Etat à assigner"}
+            defaultButtonText={"Etat"}
             buttonTextAfterSelection={(selectedItem) => {
               return selectedItem;
             }}
@@ -127,11 +125,11 @@ export default function PostDetails({ username, token, userRole, id }) {
             onPress={async (e) => {
               e.preventDefault();
               await reviewPost(id, state, reviewComment, token);
-              callback(id, token);
+              navigation.goBack();
             }}
           >
             <Text style={[styles.tinyText, { color: color.mainColor }]}>
-              Passer en revue
+              Soumettre
             </Text>
           </Pressable>
         </View>

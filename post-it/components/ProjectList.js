@@ -42,6 +42,11 @@ export default function ProjectList({ username, token, userRole }) {
 
   useEffect(() => {
     callback(username, token);
+    // Permet de remettre à jour la liste de posts toutes les cinq secondes
+    const interval = setInterval(() => {
+      callback(username, token);
+    }, 5000);
+    return () => clearInterval(interval);
   }, [username, token]);
 
   if (userRole == "manager") {
