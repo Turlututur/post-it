@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import styles from "../styles/styles";
-import { Link } from "@react-navigation/native";
 
 import {
   UsernameContext,
@@ -47,6 +46,8 @@ export default function HomeScreen() {
                     ></Welcome>
                   );
                 } else {
+                  // Si l'utilisateur s'est déjà connecté plusieurs fois,
+                  // on va simplement lui afficher sa liste de projets.
                   return (
                     <View style={[styles.container, { marginTop: 0 }]}>
                       <Image
