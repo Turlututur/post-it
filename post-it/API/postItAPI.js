@@ -155,6 +155,11 @@ const UPDATE_USER_COUNT = `mutation($username:String!, $nb:Int)
 ){users{id, username, nbConnections}}
 }`;
 
+// Mutation de récupération des noms de writters
+const GET_WRITTERS_NAMES = `query {
+  users(where:{role_CONTAINS:"writter"}){username}
+}`;
+
 /**
  * Fonction de connexion.
  * Permet de se connecter à l'api grâce au nom d'utilisateur,
@@ -648,6 +653,38 @@ export function updateUserNbConnections(username, token, nb) {
         username: username,
         nb: nb,
       },
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonResponse) => {
+      if (jsonResponse.errors != null) {
+        throw jsonResponse.errors[0];
+      }
+      return jsonResponse.data.users;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
+/**
+ * Fonction de récupération de noms de writers
+ * @param {String} token
+ * @returns Les noms des writters.
+ * @todo    Tester si ça fonctionne !
+ */
+export function getWrittersNames(token) {
+  return fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      query: GET_POST_BY_ID,
+      variables: {},
     }),
   })
     .then((response) => {
