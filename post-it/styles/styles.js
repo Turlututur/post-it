@@ -125,4 +125,15 @@ export default StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
   },
+  itemStyle: {
+    padding: 10,
+  },
+  textInputStyle: {
+    height: 40,
+    borderWidth: 1,
+    paddingLeft: 20,
+    margin: 5,
+    borderColor: color.secondColor,
+    backgroundColor: "#FFFFF",
+  },
 });

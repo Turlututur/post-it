@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
+import { Searchbar } from "react-native-paper";
 import styles from "../styles/styles";
-import { getProjects, createProjects, getUserData } from "../API/postItAPI";
+import {
+  getProjects,
+  createProjects,
+  getUserData,
+  getWrittersNames,
+} from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 
 /**
@@ -11,9 +24,13 @@ import { useNavigation } from "@react-navigation/native";
  * @returns Une flatlist de projets.
  */
 export default function NewProjectForm({ username, token }) {
-  const [projects, setProjects] = useState([]);
   const [userId, setUserId] = useState();
   const [newProjectText, setNewProjectText] = useState("");
+
+  const [search, setSearch] = useState("");
+  const [writtersNames, setNewWrittersNames] = useState([]);
+  const [filteredWrittersNames, setFilteredWrittersNames] = useState([]);
+
   const [writter, setNewWritter] = useState("");
   const navigation = useNavigation();
 
@@ -26,13 +43,73 @@ export default function NewProjectForm({ username, token }) {
   const getId = (username, token) => {
     getUserData(username, token).then((data) => {
       setUserId(data[0].id);
-      console.log(data[0].id);
+    });
+  };
+
+  /**
+   * Fonction de récuperation des noms de writters dans l'api.
+   *
+   * @param {String} token Le token d'autorisation de l'api.
+   */
+  const getWritters = (token) => {
+    getWrittersNames(token).then((data) => {
+      for (let i in data) {
+        writtersNames.push(data[i].username);
+      }
+      setFilteredWrittersNames(writtersNames);
+      console.log(writtersNames);
     });
   };
 
   useEffect(() => {
     getId(username, token);
   }, [username, token]);
+
+  useEffect(() => {
+    getWritters(token);
+  }, [token]);
+
+  const searchFilterFunction = (text) => {
+    if (text) {
+      const newData = writtersNames.filter(function (name) {
+        return name.match(text);
+      });
+
+      setFilteredWrittersNames(newData);
+      setSearch(text);
+    } else {
+      setFilteredWrittersNames(writtersNames);
+      setSearch(text);
+    }
+  };
+
+  const ItemView = ({ item }) => {
+    return (
+      // Flat List Item
+      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+        {item}
+      </Text>
+    );
+  };
+
+  const getItem = (item) => {
+    // Function for click on an item
+    setNewWritter(item);
+    setNewProjectText(item);
+  };
+
+  const ItemSeparatorView = () => {
+    return (
+      // Flat List Item Separator
+      <View
+        style={{
+          height: 0.5,
+          width: "100%",
+          backgroundColor: "#C8C8C8",
+        }}
+      />
+    );
+  };
 
   return (
     <>
@@ -54,7 +131,26 @@ export default function NewProjectForm({ username, token }) {
             navigation.navigate("Projets");
           }}
         />
-        <TextInput
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.container}>
+            <Searchbar
+              style={styles.text_input}
+              inputStyle={{ fontSize: 14 }}
+              searchIcon={{ size: 24 }}
+              onChangeText={(text) => searchFilterFunction(text)}
+              onClear={(text) => searchFilterFunction("")}
+              placeholder="Rechercher un writter..."
+              value={search}
+            />
+            <FlatList
+              data={filteredWrittersNames}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={ItemSeparatorView}
+              renderItem={ItemView}
+            />
+          </View>
+        </SafeAreaView>
+        {/* <TextInput
           style={styles.text_input}
           onChangeText={(newValue) => setNewWritter(newValue)}
           placeholder="Nom du community manager à assigner"
@@ -70,7 +166,10 @@ export default function NewProjectForm({ username, token }) {
             );
             navigation.navigate("Projets");
           }}
-        />
+        /> */}
+        <Text style={[styles.tinyText, { marginLeft: 15 }]}>
+          Community manager assigné : {writter}
+        </Text>
         <Pressable
           style={styles.pressable}
           onPress={async (e) => {

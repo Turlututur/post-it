@@ -683,7 +683,7 @@ export function getWrittersNames(token) {
       Authorization: "Bearer " + token,
     },
     body: JSON.stringify({
-      query: GET_POST_BY_ID,
+      query: GET_WRITTERS_NAMES,
       variables: {},
     }),
   })
