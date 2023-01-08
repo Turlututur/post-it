@@ -115,7 +115,6 @@ export default function NewProjectForm({ username, token }) {
   // Permet de séparer dans la flatlist nos writters (purement estetique)
   const ItemSeparatorView = () => {
     return (
-      // Flat List Item Separator
       <View
         style={{
           height: 0.5,
