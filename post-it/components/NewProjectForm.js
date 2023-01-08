@@ -10,7 +10,6 @@ import {
 import { Searchbar } from "react-native-paper";
 import styles from "../styles/styles";
 import {
-  getProjects,
   createProjects,
   getUserData,
   getWrittersNames,
@@ -24,14 +23,21 @@ import { useNavigation } from "@react-navigation/native";
  * @returns Une flatlist de projets.
  */
 export default function NewProjectForm({ username, token }) {
+  // ID de l'utilisateur
   const [userId, setUserId] = useState();
+  // Nom du projet à créer
   const [newProjectText, setNewProjectText] = useState("");
 
+  // Entrée utilisateur qui sera recherchée dans la liste des writters
   const [search, setSearch] = useState("");
+  // Liste de tous les Writters
   const [writtersNames, setNewWrittersNames] = useState([]);
+  // Liste des Writters filtrée en fonction de l'entrée utilisateur
   const [filteredWrittersNames, setFilteredWrittersNames] = useState([]);
 
+  // L'utilisateur qui sera séléctionné
   const [writter, setNewWritter] = useState("");
+
   const navigation = useNavigation();
 
   /**
@@ -69,35 +75,44 @@ export default function NewProjectForm({ username, token }) {
     getWritters(token);
   }, [token]);
 
+  /**
+   * Fonction permettant de filtrer la liste de writters en focntion du nom de writter
+   * que l'utilisteur va rechercher
+   * @param {String} text L'entrée utilisateur qui sera utilisée pour filtrer la liste de writters
+   */
   const searchFilterFunction = (text) => {
     if (text) {
+      // On filtre la liste
       const newData = writtersNames.filter(function (name) {
         return name.match(text);
       });
-
+      // On attribue la liste filtrée à notre constante
       setFilteredWrittersNames(newData);
       setSearch(text);
     } else {
+      // Si rien n'est entré
       setFilteredWrittersNames(writtersNames);
       setSearch(text);
     }
   };
 
+  // Permet de lister les items dans une flatlist
   const ItemView = ({ item }) => {
     return (
-      // Flat List Item
       <Text style={styles.itemStyle} onPress={() => getItem(item)}>
         {item}
       </Text>
     );
   };
 
+  // Fonction qui sera appelée lors du clic d'un item de la liste
   const getItem = (item) => {
-    // Function for click on an item
+    // On set le writter séléctionné
     setNewWritter(item);
     setNewProjectText(item);
   };
 
+  // Permet de séparer dans la flatlist nos writters (purement estetique)
   const ItemSeparatorView = () => {
     return (
       // Flat List Item Separator
@@ -150,6 +165,9 @@ export default function NewProjectForm({ username, token }) {
             />
           </View>
         </SafeAreaView>
+        {/* Ancien moyen de séléctionner notre writter, cela consistait à 
+        entrer le nom exact de l'utilisateur (pas user friendly, une barre de recherche est plus
+        agréable...) */}
         {/* <TextInput
           style={styles.text_input}
           onChangeText={(newValue) => setNewWritter(newValue)}
