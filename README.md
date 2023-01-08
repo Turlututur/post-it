@@ -1,6 +1,8 @@
 # Post-It
 
-## Instalation
+Post-It est une application mobile permettant de créer des brouillons de posts pour community manager que des responsables peuvent évaluer (pour savoir si le community manager peut ou non poster ce brouillon). Cette application a été codée via React Native et utilise une API externe en utilisant Graphql et Neo4J.
+
+## Installation
 
 Après avoir téléchargé le dépot :
 
