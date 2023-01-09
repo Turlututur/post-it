@@ -6,6 +6,9 @@ import { getPostById, reviewPost, modifyPost } from "../API/postItAPI";
 import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from "react-native-select-dropdown";
 
+// La dose de dopamine fournie à un writter dont le projet a été validé
+import ConfettiCannon from "react-native-confetti-cannon";
+
 /**
  * Composant d'affichage du contenu d'un post
  * @param {String} username Le nom de l'utilisateur.
@@ -16,13 +19,23 @@ import SelectDropdown from "react-native-select-dropdown";
  *                          en fonction du rôle de l'utilisateur.
  */
 export default function PostDetails({ username, token, userRole, id }) {
+  // Le Post que l'on récupère
   const [post, setPost] = useState([]);
+
+  // Commentaire de manager à propos du post
   const [reviewComment, setReviewComment] = useState("");
+  // Etat du post que le manager va assigner
   const [state, setState] = useState("");
+  // Etats que l'on va assigner (const utile pour le dropdown)
   const states = ["Validé", "Rejeté"];
+
+  // Nouveau contenu si le writer modifie le post
   const [newContent, setNewContent] = useState("");
+  // Nouvelle description si le writer modifie le post
   const [newDesc, setNewDesc] = useState("");
-  const navigation = useNavigation(); //utile pour plus tard (ou pas...)
+
+  // Navigation entre les screens
+  const navigation = useNavigation();
 
   /**
    * Fonction permettant de récuperer un post grâce à getPostById, provenant de ../API/postitApi.js
@@ -40,10 +53,19 @@ export default function PostDetails({ username, token, userRole, id }) {
     callback(id, token);
   }, [id, token]);
 
+  /**
+   * Deux vues différentes : en tant que manager il est possible
+   * d'évaluer les posts.
+   * En tant que writter il est possible de modifier les posts (ce qui les remettra dans l'état
+   * en attente de validation, que le post ai été validé ou rejeté au préalable).
+   */
+
+  // Vue manager
   if (userRole == "manager") {
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: "row" }}>
+        <View style={[styles.container, { flexDirection: "row" }]}>
+          {/* Flatlist du contenu du post */}
           <FlatList
             data={post}
             renderItem={({ item }) => (
@@ -72,6 +94,7 @@ export default function PostDetails({ username, token, userRole, id }) {
             )}
           />
         </View>
+        {/* Formulaire d'évaluation de post */}
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.text}>Passer le post en revue :</Text>
         </View>
@@ -128,7 +151,7 @@ export default function PostDetails({ username, token, userRole, id }) {
               navigation.goBack();
             }}
           >
-            <Text style={[styles.tinyText, { color: color.mainColor }]}>
+            <Text style={[styles.tinyTextWhite, { color: color.mainColor }]}>
               Soumettre
             </Text>
           </Pressable>
@@ -137,65 +160,137 @@ export default function PostDetails({ username, token, userRole, id }) {
     );
   }
 
+  // Vue writter
   if (userRole == "writter") {
     return (
-      <View>
-        <View style={{ flexDirection: "row" }}>
+      <View style={styles.container}>
+        <View style={[styles.container, { flexDirection: "row" }]}>
+          {/* Flatilist du contenu du post */}
           <FlatList
             data={post}
             renderItem={({ item }) => (
-              <View>
+              <View style={styles.container}>
+                {/* Si le post est validé, un petit canon à confétis */}
+                {item.state == "Validé" && (
+                  <ConfettiCannon
+                    count={200}
+                    origin={{ x: -10, y: 0 }}
+                    explosionSpeed={700}
+                    fallSpeed={6000}
+                    colors={["#F05454", "#30475E"]}
+                  />
+                )}
+
+                {item.state == "Validé" && (
+                  <Text style={styles.text}>
+                    🥳 Votre Post a été validé ! Félicitations ! 🥳
+                  </Text>
+                )}
+
+                {item.state == "Validé" && (
+                  <View
+                    style={{
+                      height: 0.5,
+                      width: "100%",
+                      backgroundColor: "#C8C8C8",
+                    }}
+                  />
+                )}
+
                 <Text style={styles.text}>Titre: {item.title}</Text>
+                <View
+                  style={{
+                    height: 0.5,
+                    width: "100%",
+                    backgroundColor: "#C8C8C8",
+                  }}
+                />
                 <Text style={styles.text}>Contenu: {item.content}</Text>
+                <View
+                  style={{
+                    height: 0.5,
+                    width: "100%",
+                    backgroundColor: "#C8C8C8",
+                  }}
+                />
                 <Text style={styles.text}>Description: {item.desc}</Text>
+                <View
+                  style={{
+                    height: 0.5,
+                    width: "100%",
+                    backgroundColor: "#C8C8C8",
+                  }}
+                />
                 <Text style={styles.text}>
                   Etat de validation: {item.state}
                 </Text>
+                <View
+                  style={{
+                    height: 0.5,
+                    width: "100%",
+                    backgroundColor: "#C8C8C8",
+                  }}
+                />
                 <Text style={styles.text}>
                   Commentaire de manager: {item.comment}
                 </Text>
+                <View
+                  style={{
+                    height: 0.5,
+                    width: "100%",
+                    backgroundColor: "#C8C8C8",
+                  }}
+                />
+
+                {/* Formulaire de modification de post */}
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.text}>Modifier le post :</Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <TextInput
+                    style={styles.large_text_input}
+                    textAlignVertical="top"
+                    multiline={true}
+                    onChangeText={(newValue) => setNewContent(newValue)}
+                    placeholder="Contenu"
+                    onSubmitEditing={async (e) => {
+                      e.preventDefault();
+                      await modifyPost(id, newContent, newDesc, token);
+                      callback(id, token);
+                    }}
+                  />
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <TextInput
+                    style={styles.medium_text_input}
+                    textAlignVertical="top"
+                    multiline={true}
+                    onChangeText={(newValue) => setNewDesc(newValue)}
+                    placeholder="Description"
+                    onSubmitEditing={async (e) => {
+                      e.preventDefault();
+                      await modifyPost(id, newContent, newDesc, token);
+                      callback(id, token);
+                    }}
+                  />
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <Pressable
+                    style={styles.pressable}
+                    onPress={async (e) => {
+                      e.preventDefault();
+                      await modifyPost(id, newContent, newDesc, token);
+                      navigation.goBack();
+                    }}
+                  >
+                    <Text style={styles.tinyTextWhite}>
+                      Mettre à jour le post
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
             )}
           />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.text}>Modifier le post :</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <TextInput
-            style={styles.text_input}
-            onChangeText={(newValue) => setNewContent(newValue)}
-            placeholder="Contenu"
-            onSubmitEditing={async (e) => {
-              e.preventDefault();
-              await modifyPost(id, newContent, newDesc, token);
-              callback(id, token);
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <TextInput
-            style={styles.text_input}
-            onChangeText={(newValue) => setNewDesc(newValue)}
-            placeholder="Description"
-            onSubmitEditing={async (e) => {
-              e.preventDefault();
-              await modifyPost(id, newContent, newDesc, token);
-              callback(id, token);
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <Pressable
-            style={styles.pressable}
-            onPress={async (e) => {
-              e.preventDefault();
-              await modifyPost(id, newContent, newDesc, token);
-              callback(id, token);
-            }}
-          >
-            <Text>Mettre à jour le post</Text>
-          </Pressable>
         </View>
       </View>
     );
@@ -208,59 +303,3 @@ export default function PostDetails({ username, token, userRole, id }) {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#1B2430",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     paddingTop: 150,
-//   },
-//   text: {
-//     color: "#D6D5A8",
-//   },
-//   link: {
-//     color: "#816797",
-//     textDecorationLine: "underline",
-//   },
-//   text_input: {
-//     borderWidth: 1,
-//     backgroundColor: "#D6D5A8",
-//     color: "#1B2430",
-//     margin: 15,
-//     height: 40,
-//     width: 300,
-//     borderRadius: 10,
-//     paddingLeft: 10,
-//   },
-//   pressable: {
-//     backgroundColor: "#D6D5A8",
-//     color: "white",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     margin: 15,
-//     height: 40,
-//     width: 300,
-//     borderRadius: 10,
-//   },
-//   text_item: {
-//     marginLeft: 10,
-//     width: 150,
-//   },
-//   touchableOpacityStyle: {
-//     position: "absolute",
-//     width: 50,
-//     height: 50,
-//     alignItems: "center",
-//     justifyContent: "center",
-//     right: 30,
-//     bottom: 30,
-//   },
-//   floatingButtonStyle: {
-//     resizeMode: "contain",
-//     width: 50,
-//     height: 50,
-//     //backgroundColor:'black'
-//   },
-// });
