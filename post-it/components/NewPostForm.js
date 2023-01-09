@@ -12,14 +12,19 @@ import { useNavigation } from "@react-navigation/native";
  * @returns Une flatlist de projets.
  */
 export default function NewPostForm({ username, token, id }) {
+  // Titre du nouveau post
   const [newPostTitle, setNewPostTitle] = useState("");
+  // Contenu du nouveau post
   const [newPostContent, setNewPostContent] = useState("");
+  // Description du post (explications dédiées à un manager)
   const [newPostDesc, setNewPostDesc] = useState("");
+  // Navigation entre les screens
   const navigation = useNavigation();
 
   return (
     <>
       <View>
+        {/* Entrée utilisateur du titre du post */}
         <TextInput
           style={styles.text_input}
           onChangeText={(newValue) => setNewPostTitle(newValue)}
@@ -36,10 +41,13 @@ export default function NewPostForm({ username, token, id }) {
             navigation.goBack(null);
           }}
         />
+        {/* Entrée utilisateur du contenu du post */}
         <TextInput
-          style={styles.text_input}
+          style={styles.large_text_input}
           onChangeText={(newValue) => setNewPostContent(newValue)}
           placeholder="Contenu du post"
+          textAlignVertical="top"
+          multiline={true}
           onSubmitEditing={async (e) => {
             e.preventDefault();
             await createPost(
@@ -52,10 +60,13 @@ export default function NewPostForm({ username, token, id }) {
             navigation.goBack(null);
           }}
         />
+        {/* Entrée utilisateur de la description du post */}
         <TextInput
-          style={styles.text_input}
+          style={styles.medium_text_input}
           onChangeText={(newValue) => setNewPostDesc(newValue)}
           placeholder="Description du post"
+          textAlignVertical="top"
+          multiline={true}
           onSubmitEditing={async (e) => {
             e.preventDefault();
             await createPost(
@@ -68,6 +79,7 @@ export default function NewPostForm({ username, token, id }) {
             navigation.goBack(null);
           }}
         />
+        {/* Bouton de soumission du formulaire qui redirige vers la liste de posts */}
         <Pressable
           style={styles.pressable}
           onPress={async (e) => {
@@ -82,7 +94,7 @@ export default function NewPostForm({ username, token, id }) {
             navigation.goBack(null);
           }}
         >
-          <Text style={styles.tinyText}>Créer le post</Text>
+          <Text style={styles.tinyTextWhite}>Créer le post</Text>
         </Pressable>
       </View>
     </>
