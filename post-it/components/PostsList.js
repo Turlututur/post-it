@@ -124,7 +124,8 @@ export default function PostsList({ username, token, userRole, id }) {
             )}
           />
         </View>
-        <Pressable
+        {/* Avec le refresh auto plus besoin de bouton pour le forcer */}
+        {/* <Pressable
           style={[
             styles.roundPressable,
             styles.refreshButton,
@@ -139,7 +140,7 @@ export default function PostsList({ username, token, userRole, id }) {
             color={color.mainColor}
             size={29}
           />
-        </Pressable>
+        </Pressable> */}
       </>
     );
   }
@@ -188,7 +189,8 @@ export default function PostsList({ username, token, userRole, id }) {
             )}
           />
         </View>
-        <Pressable
+        {/* Avec le refresh auto plus besoin de bouton pour le forcer */}
+        {/* <Pressable
           style={[
             styles.roundPressable,
             styles.refreshButton,
@@ -203,7 +205,7 @@ export default function PostsList({ username, token, userRole, id }) {
             color={color.mainColor}
             size={29}
           />
-        </Pressable>
+        </Pressable> */}
         <Pressable
           style={[
             styles.roundPressable,

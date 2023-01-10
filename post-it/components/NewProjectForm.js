@@ -62,8 +62,8 @@ export default function NewProjectForm({ username, token }) {
       for (let i in data) {
         writtersNames.push(data[i].username);
       }
-      setFilteredWrittersNames(writtersNames);
-      console.log(writtersNames);
+      // setFilteredWrittersNames(writtersNames);
+      // console.log(writtersNames);
     });
   };
 
@@ -91,7 +91,6 @@ export default function NewProjectForm({ username, token }) {
       setSearch(text);
     } else {
       // Si rien n'est entré
-      setFilteredWrittersNames(writtersNames);
       setSearch(text);
     }
   };

@@ -69,92 +69,99 @@ export default function PostDetails({ username, token, userRole, id }) {
           <FlatList
             data={post}
             renderItem={({ item }) => (
-              <View style={(styles.container, [{ justifyContent: "center" }])}>
-                <Text style={styles.text}>
-                  {item.title}
-                  {"\n"}
-                </Text>
-                <Text style={styles.text}>
-                  {item.content}
-                  {"\n"}
-                </Text>
-                <Text style={styles.text}>
-                  {item.desc}
-                  {"\n"}
-                </Text>
-                <Text style={styles.text}>
+              <View style={styles.container}>
+                <TextInput
+                  style={styles.text_input}
+                  editable={false}
+                  value={item.title}
+                />
+                <TextInput
+                  style={styles.large_text_input}
+                  editable={false}
+                  textAlignVertical="top"
+                  multiline={true}
+                  value={item.content}
+                />
+                <TextInput
+                  style={styles.medium_text_input}
+                  editable={false}
+                  textAlignVertical="top"
+                  multiline={true}
+                  value={item.desc}
+                />
+                <Text style={styles.tinyText}>
                   Etat de validation: {item.state}
-                  {"\n"}
                 </Text>
-                <Text style={styles.text}>
-                  Commentaire de manager: {item.comment}
-                  {"\n"}
-                </Text>
+                {/* Formulaire d'évaluation de post */}
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.text}>Evaluer le Post :</Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <TextInput
+                    style={styles.medium_text_input}
+                    textAlignVertical="top"
+                    multiline={true}
+                    onChangeText={(newValue) => setReviewComment(newValue)}
+                    placeholder="Commentaire"
+                    defaultValue={item.comment}
+                    onSubmitEditing={async (e) => {
+                      e.preventDefault();
+                      await reviewPost(id, state, reviewComment, token);
+                      callback(id, token);
+                    }}
+                  />
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <SelectDropdown
+                    dropdownStyle={{
+                      backgroundColor: color.mainColor,
+                      borderRadius: 10,
+                      height: 90,
+                      width: 300,
+                    }}
+                    buttonStyle={{
+                      backgroundColor: color.secondColor,
+                      color: "white",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: 15,
+                      height: 40,
+                      width: 300,
+                      borderRadius: 10,
+                    }}
+                    buttonTextStyle={{ color: color.mainColor, fontSize: 15 }}
+                    data={states}
+                    onSelect={(selectedItem) => {
+                      setState(selectedItem);
+                    }}
+                    defaultButtonText={"Etat"}
+                    buttonTextAfterSelection={(selectedItem) => {
+                      return selectedItem;
+                    }}
+                    rowTextForSelection={(item) => {
+                      return item;
+                    }}
+                  />
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <Pressable
+                    style={styles.pressable}
+                    onPress={async (e) => {
+                      e.preventDefault();
+                      await reviewPost(id, state, reviewComment, token);
+                      navigation.goBack();
+                    }}
+                  >
+                    <Text
+                      style={[styles.tinyTextWhite, { color: color.mainColor }]}
+                    >
+                      Soumettre
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
             )}
           />
-        </View>
-        {/* Formulaire d'évaluation de post */}
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.text}>Passer le post en revue :</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <TextInput
-            style={styles.text_input}
-            onChangeText={(newValue) => setReviewComment(newValue)}
-            placeholder="Commentaire"
-            onSubmitEditing={async (e) => {
-              e.preventDefault();
-              await reviewPost(id, state, reviewComment, token);
-              callback(id, token);
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <SelectDropdown
-            dropdownStyle={{
-              backgroundColor: color.mainColor,
-              borderRadius: 10,
-              height: 90,
-              width: 300,
-            }}
-            buttonStyle={{
-              backgroundColor: color.secondColor,
-              color: "white",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: 15,
-              height: 40,
-              width: 300,
-              borderRadius: 10,
-            }}
-            buttonTextStyle={{ color: color.mainColor, fontSize: 15 }}
-            data={states}
-            onSelect={(selectedItem) => {
-              setState(selectedItem);
-            }}
-            defaultButtonText={"Etat"}
-            buttonTextAfterSelection={(selectedItem) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item) => {
-              return item;
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <Pressable
-            style={styles.pressable}
-            onPress={async (e) => {
-              e.preventDefault();
-              await reviewPost(id, state, reviewComment, token);
-              navigation.goBack();
-            }}
-          >
-            <Text style={[styles.tinyTextWhite, { color: color.mainColor }]}>
-              Soumettre
-            </Text>
-          </Pressable>
         </View>
       </View>
     );
@@ -172,6 +179,7 @@ export default function PostDetails({ username, token, userRole, id }) {
               <View style={styles.container}>
                 {/* Si le post est validé, un petit canon à confétis */}
                 {item.state == "Validé" && (
+                  // DOPAMIIIIIINE !
                   <ConfettiCannon
                     count={200}
                     origin={{ x: -10, y: 0 }}
@@ -187,93 +195,46 @@ export default function PostDetails({ username, token, userRole, id }) {
                   </Text>
                 )}
 
-                {item.state == "Validé" && (
-                  <View
-                    style={{
-                      height: 0.5,
-                      width: "100%",
-                      backgroundColor: "#C8C8C8",
-                    }}
-                  />
-                )}
-
-                <Text style={styles.text}>Titre: {item.title}</Text>
-                <View
-                  style={{
-                    height: 0.5,
-                    width: "100%",
-                    backgroundColor: "#C8C8C8",
+                <TextInput
+                  style={styles.text_input}
+                  value={item.title}
+                  editable={false}
+                  onSubmitEditing={async (e) => {
+                    e.preventDefault();
+                    await modifyPost(id, newContent, newDesc, token);
+                    callback(id, token);
                   }}
                 />
-                <Text style={styles.text}>Contenu: {item.content}</Text>
-                <View
-                  style={{
-                    height: 0.5,
-                    width: "100%",
-                    backgroundColor: "#C8C8C8",
+                <TextInput
+                  style={styles.large_text_input}
+                  textAlignVertical="top"
+                  multiline={true}
+                  defaultValue={item.content}
+                  onChangeText={(newValue) => setNewContent(newValue)}
+                  onSubmitEditing={async (e) => {
+                    e.preventDefault();
+                    await modifyPost(id, newContent, newDesc, token);
+                    callback(id, token);
                   }}
                 />
-                <Text style={styles.text}>Description: {item.desc}</Text>
-                <View
-                  style={{
-                    height: 0.5,
-                    width: "100%",
-                    backgroundColor: "#C8C8C8",
+                <TextInput
+                  style={styles.medium_text_input}
+                  textAlignVertical="top"
+                  multiline={true}
+                  defaultValue={item.desc}
+                  onChangeText={(newValue) => setNewDesc(newValue)}
+                  onSubmitEditing={async (e) => {
+                    e.preventDefault();
+                    await modifyPost(id, newContent, newDesc, token);
+                    callback(id, token);
                   }}
                 />
-                <Text style={styles.text}>
+                <Text style={styles.tinyText}>
                   Etat de validation: {item.state}
                 </Text>
-                <View
-                  style={{
-                    height: 0.5,
-                    width: "100%",
-                    backgroundColor: "#C8C8C8",
-                  }}
-                />
-                <Text style={styles.text}>
+                <Text style={styles.tinyText}>
                   Commentaire de manager: {item.comment}
                 </Text>
-                <View
-                  style={{
-                    height: 0.5,
-                    width: "100%",
-                    backgroundColor: "#C8C8C8",
-                  }}
-                />
-
-                {/* Formulaire de modification de post */}
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.text}>Modifier le post :</Text>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <TextInput
-                    style={styles.large_text_input}
-                    textAlignVertical="top"
-                    multiline={true}
-                    onChangeText={(newValue) => setNewContent(newValue)}
-                    placeholder="Contenu"
-                    onSubmitEditing={async (e) => {
-                      e.preventDefault();
-                      await modifyPost(id, newContent, newDesc, token);
-                      callback(id, token);
-                    }}
-                  />
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <TextInput
-                    style={styles.medium_text_input}
-                    textAlignVertical="top"
-                    multiline={true}
-                    onChangeText={(newValue) => setNewDesc(newValue)}
-                    placeholder="Description"
-                    onSubmitEditing={async (e) => {
-                      e.preventDefault();
-                      await modifyPost(id, newContent, newDesc, token);
-                      callback(id, token);
-                    }}
-                  />
-                </View>
                 <View style={{ flexDirection: "row" }}>
                   <Pressable
                     style={styles.pressable}

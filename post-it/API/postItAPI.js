@@ -1,6 +1,6 @@
 import { Settings } from "react-native";
 
-const API_URL = "http://192.168.0.37:4000"; //à adapter !!!
+const API_URL = "http://192.168.0.32:4000"; //à adapter !!!
 
 // Mutation de connexion
 const SIGN_IN = `mutation($username:String!, $password:String!, $role:String!) {

@@ -122,7 +122,8 @@ export default function ProjectList({ username, token, userRole }) {
           />
         </View>
 
-        <Pressable
+        {/* Avec le refresh auto plus besoin de bouton pour le forcer */}
+        {/* <Pressable
           style={[styles.roundPressable, styles.refreshButton]}
           onPress={() => {
             callback(username, token);
@@ -133,7 +134,7 @@ export default function ProjectList({ username, token, userRole }) {
             color={color.mainColor}
             size={29}
           />
-        </Pressable>
+        </Pressable> */}
         <Pressable
           style={[styles.roundPressable, styles.plusButton]}
           onPress={() => {
@@ -185,7 +186,8 @@ export default function ProjectList({ username, token, userRole }) {
             )}
           />
         </View>
-        <Pressable
+        {/* Avec le refresh auto plus besoin de bouton pour le forcer */}
+        {/* <Pressable
           style={[styles.roundPressable, styles.refreshButton]}
           onPress={() => {
             callback(username, token);
@@ -196,7 +198,7 @@ export default function ProjectList({ username, token, userRole }) {
             color={color.mainColor}
             size={29}
           />
-        </Pressable>
+        </Pressable> */}
       </>
     );
   } else {
