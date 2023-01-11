@@ -1,6 +1,11 @@
 import { Settings } from "react-native";
 
-const API_URL = "http://192.168.0.32:4000"; //à adapter !!!
+/**
+ * Note importante à prendre en compte :
+ * pour lancer l'application sur Expo, remplacez localhost par l'ip affichée
+ * dans le terminal (ATTENTION A GARDER LE PORT 4000 !)
+ */
+const API_URL = "http://localhost:4000"; //à adapter !!!
 
 // Mutation de connexion
 const SIGN_IN = `mutation($username:String!, $password:String!, $role:String!) {
