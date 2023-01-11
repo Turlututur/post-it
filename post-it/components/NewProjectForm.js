@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
+  ScrollView,
   Text,
   TextInput,
   Pressable,
@@ -126,47 +127,54 @@ export default function NewProjectForm({ username, token }) {
 
   return (
     <>
-      <View>
-        <TextInput
-          style={styles.text_input}
-          onChangeText={(newValue) => setNewProjectText(newValue)}
-          placeholder="Titre du projet"
-          maxLength={16}
-          onSubmitEditing={async (e) => {
-            e.preventDefault();
-            await createProjects(
-              newProjectText,
-              userId,
-              username,
-              writter,
-              token
-            );
-            navigation.navigate("Projets");
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: "center",
           }}
-        />
-        <SafeAreaView style={{ flex: 1 }}>
+        >
           <View style={styles.container}>
-            <Searchbar
+            <TextInput
               style={styles.text_input}
-              inputStyle={{ fontSize: 14 }}
-              searchIcon={{ size: 24 }}
-              onChangeText={(text) => searchFilterFunction(text)}
-              onClear={(text) => searchFilterFunction("")}
-              placeholder="Rechercher un writter..."
-              value={search}
+              onChangeText={(newValue) => setNewProjectText(newValue)}
+              placeholder="Titre du projet"
+              maxLength={16}
+              onSubmitEditing={async (e) => {
+                e.preventDefault();
+                await createProjects(
+                  newProjectText,
+                  userId,
+                  username,
+                  writter,
+                  token
+                );
+                navigation.navigate("Projets");
+              }}
             />
-            <FlatList
-              data={filteredWrittersNames}
-              keyExtractor={(item, index) => index.toString()}
-              ItemSeparatorComponent={ItemSeparatorView}
-              renderItem={ItemView}
-            />
-          </View>
-        </SafeAreaView>
-        {/* Ancien moyen de séléctionner notre writter, cela consistait à 
+            <SafeAreaView style={{ flex: 1 }}>
+              <View style={styles.container}>
+                <Searchbar
+                  style={styles.text_input}
+                  inputStyle={{ fontSize: 14 }}
+                  searchIcon={{ size: 24 }}
+                  onChangeText={(text) => searchFilterFunction(text)}
+                  onClear={(text) => searchFilterFunction("")}
+                  placeholder="Rechercher un writter..."
+                  value={search}
+                />
+                <FlatList
+                  data={filteredWrittersNames}
+                  keyExtractor={(item, index) => index.toString()}
+                  ItemSeparatorComponent={ItemSeparatorView}
+                  renderItem={ItemView}
+                />
+              </View>
+            </SafeAreaView>
+            {/* Ancien moyen de séléctionner notre writter, cela consistait à 
         entrer le nom exact de l'utilisateur (pas user friendly, une barre de recherche est plus
         agréable...) */}
-        {/* <TextInput
+            {/* <TextInput
           style={styles.text_input}
           onChangeText={(newValue) => setNewWritter(newValue)}
           placeholder="Nom du community manager à assigner"
@@ -183,25 +191,27 @@ export default function NewProjectForm({ username, token }) {
             navigation.navigate("Projets");
           }}
         /> */}
-        <Text style={[styles.tinyText, { marginLeft: 15 }]}>
-          Community manager assigné : {writter}
-        </Text>
-        <Pressable
-          style={styles.pressable}
-          onPress={async (e) => {
-            e.preventDefault();
-            await createProjects(
-              newProjectText,
-              userId,
-              username,
-              writter,
-              token
-            );
-            navigation.navigate("Projets");
-          }}
-        >
-          <Text style={styles.tinyTextWhite}>Créer le projet</Text>
-        </Pressable>
+            <Text style={[styles.tinyText, { marginLeft: 15 }]}>
+              Community manager assigné : {writter}
+            </Text>
+            <Pressable
+              style={styles.pressable}
+              onPress={async (e) => {
+                e.preventDefault();
+                await createProjects(
+                  newProjectText,
+                  userId,
+                  username,
+                  writter,
+                  token
+                );
+                navigation.navigate("Projets");
+              }}
+            >
+              <Text style={styles.tinyTextWhite}>Créer le projet</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
       </View>
     </>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, ScrollView, Text, Pressable } from "react-native";
 import styles from "../styles/styles";
 import { TokenContext } from "../Context/Context";
 import { UsernameContext } from "../Context/Context";
@@ -18,32 +18,43 @@ export default function MyAccount({ navigation }) {
         <UsernameContext.Consumer>
           {([username, setUsername]) => {
             return (
-              <View style={[styles.container, { marginTop: -400 }]}>
-                <Text style={styles.text}>
-                  Bienvenue sur votre compte {username} {"\n"}
-                </Text>
-                <Text style={styles.tinyText}>
-                  Vous pouvez vous déconnecter ou encore supprimer votre compte.
-                  Attention, la suppression est instantanée et les données
-                  effacées seront irrécupérables.
-                  {"\n"}
-                </Text>
-                <Pressable
-                  style={styles.pressable}
-                  onPress={() => setToken(null)}
-                >
-                  <Text style={styles.tinyTextWhite}>Me deconnecter</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.pressable}
-                  onPress={async (e) => {
-                    e.preventDefault();
-                    await deleteUser(username, token);
-                    setToken(null);
+              <View style={styles.container}>
+                <ScrollView
+                  contentContainerStyle={{
+                    flexGrow: 1,
+                    justifyContent: "center",
                   }}
                 >
-                  <Text style={styles.tinyTextWhite}>Supprimer mon compte</Text>
-                </Pressable>
+                  <View style={styles.container}>
+                    <Text style={styles.text}>
+                      Bienvenue sur votre compte {username} {"\n"}
+                    </Text>
+                    <Text style={styles.tinyText}>
+                      Vous pouvez vous déconnecter ou encore supprimer votre
+                      compte. Attention, la suppression est instantanée et les
+                      données effacées seront irrécupérables.
+                      {"\n"}
+                    </Text>
+                    <Pressable
+                      style={styles.pressable}
+                      onPress={() => setToken(null)}
+                    >
+                      <Text style={styles.tinyTextWhite}>Me deconnecter</Text>
+                    </Pressable>
+                    <Pressable
+                      style={styles.pressable}
+                      onPress={async (e) => {
+                        e.preventDefault();
+                        await deleteUser(username, token);
+                        setToken(null);
+                      }}
+                    >
+                      <Text style={styles.tinyTextWhite}>
+                        Supprimer mon compte
+                      </Text>
+                    </Pressable>
+                  </View>
+                </ScrollView>
               </View>
             );
           }}

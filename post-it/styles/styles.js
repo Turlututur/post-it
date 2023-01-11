@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import * as color from "./colors";
 
 export default StyleSheet.create({
@@ -7,8 +7,15 @@ export default StyleSheet.create({
     backgroundColor: color.mainColor,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 20,
+    // paddingTop: 20,
   },
+  scrollView: {
+    height: Dimensions.get("window").height,
+  },
+  mainContainer: {
+    flex: 1,
+  },
+  scrollViewContainer: {},
   text: {
     color: color.textColor,
     fontSize: 20,
@@ -156,5 +163,9 @@ export default StyleSheet.create({
     margin: 5,
     borderColor: color.secondColor,
     backgroundColor: "#FFFFF",
+  },
+  logo: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
