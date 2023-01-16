@@ -109,7 +109,6 @@ export default function NewProjectForm({ username, token }) {
   const getItem = (item) => {
     // On set le writter séléctionné
     setNewWritter(item);
-    setNewProjectText(item);
   };
 
   // Permet de séparer dans la flatlist nos writters (purement estetique)

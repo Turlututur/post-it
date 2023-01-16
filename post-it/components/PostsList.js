@@ -149,7 +149,7 @@ export default function PostsList({ username, token, userRole, id }) {
     return (
       <>
         <View style={styles.container}>
-          <Text style={styles.text}>Liste des Projets :</Text>
+          <Text style={styles.text}>Liste des Posts :</Text>
           <FlatList
             style={styles.gridView}
             data={posts}
